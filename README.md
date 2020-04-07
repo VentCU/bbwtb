@@ -1,4 +1,4 @@
-# VentCu
+# VentCU
 
 https://coda.io/@maker/ventcu
 
