@@ -1,0 +1,43 @@
+General Notes:
+The setting (for Variant A):
+- a Raspberry Pi 4
+- stepper-motor driven compression arm
+- a host of sensors to control feedback on:
+    - stepper motor integrated encoder
+    - two limit switches for homing and position control
+    - a pressure transducer 
+    - maybe a flow sensor
+    - an assumed PEEP valve and manometer
+
+Code infrastructure can be broken down into three core components:
+- Control logic
+    - Normal operation
+    - Alarm conditions
+    - Initialization/Homing
+    - General GPIO interfacing with the Raspberry Pi 4 B
+- Communication Protocol
+    - This is because we don't want to build a desktop application
+    - If we're to do this Python, this means setting up a webserver with Flask
+    - Publish system data, serve/retrieve HTML to/from user interface
+    - Data logging and live visualization
+- User Interface 
+    - Simple and elegant--see mock UI in repo README
+    - Ideally, one page that is updating live (see communication protocol)
+    - View key data (frequency, amplitude, I:E) and tune accordingly
+
+Because we're working on a short timetable (at this point, self imposed), here are some thoughts:
+- C or C++ makes sense for a low-latency and safe language to implement controls
+    - However, since time-to-table is key, an easier-to-develop with language is desirable
+    - Python also allows easy, well supported integration both with RPi GPIO and webservers
+- Desktop app vs web app--this is another consequence of delivering a product quickly
+    - For an offline system, there's no need for a web application
+    - But serving/retrieving HTML/JS is going to be easier than building an app with Kivy/PyQt
+    - Or so we think.
+    - Either way, Python/Flask should be adequate.
+- Eventually, we should discuss pivoting to a C/C++ control backend and desktop app
+    - at which point Qt/Gtk would suffice
+
+Questions for you:
+- Where do you see yourself being the most productive working on these core components?
+- Do you have any feedback or proposed modifications for the system?
+- Miscellaneous questions
