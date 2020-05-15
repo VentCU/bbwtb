@@ -6,6 +6,7 @@ import RPi.GPIO as GPIO
 import sys
 
 
+# TODO add feature, new thread for emergency stop
 # TODO Test
 class LimitSwitch:
 

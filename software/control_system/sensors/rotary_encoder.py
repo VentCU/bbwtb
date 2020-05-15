@@ -2,6 +2,19 @@ import RPi.GPIO as GPIO
 import threading
 from time import sleep
 
+
+class RotatoryEncoder:
+
+    def __init__(self):
+
+        # TODO
+        pass
+
+    def get_position(self):
+
+        # TODO
+        pass
+
 # GPIO Ports
 enc_a = 4               # Encoder input A: input GPIO 4
 enc_b = 14              # Encoder input B: input GPIO 14
