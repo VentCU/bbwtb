@@ -1,3 +1,13 @@
+#
+# rotary encoder class
+# VentCU - An open source ventilator
+#
+# (c) VentCU, 2020. All Rights Reserved.
+# Contact: wx2214@columbia.edu
+#          neil.nie@columbia.edu
+#
+
+
 import RPi.GPIO as GPIO
 import threading
 from time import sleep
@@ -5,94 +15,67 @@ from time import sleep
 
 class RotatoryEncoder:
 
-    def __init__(self):
+    def __init__(self, port_a, port_b):
 
-        # TODO
-        pass
+        # GPIO Ports
+        self.enc_a = port_a  # Encoder input A: input GPIO 4
+        self.enc_b = port_b  # Encoder input B: input GPIO 14
+
+        self.rotary_counter = 0     # Start counting from 0
+        self.current_a = 1          # Assume that rotary switch is not
+        self.current_b = 1          # moving while we init software
+
+        self.thread_lock = threading.Lock()  # create lock for rotary switch
+
+        GPIO.setwarnings(True)
+        GPIO.setmode(GPIO.BCM)  # Use BCM mode
+
+        # define the Encoder switch inputs
+        GPIO.setup(self.enc_a, GPIO.IN)
+        GPIO.setup(self.enc_b, GPIO.IN)
+
+        # setup callback thread for the A and B encoder
+        # use interrupts for all inputs
+        GPIO.add_event_detect(self.enc_a, GPIO.RISING, callback=self.rotary_interrupt)
+        GPIO.add_event_detect(self.enc_b, GPIO.RISING, callback=self.rotary_interrupt)
+
+    def rotary_interrupt(self, A_or_B):
+
+        # read both of the switches
+        switch_a = GPIO.input(self.enc_a)
+        switch_b = GPIO.input(self.enc_b)
+
+        # now check if state of A or B has changed
+        # if not that means that bouncing caused it
+        if self.current_a == switch_a and self.current_b == switch_b:  # Same interrupt as before (Bouncing)?
+            return  # ignore interrupt!
+
+        self.current_a = switch_a  # remember new state
+        self.current_b = switch_b  # for next bouncing check
+
+        if switch_a and switch_b:               # Both one active? Yes -> end of sequence
+            self.thread_lock.acquire()          # get lock
+            if A_or_B == self.enc_b:            # Turning direction depends on
+                self.rotary_counter += 1
+            else:
+                self.rotary_counter -= 1
+
+            print(self.rotary_counter)
+
+            self.thread_lock.release()  # and release lock
 
     def get_position(self):
 
-        # TODO
+
         pass
-
-# GPIO Ports
-enc_a = 4               # Encoder input A: input GPIO 4
-enc_b = 14              # Encoder input B: input GPIO 14
-
-rotary_counter = 0      # Start counting from 0
-current_A = 1           # Assume that rotary switch is not
-current_B = 1           # moving while we init software
-
-thread_lock = threading.Lock()  # create lock for rotary switch
-
-
-# initialize interrupt handlers
-def init():
-
-    GPIO.setwarnings(True)
-    GPIO.setmode(GPIO.BCM)  # Use BCM mode
-
-    # define the Encoder switch inputs
-    GPIO.setup(enc_a, GPIO.IN)
-    GPIO.setup(enc_b, GPIO.IN)
-
-    # setup callback thread for the A and B encoder
-    # use interrupts for all inputs
-    GPIO.add_event_detect(enc_a, GPIO.RISING, callback=rotary_interrupt)  # NO bouncetime
-    GPIO.add_event_detect(enc_b, GPIO.RISING, callback=rotary_interrupt)  # NO bouncetime
-
-
-# Rotarty encoder interrupt:
-# this one is called for both inputs from rotary switch (A and B)
-def rotary_interrupt(A_or_B):
-
-    global rotary_counter, current_a, current_b, thread_lock
-
-    # read both of the switches
-    switch_a = GPIO.input(enc_a)
-    switch_b = GPIO.input(enc_b)
-
-    # now check if state of A or B has changed
-    # if not that means that bouncing caused it
-    if current_a == switch_a and current_b == switch_b:  # Same interrupt as before (Bouncing)?
-        return  # ignore interrupt!
-
-    current_a = switch_a                # remember new state
-    current_b = switch_b                # for next bouncing check
-
-    if (switch_a and switch_b):         # Both one active? Yes -> end of sequence
-        thread_lock.acquire()           # get lock
-        if A_or_B == enc_b:             # Turning direction depends on
-            rotary_counter += 1         # which input gave last interrupt
-        else:                           # so depending on direction either
-            rotary_counter -= 1         # increase or decrease counter
-        thread_lock.release()           # and release lock
 
 
 # Main loop. Demonstrate reading, direction and speed of turning left/rignt
 def main():
 
-    global rotary_counter, thread_lock
-
-    new_counter = 0                         # for faster reading with locks
-
-    init()                                  # Init interrupts, GPIO, ...
-
-    while True:                             # start test
-
-        sleep(0.1)                          # sleep 100 msec
-
-        # because of threading make sure no thread
-        # changes value until we get them
-        # and reset them
-
-        thread_lock.acquire()               # get lock for rotary switch
-        new_counter = rotary_counter        # get counter value
-        rotary_counter = 0                  # RESET IT TO 0
-        thread_lock.release()               # and release lock
-
-        if new_counter != 0:  # Counter has CHANGED
-            print(new_counter)
+    # TODO test encoder
+    # TODO add callback method
+    encoder = RotatoryEncoder(22, 24)
 
 
 # start main demo function
