@@ -17,7 +17,7 @@ def ticcmd(*args):
     return subprocess.check_output(['ticcmd'] + list(args))
 
 
-class TicSerial(object):
+class TicUSB(object):
     def __init__(self):
         pass
 

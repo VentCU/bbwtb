@@ -1,26 +1,16 @@
 #
-# Tic Motor controller Serial example code
+# Tic Motor controller usb example code
+# VentCU - An open source ventilator
 #
-# (c) VentCU, 2020, All Rights Reserved.
+# (c) VentCU, 2020. All Rights Reserved.
+# Contact: wx2214@columbia.edu
+#          neil.nie@columbia.edu
+#
 
-import serial
-from tic_serial import TicSerial
 
-# Choose the serial port name.
-port_name = "/dev/ttyAMA0"
+from tic_usb import TicUSB
 
-# Choose the baud rate (bits per second).  This must match the baud rate in
-# the Tic's serial settings.
-baud_rate = 9600
-
-# Change this to a number between 0 and 127 that matches the device number of
-# your Tic if there are multiple serial devices on the line and you want to
-# use the Pololu Protocol.
-device_number = None
-
-port = serial.Serial(port_name, baud_rate, timeout=0.1, write_timeout=0.1)
-
-tic = TicSerial(port, device_number)
+tic = TicUSB()
 
 position = tic.get_current_position()
 print("Current position is {}.".format(position))
