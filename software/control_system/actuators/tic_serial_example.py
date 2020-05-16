@@ -4,10 +4,10 @@
 # (c) VentCU, 2020, All Rights Reserved.
 
 import serial
-from ..tic_serial import TicSerial
+from tic_serial import TicSerial
 
 # Choose the serial port name.
-port_name = "/dev/ttyACM0"
+port_name = "/dev/ttyAMA0"
 
 # Choose the baud rate (bits per second).  This must match the baud rate in
 # the Tic's serial settings.
@@ -27,5 +27,4 @@ print("Current position is {}.".format(position))
 
 new_target = -200 if position > 0 else 200
 print("Setting target position to {}.".format(new_target))
-tic.exit_safe_start()
 tic.set_target_position(new_target)
