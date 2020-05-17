@@ -17,7 +17,7 @@
    <string>VentCU Mock UI</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="edit_parameters_button">
     <property name="geometry">
      <rect>
       <x>660</x>

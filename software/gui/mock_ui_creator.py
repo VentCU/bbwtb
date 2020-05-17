@@ -16,6 +16,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # Load the UI Page
         uic.loadUi('mock.ui', self)
 
+        self.edit_parameters_window = EditParameters(self)
+        self.edit_parameters_button.clicked.connect(lambda: self.edit_parameters_window.show())
+
         self.initialize_plots()
 
         self.timer = pg.QtCore.QTimer()
@@ -58,9 +61,14 @@ class MainWindow(QtWidgets.QMainWindow):
         # set graph labels
         self.pressure_graph.setLabel('left', 'Pressure', 'cmH2O')
         self.flow_graph.setLabel('left', 'Flow', 'L/m')
+<<<<<<< HEAD
         self.volume_graph.setLabel('left', 'Time', 'L')
         
         # set the y axis range
+=======
+        self.volume_graph.setLabel('left', 'Volume', 'L')
+
+>>>>>>> Add edit parameters window
         self.pressure_graph.setYRange(0, 50)
         self.flow_graph.setYRange(-60, 60)
         self.volume_graph.setYRange(0, 1)
@@ -68,11 +76,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pressure_graph.setXRange(0, chunk_size)
         self.flow_graph.setXRange(0, chunk_size)
         self.volume_graph.setXRange(0, chunk_size)
+<<<<<<< HEAD
         
         # hide the little A buttons
         self.pressure_graph.hideButtons()
         self.flow_graph.hideButtons()
         self.volume_graph.hideButtons()
+=======
+>>>>>>> Add edit parameters window
 
     def update_plots(self):
         global chunk_size, x_axis, pressure_data, flow_data, volume_data, plot_ptr
@@ -99,6 +110,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
         plot_ptr += 1
 
+
+
+class EditParameters(QtWidgets.QMainWindow):
+
+    def __init__(self, *args, **kwargs):
+        super(EditParameters, self).__init__(*args, **kwargs)
+
+        # Load the UI Page
+        uic.loadUi('edit_parameters.ui', self)
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
