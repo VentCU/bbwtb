@@ -1,14 +1,22 @@
-# PyQt Mock UI for VentCU,
-# an open source ventilator
-#
-# (c) VentCU, 2020. All Rights Reserved.
-# Contact: i.noah@columbia.edu
-
 from PyQt5 import QtWidgets, uic
+from pyqtgraph import PlotWidget
+import pyqtgraph as pg
+import sys
 
-app = QtWidgets.QApplication([])
+class MainWindow(QtWidgets.QMainWindow):
 
-window = uic.loadUi("mock.ui")
-window.show()
+    def __init__(self, *args, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)
 
-app.exec_()
+        #Load the UI Page
+        uic.loadUi('mock.ui', self)
+
+
+def main():
+    app = QtWidgets.QApplication(sys.argv)
+    main = MainWindow()
+    main.show()
+    sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    main()
