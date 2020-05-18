@@ -21,3 +21,19 @@ class LimitSwitch:
     def get_switch_status(self):
 
         return GPIO.input(self.switch_pin)
+
+
+
+# Main loop. Demonstrate reading limit switch value.
+def main():
+
+    limit_switch = LimitSwitch(16) # GPIO 23
+
+    while True:
+
+        print( limit_switch.get_switch_status() )
+        sleep(0.01)
+
+
+# start main demo function
+main()
