@@ -6,8 +6,8 @@
 #          neil.nie@columbia.edu
 #
 
-from actuators.tic_usb import *
-from sensors.rotary_encoder import RotatoryEncoder
+from ..actuators.tic_usb import *
+from ..sensors.rotary_encoder import RotatoryEncoder
 from time import sleep
 
 # define some global vars

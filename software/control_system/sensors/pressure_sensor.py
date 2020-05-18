@@ -1,6 +1,6 @@
 #
 # Pressure Sensor Class
-# https://learn.adafruit.com/mcp3008-spi-adc/python-circuitpython
+#
 #
 
 import busio
