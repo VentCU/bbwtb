@@ -2,7 +2,7 @@ import time
 
 
 class PID:
-    def __init__(self, P=0.2, I=0.0, D=0.0, current_time=None):
+    def __init__(self, P=7.0, I=0.0, D=0.0, current_time=None):
 
         self.Kp = P
         self.Ki = I
