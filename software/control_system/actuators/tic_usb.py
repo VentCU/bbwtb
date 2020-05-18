@@ -4,13 +4,8 @@
 # NOTE: You will need to change the "port_name =" line below to specify the
 #   right serial port.
 
-import serial
 import subprocess
 import yaml
-
-
-def serial_port(port_name, baud_rate):
-    return serial.Serial(port_name, baud_rate, timeout=0.5, write_timeout=0.5)
 
 
 def ticcmd(*args):
@@ -43,6 +38,9 @@ class TicUSB(object):
 
     def hault_and_hold(self):
         ticcmd('--halt-and-hold')
+
+    def set_velocity(self, velocity):
+        ticcmd('--velocity', velocity)
 
     # Gets the "Current position" variable from the Tic.
     def get_current_position(self):
