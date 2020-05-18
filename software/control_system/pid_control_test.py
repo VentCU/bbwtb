@@ -14,33 +14,42 @@ def encoder_callback(value):
     global encoder_value
     encoder_value = value
 
+
 # create a motor controller object
 motor_controller = TicUSB()
 
 # create the rotary encoder
 encoder = RotatoryEncoder(16, 18, callback=encoder_callback)
 
-pid = PID(P=100, D=2.0, I=0)
+pid = PID(P=100, D=10.0, I=0)
 
-encoder_u_limit = 100
+encoder_u_limit = 150
 encoder_l_limit = 0
+
+pid.setpoint = encoder_u_limit
 
 if __name__ == "__main__":
     
     while True:
-        
-        pid.setpoint = encoder_u_limit
+    
         pid.update(encoder_value)
-        value = pid.output * 20000.0 if pid.output < 1000000 else 100000
+        value = pid.output * 15000.0 if pid.output < 1000000 else 100000
         
-        motor_pose = 0 # motor_controller.get_current_position()
+        motor_pose = motor_controller.get_current_position()
         motor_controller.set_target_velocity(int(value))
         print("{}, {}, {}".format(int(value), encoder_value, motor_pose))
+    
+        if (encoder_value == encoder_u_limit and value == 0):
+            # print("updating setpoint")
+            sleep(1.5)
+            pid.setpoint = encoder_l_limit
+        elif (encoder_value == encoder_l_limit and value == 0):
+            # print("updating setpoint")
+            sleep(1.5)
+            pid.setpoint = encoder_u_limit
+            
         
-        sleep(0.5)
-        
-
+    
 motor_controller.hault_and_hold()
 
 exit()
-        # print(time.time() - start)
