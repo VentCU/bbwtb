@@ -25,6 +25,9 @@ class TicUSB(object):
     def exit_safe_start(self):
         ticcmd('--exit-safe-start')
 
+    def enter_safe_start(self):
+        ticcmd('--enter-safe-start')
+
     # Sets the target position.
     # For more information about what this command does, see the
     # "Set target position" command in the "Command reference" section of the
@@ -38,11 +41,12 @@ class TicUSB(object):
     def set_starting_speed(self, speed):
         ticcmd('--starting-speed', str(speed))
 
+    def hault_and_hold(self):
+        ticcmd('--halt-and-hold')
+
     # Gets the "Current position" variable from the Tic.
     def get_current_position(self):
         
         status = yaml.load(ticcmd('-s', '--full'))
- 
         position = status['Current position']
-        print("Current position is {}.".format(position))
         return position
