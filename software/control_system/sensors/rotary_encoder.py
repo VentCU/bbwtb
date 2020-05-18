@@ -15,7 +15,7 @@ from time import sleep
 
 class RotatoryEncoder:
 
-    def __init__(self, port_a, port_b):
+    def __init__(self, port_a, port_b, callback):
 
         # GPIO Ports
         self.enc_a = port_a  # Encoder input A: input GPIO 4
@@ -26,6 +26,10 @@ class RotatoryEncoder:
         self.current_b = 1          # moving while we init software
 
         self.thread_lock = threading.Lock()  # create lock for rotary switch
+
+        if callback is None:
+            raise Exception("Must provide a encoder value callback")
+        self.callback = callback
 
         GPIO.setwarnings(True)
         GPIO.setmode(GPIO.BCM)  # Use BCM mode
@@ -59,24 +63,23 @@ class RotatoryEncoder:
                 self.rotary_counter += 1
             else:
                 self.rotary_counter -= 1
+            
+            self.callback(self.rotary_counter)
 
-            print(self.rotary_counter)
-
-            self.thread_lock.release()  # and release lock
+            self.thread_lock.release()
 
     def get_position(self):
+        return self.rotary_counter
 
 
-        pass
+def encoder_callback(value):
+    print(value)
 
 
 # Main loop. Demonstrate reading, direction and speed of turning left/rignt
-def main():
+if __name__ == "__main__":
 
     # TODO test encoder
     # TODO add callback method
-    encoder = RotatoryEncoder(22, 24)
+    RotatoryEncoder(22, 24, callback=encoder_callback)
 
-
-# start main demo function
-main()

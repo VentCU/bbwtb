@@ -4,7 +4,7 @@
 
 import RPi.GPIO as GPIO
 import sys
-
+from time import sleep
 
 # TODO add feature, new thread for emergency stop
 # TODO Test
@@ -19,21 +19,27 @@ class LimitSwitch:
         GPIO.setup(PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     def get_switch_status(self):
-
+        status = GPIO.input(self.switch_pin)
+        # print(status)
         return GPIO.input(self.switch_pin)
 
 
 
 # Main loop. Demonstrate reading limit switch value.
-def main():
+# Switch configured for NO (normally opened)
+# Returns 0 when pressed, 1 when open
+def test():
 
-    limit_switch = LimitSwitch(16) # GPIO 23
+    limit_switch = LimitSwitch(23) # GPIO 23
 
     while True:
 
         print( limit_switch.get_switch_status() )
         sleep(0.01)
 
+    return limit_switch.get_switch_status()
 
 # start main demo function
-main()
+if __name__ == "__main__":
+    test()
+    # print(test.get_switch_status())

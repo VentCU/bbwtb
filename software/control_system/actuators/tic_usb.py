@@ -39,12 +39,11 @@ class TicUSB(object):
     def hault_and_hold(self):
         ticcmd('--halt-and-hold')
 
-    def set_velocity(self, velocity):
-        ticcmd('--velocity', velocity)
+    def set_target_velocity(self, velocity):
+        ticcmd('--velocity', str(velocity))
 
     # Gets the "Current position" variable from the Tic.
     def get_current_position(self):
-        
         status = yaml.load(ticcmd('-s', '--full'))
         position = status['Current position']
         return position
