@@ -7,8 +7,6 @@ import sys
 from time import sleep
 
 
-# TODO add feature, new thread for emergency stop
-# TODO Test
 class LimitSwitch:
 
     def __init__(self, PIN):

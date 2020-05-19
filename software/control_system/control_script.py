@@ -56,14 +56,14 @@ class VentilatorController:
     def initial_homing_procedure(self):
 
         if self.homing_finished is True:
-            raise Exception("Homing is already finished, why are you homing again?")
+            raise Exception("Homing is already finished, why are you homing again?") # Todo: error handling
 
         # making contact with upper switch
         if self.upper_switch.get_status() is 0 and self.lower_switch.get_status() is 1:
 
-            ticdev.halt_and_hold()
-            ticdev.get_variables()
-            motor_pose = ticdev.variables['current_position']
+            self.ticdev.halt_and_hold()
+            self.ticdev.get_variables()
+            motor_pose = self.ticdev.variables['current_position']
             self.abs_limit_encoder_val = self.encoder_value
             self.__homing_dir = -1
             print("Upper bound for motor reached. \n "
@@ -72,9 +72,9 @@ class VentilatorController:
         # making contact with lower switch
         elif self.upper_switch.get_status() is 1 and self.lower_switch.get_status() is 0:
 
-            ticdev.halt_and_hold()
-            ticdev.get_variables()
-            motor_pose = ticdev.variables['current_position']
+            self.ticdev.halt_and_hold()
+            self.ticdev.get_variables()
+            motor_pose = self.ticdev.variables['current_position']
             self.contact_encoder_val = self.encoder_value
             self.homing_finished = True
             print("Lower bound for motor reached. \n "
@@ -82,9 +82,9 @@ class VentilatorController:
 
         # no contact with any switch
         elif self.upper_switch.get_status() is 1 and self.lower_switch.get_status() is 1:
-            ticdev.set_target_velocity(self.__homing_dir * 2000000)
+            self.ticdev.set_target_velocity(self.__homing_dir * 2000000)
 
-        # contact with both switchs -- error
+        # contact with both switches -- error
         elif self.upper_switch.get_status() is 0 and self.lower_switch.get_status() is 0:
             raise Exception("Both contact switches are pressed. Fatal error.")  # Todo: error handling.
 

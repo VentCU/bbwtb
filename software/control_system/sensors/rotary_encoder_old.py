@@ -77,7 +77,4 @@ def encoder_callback(value):
 
 # Main loop. Demonstrate reading, direction and speed of turning left/rignt
 if __name__ == "__main__":
-
-    # TODO test encoder
-    # TODO add callback method
     RotaryEncoder(22, 24, callback=encoder_callback)
