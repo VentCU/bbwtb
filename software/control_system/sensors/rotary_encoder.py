@@ -5,13 +5,13 @@ class RotaryEncoder:
 
    """Class to decode mechanical rotary encoder pulses."""
 
-   def __init__(self, pi, gpioA, gpioB, callback):
+   def __init__(self, pi, gpioA, gpioB):
 
       self.pi = pi
       self.gpioA = gpioA
       self.gpioB = gpioB
-      self.callback = callback
 
+      self.encoder_value = 0
       self.levA = 0
       self.levB = 0
 
@@ -63,5 +63,8 @@ class RotaryEncoder:
       self.cbA.cancel()
       self.cbB.cancel()
 
+   def callback(self, value):
+       self.encoder_value += value
 
-
+   def value(self):
+       return self.encoder_value

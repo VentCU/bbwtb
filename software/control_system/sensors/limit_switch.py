@@ -19,10 +19,13 @@ class LimitSwitch:
     def get_status(self):
         return GPIO.input(self.switch_pin)
 
+    def contacted(self):
+        return 1 if GPIO.input(self.switch_pin) else 0
+
 
 # Main loop. Demonstrate reading limit switch value.
-# Switch configured for NO (normally opened)
-# Returns 0 when pressed, 1 when open
+# Switch configured for NC (normally closed)
+# Returns 1 when pressed, 0 when open
 def test():
     limit_switch = LimitSwitch(23)  # GPIO 23
 
@@ -34,4 +37,3 @@ def test():
 # start main demo function
 if __name__ == "__main__":
     test()
-    # print(test.get_switch_status())
