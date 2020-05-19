@@ -7,7 +7,7 @@
 #
 
 from ..actuators.tic_usb import *
-from ..sensors.rotary_encoder import RotatoryEncoder
+from ..sensors.rotary_encoder import RotaryEncoder
 from time import sleep
 
 # define some global vars
@@ -23,7 +23,7 @@ def encoder_callback(value):
 motor_controller = TicUSB()
 
 # create the rotary encoder
-encoder = RotatoryEncoder(16, 18, callback=encoder_callback)
+encoder = RotaryEncoder(16, 18, callback=encoder_callback)
 
 while encoder_value < 200:
     sleep(0.0001)
