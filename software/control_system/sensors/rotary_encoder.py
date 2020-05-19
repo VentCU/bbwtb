@@ -12,7 +12,7 @@ import RPi.GPIO as GPIO
 import threading
 
 
-class RotatoryEncoder:
+class RotaryEncoder:
 
     def __init__(self, port_a, port_b, callback):
 
@@ -21,8 +21,8 @@ class RotatoryEncoder:
         self.enc_b = port_b  # Encoder input B: input GPIO 14
 
         self.rotary_counter = 0     # Start counting from 0
-        self.current_a = 1          # Assume that rotary switch is not
-        self.current_b = 1          # moving while we init software
+        self.current_a = 0          # Assume that rotary switch is not
+        self.current_b = 0          # moving while we init software
 
         self.thread_lock = threading.Lock()  # create lock for rotary switch
 
@@ -41,7 +41,7 @@ class RotatoryEncoder:
         # use interrupts for all inputs
         GPIO.add_event_detect(self.enc_a, GPIO.RISING, callback=self.rotary_interrupt)
         GPIO.add_event_detect(self.enc_b, GPIO.RISING, callback=self.rotary_interrupt)
-
+        
     def rotary_interrupt(self, A_or_B):
 
         # read both of the switches
