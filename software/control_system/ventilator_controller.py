@@ -7,9 +7,7 @@
 #          neil.nie@columbia.edu
 #
 
-from actuators.motor import Motor
-from sensors.pressure_sensor import PressureSensor
-from sensors.limit_switch import LimitSwitch
+from time import sleep
 
 
 class VentilatorController:
@@ -22,8 +20,8 @@ class VentilatorController:
         self.lower_switch = lower_switch
 
         # init class variables
-        self.contact_encoder_val = 0        # at the point of contact of the ambu bag, what's the encoder value.
-        self.abs_limit_encoder_val = 0      # at the point of abs limit, what's the encoder value.
+        self.contact_encoder_val = 0  # at the point of contact of the ambu bag, what's the encoder value.
+        self.abs_limit_encoder_val = 0  # at the point of abs limit, what's the encoder value.
         self.homing_finished = False
         self.__homing_dir = 1
 
@@ -35,11 +33,10 @@ class VentilatorController:
             else:
                 print("Homing completed")
 
-
     def initial_homing_procedure(self):
 
         if self.homing_finished is True:
-            raise Exception("Homing is already finished, why are you homing again?") # Todo: error handling
+            raise Exception("Homing is already finished, why are you homing again?")  # Todo: error handling
 
         # making contact with upper switch
         if self.upper_switch.contacted() and not self.lower_switch.contacted():
@@ -48,7 +45,8 @@ class VentilatorController:
             self.abs_limit_encoder_val = self.motor.encoder_position()
             self.__homing_dir = -1
             print("Upper bound for motor reached. \n "
-                  "Motor current position: {}".format( self.motor.motor_position() ))
+                  "Motor current position: {}".format(self.motor.motor_position()))
+            sleep(0.5)
 
         # making contact with lower switch
         elif not self.upper_switch.contacted() and self.lower_switch.contacted():
@@ -57,7 +55,8 @@ class VentilatorController:
             self.contact_encoder_val = self.motor.encoder_position()
             self.homing_finished = True
             print("Lower bound for motor reached. \n "
-                  "Motor current position: {}".format( self.motor.motor_position() ))
+                  "Motor current position: {}".format(self.motor.motor_position()))
+            sleep(0.5)
 
         # no contact with any switch
         elif not self.upper_switch.contacted() and not self.lower_switch.contacted():
