@@ -12,7 +12,7 @@ import RPi.GPIO as GPIO
 import threading
 
 
-class RotatoryEncoder:
+class RotaryEncoder:
 
     def __init__(self, port_a, port_b, callback):
 
@@ -62,7 +62,7 @@ class RotatoryEncoder:
                 self.rotary_counter += 1
             else:
                 self.rotary_counter -= 1
-            
+
             self.callback(self.rotary_counter)
 
             self.thread_lock.release()
@@ -80,5 +80,4 @@ if __name__ == "__main__":
 
     # TODO test encoder
     # TODO add callback method
-    RotatoryEncoder(22, 24, callback=encoder_callback)
-
+    RotaryEncoder(22, 24, callback=encoder_callback)

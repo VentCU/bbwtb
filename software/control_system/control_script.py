@@ -11,7 +11,7 @@ from actuators.tic_usb import *
 # can't import PressureSensor yet bc it is built on arduino libraries
 # from sensors.pressure_sensor import PressureSensor
 from sensors.limit_switch import LimitSwitch
-from sensors.rotary_encoder import RotatoryEncoder
+from sensors.rotary_encoder import RotaryEncoder
 
 # create a motor controller object
 motor_controller = TicUSB()
@@ -23,7 +23,7 @@ def encoder_callback(value):
     encoder_value = value
 
 # create the rotary encoder
-encoder = RotatoryEncoder(16, 18, callback=encoder_callback)
+encoder = RotaryEncoder(16, 18, callback=encoder_callback)
 
 # create a pressure sensor object
 # pressure_sensor = PressureSensor()
