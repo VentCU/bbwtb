@@ -18,7 +18,7 @@ class LimitSwitch:
 
         GPIO.setup(PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-    def get_switch_status(self):
+    def get_status(self):
         return GPIO.input(self.switch_pin)
 
 
@@ -29,7 +29,7 @@ def test():
     limit_switch = LimitSwitch(23)  # GPIO 23
 
     while True:
-        print(limit_switch.get_switch_status())
+        print(limit_switch.get_status())
         sleep(0.01)
 
 
