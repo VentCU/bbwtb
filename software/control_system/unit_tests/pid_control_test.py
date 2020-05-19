@@ -1,8 +1,14 @@
 #!/usr/bin/python
+#
+# TicDevice and PID test
+# VentCU - An open source ventilator
+#
+# (c) VentCU, 2020. All Rights Reserved.
+#
+
 
 from time import sleep
-import time
-from pid_controller import PID
+from actuators.pid_controller import PID
 from actuators.tic_usb import *
 import pigpio
 from sensors.rotary_encoder import RotaryEncoder
@@ -11,19 +17,13 @@ from sensors.rotary_encoder import RotaryEncoder
 # define some global vars
 encoder_value = 0
 
-
-def callback(way):
-    global encoder_value
-    encoder_value += way
-
-
 # create a motor controller object
 ticdev = TicDevice()
 ticdev.open(vendor=0x1ffb, product_id=0x00CB)
 
 # create the encoder object
 pi = pigpio.pi()
-encoder = RotaryEncoder(pi, 18, 16, callback)
+encoder = RotaryEncoder(pi, 18, 16)
 
 # create the PID controller
 pid = PID(P=100, D=12.0, I=0)
@@ -37,7 +37,7 @@ if __name__ == "__main__":
 
     while True:
 
-        # sleep(0.01)
+        encoder_value = encoder.value()
         pid.update(encoder_value)
         value = pid.output * 15000.0 if pid.output < 1000000 else 100000
         ticdev.get_variables()
