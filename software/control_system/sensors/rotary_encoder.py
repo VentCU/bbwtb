@@ -1,83 +1,67 @@
-#
-# rotary encoder class
-# VentCU - An open source ventilator
-#
-# (c) VentCU, 2020. All Rights Reserved.
-# Contact: wx2214@columbia.edu
-#          neil.nie@columbia.edu
-#
 
-
-import RPi.GPIO as GPIO
-import threading
-
+import pigpio
 
 class RotaryEncoder:
 
-    def __init__(self, port_a, port_b, callback):
+   """Class to decode mechanical rotary encoder pulses."""
 
-        # GPIO Ports
-        self.enc_a = port_a  # Encoder input A: input GPIO 4
-        self.enc_b = port_b  # Encoder input B: input GPIO 14
+   def __init__(self, pi, gpioA, gpioB, callback):
 
-        self.rotary_counter = 0     # Start counting from 0
-        self.current_a = 0          # Assume that rotary switch is not
-        self.current_b = 0          # moving while we init software
+      self.pi = pi
+      self.gpioA = gpioA
+      self.gpioB = gpioB
+      self.callback = callback
 
-        self.thread_lock = threading.Lock()  # create lock for rotary switch
+      self.levA = 0
+      self.levB = 0
 
-        if callback is None:
-            raise Exception("Must provide a encoder value callback")
-        self.callback = callback
+      self.lastGpio = None
 
-        GPIO.setwarnings(True)
-        GPIO.setmode(GPIO.BCM)  # Use BCM mode
+      self.pi.set_mode(gpioA, pigpio.INPUT)
+      self.pi.set_mode(gpioB, pigpio.INPUT)
 
-        # define the Encoder switch inputs
-        GPIO.setup(self.enc_a, GPIO.IN)
-        GPIO.setup(self.enc_b, GPIO.IN)
+      self.pi.set_pull_up_down(gpioA, pigpio.PUD_UP)
+      self.pi.set_pull_up_down(gpioB, pigpio.PUD_UP)
 
-        # setup callback thread for the A and B encoder
-        # use interrupts for all inputs
-        GPIO.add_event_detect(self.enc_a, GPIO.RISING, callback=self.rotary_interrupt)
-        GPIO.add_event_detect(self.enc_b, GPIO.RISING, callback=self.rotary_interrupt)
-        
-    def rotary_interrupt(self, A_or_B):
+      self.cbA = self.pi.callback(gpioA, pigpio.EITHER_EDGE, self._pulse)
+      self.cbB = self.pi.callback(gpioB, pigpio.EITHER_EDGE, self._pulse)
 
-        # read both of the switches
-        switch_a = GPIO.input(self.enc_a)
-        switch_b = GPIO.input(self.enc_b)
+   def _pulse(self, gpio, level, tick):
 
-        # now check if state of A or B has changed
-        # if not that means that bouncing caused it
-        if self.current_a == switch_a and self.current_b == switch_b:  # Same interrupt as before (Bouncing)?
-            return  # ignore interrupt!
+      """
+      Decode the rotary encoder pulse.
 
-        self.current_a = switch_a  # remember new state
-        self.current_b = switch_b  # for next bouncing check
+                   +---------+         +---------+      0
+                   |         |         |         |
+         A         |         |         |         |
+                   |         |         |         |
+         +---------+         +---------+         +----- 1
 
-        if switch_a and switch_b:               # Both one active? Yes -> end of sequence
-            self.thread_lock.acquire()          # get lock
-            if A_or_B == self.enc_b:            # Turning direction depends on
-                self.rotary_counter += 1
-            else:
-                self.rotary_counter -= 1
+             +---------+         +---------+            0
+             |         |         |         |
+         B   |         |         |         |
+             |         |         |         |
+         ----+         +---------+         +---------+  1
+      """
 
-            self.callback(self.rotary_counter)
+      if gpio == self.gpioA:
+         self.levA = level
+      else:
+         self.levB = level;
 
-            self.thread_lock.release()
+      if gpio != self.lastGpio: # debounce
+         self.lastGpio = gpio
 
-    def get_position(self):
-        return self.rotary_counter
+         if gpio == self.gpioA and level == 1:
+            if self.levB == 1:
+               self.callback(1)
+         elif gpio == self.gpioB and level == 1:
+            if self.levA == 1:
+               self.callback(-1)
+
+   def cancel(self):
+      self.cbA.cancel()
+      self.cbB.cancel()
 
 
-def encoder_callback(value):
-    print(value)
 
-
-# Main loop. Demonstrate reading, direction and speed of turning left/rignt
-if __name__ == "__main__":
-
-    # TODO test encoder
-    # TODO add callback method
-    RotaryEncoder(22, 24, callback=encoder_callback)

@@ -1,4 +1,4 @@
-from tic import *
+from actuators.tic_usb import *
 import time
 
 if __name__ == '__main__':
