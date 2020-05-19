@@ -4,6 +4,7 @@ import pyqtgraph as pg
 import sys
 from random import uniform
 
+
 class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, *args, **kwargs):
@@ -14,7 +15,7 @@ class MainWindow(QtWidgets.QMainWindow):
         pg.setConfigOption('foreground', 'k')
 
         # Load the UI Page
-        uic.loadUi('mock.ui', self)
+        uic.loadUi('gui/mock.ui', self)
 
         self.edit_parameters_window = EditParameters(self)
         self.edit_parameters_button.clicked.connect(lambda: self.edit_parameters_window.show())
@@ -110,13 +111,17 @@ class EditParameters(QtWidgets.QMainWindow):
         super(EditParameters, self).__init__(*args, **kwargs)
 
         # Load the UI Page
-        uic.loadUi('edit_parameters.ui', self)
+        uic.loadUi('gui/edit_parameters.ui', self)
 
-def main():
-    app = QtWidgets.QApplication(sys.argv)
-    main = MainWindow()
-    main.show()
-    sys.exit(app.exec_())
+
+class UI():
+
+    def __init__(self):
+        app = QtWidgets.QApplication(sys.argv)
+        main = MainWindow()
+        main.show()
+        sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
-    main()
+    ui = UI()
