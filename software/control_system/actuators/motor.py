@@ -33,6 +33,7 @@ class Motor:
         method.
 
         @param pose: the target position of the motor
+        @return:     true of the motor has reached its goal
         """
 
         self.pid.setpoint = pose
@@ -40,6 +41,11 @@ class Motor:
         self.pid.update(encoder_value)
         value = self.pid.output * 15000.0 if self.pid.output < 1000000 else 100000
         self.motor.set_target_velocity(int(value))
+
+        if self.pid.output == 0:
+            return True
+        else:
+            return False
 
     def stop(self):
         self.motor.halt_and_hold()
