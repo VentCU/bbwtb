@@ -20,7 +20,7 @@ class VentilatorController:
         self.lower_switch = lower_switch
 
         # init class variables
-        self.contact_encoder_val = 0  # at the point of contact of the ambu bag, what's the encoder value.
+        self.contact_encoder_val = 0    # at the point of contact of the ambu bag, what's the encoder value.
         self.abs_limit_encoder_val = 0  # at the point of abs limit, what's the encoder value.
         self.homing_finished = False
         self.__homing_dir = 1
@@ -42,17 +42,20 @@ class VentilatorController:
         # making contact with upper switch
         if self.upper_switch.contacted() and not self.lower_switch.contacted():
 
-            if self.__homing_dir == 1: # moving upward
+            # moving upward
+            if self.__homing_dir == 1:
                 self.motor.stop()
-                self.abs_limit_encoder_val = self.motor.encoder_position()
+                # self.abs_limit_encoder_val = self.motor.encoder_position()
+                self.motor.stop_set_pose(0)
+                self.motor.encoder.reset_position()
                 self.__homing_dir = -1
                 print("Upper bound for motor reached. \n "
-                    "Motor current position: {}".format(self.motor.motor_position()))
+                      "Motor current position: {}".format(self.motor.motor_position()))
                 sleep(0.5)
 
-            else: # moving downward, upper bound set
+            # moving downward, upper bound set
+            else:
                 self.motor.set_velocity(self.__homing_dir * 2000000)
-            
 
         # making contact with lower switch
         elif not self.upper_switch.contacted() and self.lower_switch.contacted():

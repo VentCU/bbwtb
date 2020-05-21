@@ -88,7 +88,7 @@ accel_s = savitzky_golay(accel, 50, 5) # window size 51, polynomial order 3
 axs[3].plot(x, accel)
 axs[3].plot(x, accel_s)
 plt.show()
-motor.motor.set_target_position(0)
+motor.tic_device.set_target_position(0)
 motor.destructor()
 
 exit()

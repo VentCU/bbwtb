@@ -498,9 +498,9 @@ class TicDevice:
         index = data >> 16 & 0xFFFF
         self.transfer(request=request, value=value, index=index, msg=msg)
 
-    def transfer_block(self, cmd, data, msg=""):
-        transfer(bmRequestType=40, bRequest=cmd, wValue=value, wIndex=index, data_or_wLength=None, timeout=self.timeout)
-        # reads a block of data from the Tic; the block starts from the specified offset and can have a variable length
+    # def transfer_block(self, cmd, data, msg=""):
+    #     transfer(bmRequestType=40, bRequest=cmd, wValue=value, wIndex=index, data_or_wLength=None, timeout=self.timeout)
+    #     # reads a block of data from the Tic; the block starts from the specified offset and can have a variable length
 
     # thin wrappers around the USB access code
     def set_setting_byte(self, address, byte):
@@ -759,7 +759,7 @@ class TicDevice:
         #   Assumption: The table is an ascending order, so we want to return the last
         #   one that is less than or equal to the desired current.
         #   Assumption: 0 is a valid code and a good default to use.
-        code = 0;
+        code = 0
         for i in range (0 , self.current_table_count - 1):
             #recomended_current_code = self.current_table_recomended_count
             table_ma = self.current_limit_code_to_ma(i)
@@ -767,7 +767,7 @@ class TicDevice:
                 code = i
             else:
                 break
-        return code;
+        return code
 
     def code_test(self):
         self.product_id = TIC_PRODUCT_ID_T500
@@ -803,45 +803,5 @@ class TicDevice:
         for dac_level in range (31,-1, -1):
             log.debug (str (dac_level) +"  --  " + str (self.compute_ilim(dac_level)))
 
-if __name__ == '__main__':
-
-    step_factor = 8
-    ticdev = TicDevice()
-    ticdev.log_ilim()
-    ticdev.code_test()
-    #ticdev.open(vendor=0x1ffb, product_id=TIC_PRODUCT_ID_T500, serial="00218293")
-    ticdev.open(vendor=TIC_VENDOR_ID)
-    # quick test
-    ticdev.reset()
-    ticdev.reset_command_timeout()
-    ticdev.clear_driver_error()
-    ticdev.exit_safe_start()
-    ticdev.halt_and_set_position(0)
-    ticdev.set_current_limit_code(21)
-    ticdev.wait_for_device_ready()
-    ticdev.exit_safe_start()
-    #ticdev.get_variables()
-    ticdev.set_max_speed(12000000 * step_factor)
-    ticdev.set_max_accel(100000 * step_factor)
-    ticdev.set_max_decel(100000 * step_factor)
-    ticdev.exit_safe_start()
-    ticdev.set_starting_speed(0)
-    ticdev.wait_for_device_ready()
-    ticdev.energize()
-    ticdev.wait_for_device_ready()
-    ticdev.set_target_position (-1650 * step_factor)
-    ticdev.wait_for_move_complete()
-    #this will trigger command time out....
-    time.sleep(1.5)
-    ticdev.set_target_position(-1550 * step_factor )
-    ticdev.wait_for_move_complete()
-    ticdev.halt_and_set_position(0)
-    #does not clear target postion
-    ticdev.wait_for_move_complete()
-    while True:
-        ticdev.set_target_position(400 * step_factor)
-        ticdev.wait_for_move_complete()
-        ticdev.set_target_position(0)
-        ticdev.wait_for_move_complete()
 
 

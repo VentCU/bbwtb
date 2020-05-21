@@ -39,7 +39,7 @@ if __name__ == "__main__":
             sleep(1.5)
             goal = encoder_u_limit
 
-motor.motor.set_target_position(0)
+motor.tic_device.set_target_position(0)
 motor.destructor()
 exit()
 
