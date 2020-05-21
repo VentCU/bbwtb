@@ -39,13 +39,13 @@ class Motor:
         self.pid.setpoint = pose
         encoder_value = self.encoder.value()
         self.pid.update(encoder_value)
-        value = self.pid.output * 15000.0 if self.pid.output < 1000000 else 100000
+        value = self.pid.output
         self.motor.set_target_velocity(int(value))
-
+        
         if self.pid.output == 0:
-            return True
+            return True, int(value)
         else:
-            return False
+            return False, int(value)
 
     def stop(self):
         self.motor.halt_and_hold()

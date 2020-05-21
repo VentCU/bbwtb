@@ -6,15 +6,16 @@
 # (c) VentCU, 2020. All Rights Reserved.
 #
 
-
+import matplotlib.pyplot as plt
 from time import sleep
 from actuators.motor import Motor
 import pigpio
 from sensors.rotary_encoder import RotaryEncoder
+import numpy as np
 
 motor = Motor(RotaryEncoder(pigpio.pi(), 18, 16))
 
-encoder_u_limit = 400
+encoder_u_limit = 2000
 encoder_l_limit = 0
 
 # initialize the goal of the motor
@@ -24,18 +25,21 @@ if __name__ == "__main__":
 
     while True:
 
-        result = motor.move_to_encoder_pose(goal)
-    
+        result, vel = motor.move_to_encoder_pose(goal)
+        
         if motor.encoder_position() == encoder_u_limit and result is True:
-            print("updating setpoint")
+            print("{}, {}, {}".format(vel, motor.encoder_position(), motor.motor_position()))
+            # print("updating setpoint")
             sleep(1.5)
             goal = encoder_l_limit
+
         elif motor.encoder_position() == encoder_l_limit and result is True:
-            print("updating setpoint")
+            print("{}, {}, {}".format(vel, motor.encoder_position(), motor.motor_position()))
+            # print("updating setpoint")
             sleep(1.5)
             goal = encoder_u_limit
 
+motor.motor.set_target_position(0)
 motor.destructor()
-
 exit()
 
