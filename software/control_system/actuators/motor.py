@@ -14,8 +14,8 @@ class Motor:
 
     def __init__(self, rotary_encoder):
         # create a motor controller object
-        self.motor = TicDevice()
-        self.motor.open(vendor=0x1ffb, product_id=0x00CB)
+        self.tic_device = TicDevice()
+        self.tic_device.open(vendor=0x1ffb, product_id=0x00CB)
         self.pid = PID(P=PID_P_GAIN, I=PID_I_GAIN, D=PID_D_GAIN)
         self.encoder = rotary_encoder
 
@@ -24,7 +24,7 @@ class Motor:
 
         @param velocity: the target velocity of the motor.
         """
-        self.motor.set_target_velocity(velocity)
+        self.tic_device.set_target_velocity(velocity)
 
     def move_to_encoder_pose(self, pose):
         """
@@ -40,7 +40,7 @@ class Motor:
         encoder_value = self.encoder.value()
         self.pid.update(encoder_value)
         value = self.pid.output
-        self.motor.set_target_velocity(int(value))
+        self.tic_device.set_target_velocity(int(value))
         
         if self.pid.output == 0:
             return True, int(value)
@@ -48,18 +48,21 @@ class Motor:
             return False, int(value)
 
     def stop(self):
-        self.motor.halt_and_hold()
+        self.tic_device.halt_and_hold()
+
+    def stop_set_pose(self, pose):
+        self.tic_device.halt_and_set_position(pose)
 
     def motor_position(self):
-        self.motor.get_variables()
-        return self.motor.variables['current_position']
+        self.tic_device.get_variables()
+        return self.tic_device.variables['current_position']
 
     def encoder_position(self):
         return self.encoder.value()
 
     def destructor(self):
-        self.motor.halt_and_hold()
-        self.motor.deenergize()
+        self.tic_device.halt_and_hold()
+        self.tic_device.deenergize()
         self.encoder.cancel()
         print("The motor has been stopped."
               "The motor has been deenergized"
