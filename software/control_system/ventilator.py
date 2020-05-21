@@ -24,7 +24,7 @@ class Ventilator:
     def __init__(self):
 
         # instantiate sensors
-        self.encoder = RotaryEncoder(pigpio.pi(), ENCODER_A_PLUS_PIN, ENCODER_B_PLUS_PIN)
+        self.encoder = RotaryEncoder(pigpio.pi(), ENCODER_B_PLUS_PIN, ENCODER_A_PLUS_PIN)
         self.contact_switch = LimitSwitch(CONTACT_SWITCH_PIN)
         self.absolute_switch = LimitSwitch(ABSOLUTE_SWITCH_PIN)
         self.pressure_sensor = PressureSensor()
@@ -40,7 +40,7 @@ class Ventilator:
                                                self.contact_switch)
 
         # instantiate ui
-        self.ui = UI()
+        # self.ui = UI()
 
 
 def test():

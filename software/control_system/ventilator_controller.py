@@ -12,7 +12,7 @@ from time import sleep
 # define some constants
 ENCODER_ONE_ROTATION = 400
 TIC_ONE_ROTATION = 12800
-
+HOMING_VELOCITY = 4000000
 
 class VentilatorController:
 
@@ -41,7 +41,7 @@ class VentilatorController:
             if self.homing_finished is False:
                 self.initial_homing_procedure()
             else:
-
+                
                 if self.motor_lower_target is 0 and self.motor_upper_target is 0:
                     raise Exception("homing finished but the motor target pose is still zero. FATAL BUG")
 
@@ -50,12 +50,12 @@ class VentilatorController:
                 # switching directions
                 if self.motor.encoder_position() == self.motor_upper_target and result is True:
                     print("{}, {}, {}".format(vel, self.motor.encoder_position(), self.motor.motor_position()))
-                    sleep(1.5)
+                    sleep(0.5) # todo: parameterize this!
                     self.motor_current_target = self.motor_lower_target
 
                 elif self.motor.encoder_position() == self.motor_lower_target and result is True:
                     print("{}, {}, {}".format(vel, self.motor.encoder_position(), self.motor.motor_position()))
-                    sleep(1.5)
+                    sleep(0.5)
                     self.motor_current_target = self.motor_upper_target
 
     def initial_homing_procedure(self):
@@ -73,13 +73,13 @@ class VentilatorController:
                 self.motor.stop_set_pose(0)
                 self.motor.encoder.reset_position()
                 self.__homing_dir = -1
-                print("Upper bound for motor reached. \n "
+                print("Upper bound for motor reached. \n"
                       "Motor current position: {}".format(self.motor.motor_position()))
                 sleep(0.5)
 
             # moving downward, upper bound set
             else:
-                self.motor.set_velocity(self.__homing_dir * 2000000)
+                self.motor.set_velocity(self.__homing_dir * HOMING_VELOCITY)
 
         # making contact with lower switch
         elif not self.upper_switch.contacted() and self.lower_switch.contacted():
@@ -88,10 +88,15 @@ class VentilatorController:
             self.contact_encoder_val = self.motor.encoder_position()
             self.contact_tic_val = self.motor.motor_position()
             self.homing_finished = True
-            self.motor_lower_target = int(self.contact_encoder_val + ENCODER_ONE_ROTATION * 1 / 2) # todo: tidal volume param
-            self.motor_upper_target = int(self.contact_encoder_val - ENCODER_ONE_ROTATION * 1)
-            print("Lower bound for motor reached. \n "
-                  "Motor current position: {}".format(self.motor.motor_position()))
+            
+            self.motor_lower_target = int(self.contact_encoder_val - ENCODER_ONE_ROTATION * 3 / 5) # todo: tidal volume param
+            self.motor_upper_target = int(self.contact_encoder_val + ENCODER_ONE_ROTATION * 1 / 10)
+            self.motor_current_target = self.motor_upper_target
+            
+            print("Lower bound for motor reached.\n"
+                  "Motor current position: {} {}".format(self.motor.encoder_position(),
+                                                         self.motor.motor_position()))
+            print("=== Homing Finished ===")
             sleep(0.5)
 
         # no contact with any switch

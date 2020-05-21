@@ -16,7 +16,9 @@ class LimitSwitch:
         GPIO.setmode(GPIO.BCM)
 
         GPIO.setup(PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.add_event_detect(PIN, GPIO.RAISING, callback=self.switch_callback)
+        GPIO.add_event_detect(PIN, GPIO.RISING,
+                              callback=self.switch_callback,
+                              bouncetime=20)
 
     def get_status(self):
         return GPIO.input(self.switch_pin)
@@ -24,7 +26,7 @@ class LimitSwitch:
     def contacted(self):
         return 1 if GPIO.input(self.switch_pin) else 0
 
-    def switch_callback(self):
+    def switch_callback(self, state):
         if self.callback is not None:
             self.callback(self.contacted())
 
