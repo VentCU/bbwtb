@@ -11,10 +11,12 @@ class LimitSwitch:
 
     def __init__(self, PIN):
         self.switch_pin = PIN
+        self.callback = None
 
         GPIO.setmode(GPIO.BCM)
 
         GPIO.setup(PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.add_event_detect(PIN, GPIO.RAISING, callback=self.switch_callback)
 
     def get_status(self):
         return GPIO.input(self.switch_pin)
@@ -22,6 +24,9 @@ class LimitSwitch:
     def contacted(self):
         return 1 if GPIO.input(self.switch_pin) else 0
 
+    def switch_callback(self):
+        if self.callback is not None:
+            self.callback(self.contacted())
 
 # Main loop. Demonstrate reading limit switch value.
 # Switch configured for NC (normally closed)
