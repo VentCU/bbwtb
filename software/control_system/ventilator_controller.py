@@ -32,6 +32,7 @@ class VentilatorController:
                 self.initial_homing_procedure()
             else:
                 print("Homing completed")
+                break
 
     def initial_homing_procedure(self):
 
@@ -41,12 +42,17 @@ class VentilatorController:
         # making contact with upper switch
         if self.upper_switch.contacted() and not self.lower_switch.contacted():
 
-            self.motor.stop()
-            self.abs_limit_encoder_val = self.motor.encoder_position()
-            self.__homing_dir = -1
-            print("Upper bound for motor reached. \n "
-                  "Motor current position: {}".format(self.motor.motor_position()))
-            sleep(0.5)
+            if self.__homing_dir == 1: # moving upward
+                self.motor.stop()
+                self.abs_limit_encoder_val = self.motor.encoder_position()
+                self.__homing_dir = -1
+                print("Upper bound for motor reached. \n "
+                    "Motor current position: {}".format(self.motor.motor_position()))
+                sleep(0.5)
+
+            else: # moving downward, upper bound set
+                self.motor.set_velocity(self.__homing_dir * 2000000)
+            
 
         # making contact with lower switch
         elif not self.upper_switch.contacted() and self.lower_switch.contacted():
