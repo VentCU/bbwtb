@@ -13,7 +13,7 @@ from time import sleep
 ENCODER_ONE_ROTATION = 400
 TIC_ONE_ROTATION = 12800
 HOMING_VELOCITY = 4000000
-VELOCITY_FACTOR = 1/30
+VELOCITY_FACTOR = 1/12
 
 
 class VentilatorController:
@@ -33,6 +33,7 @@ class VentilatorController:
         self.abs_limit_encoder_val = 0  # at the point of abs limit, what's the encoder value.
         self.homing_finished = False
         self.__homing_dir = 1
+        self.__initial_contact = True
         self.motor_lower_target = 0     # the target pose of motor when the arm is coming down.
         self.motor_upper_target = 0
         self.motor_current_target = 0
@@ -56,6 +57,7 @@ class VentilatorController:
                     print("{}, {}, {}".format(vel, self.motor.encoder_position(), self.motor.motor_position()))
                     sleep(0.20)  # todo: parameterize this!
                     self.motor_current_target = self.motor_lower_target
+                    self.__initial_contact = True
 
                 elif self.motor.encoder_position() == self.motor_lower_target and result is True:
                     print("{}, {}, {}".format(vel, self.motor.encoder_position(), self.motor.motor_position()))
@@ -93,7 +95,7 @@ class VentilatorController:
             self.contact_tic_val = self.motor.motor_position()
             self.homing_finished = True
             
-            self.motor_lower_target = int(self.contact_encoder_val - ENCODER_ONE_ROTATION * 3 / 5) # todo: tidal volume param
+            self.motor_lower_target = int(self.contact_encoder_val - ENCODER_ONE_ROTATION * 4 / 5) # todo: tidal volume param
             self.motor_upper_target = int(self.contact_encoder_val + ENCODER_ONE_ROTATION * 1 / 10)
             self.motor_current_target = self.motor_upper_target
             
@@ -105,14 +107,18 @@ class VentilatorController:
 
         # no contact with any switch
         elif not self.upper_switch.contacted() and not self.lower_switch.contacted():
-            self.motor.set_velocity(self.__homing_dir * 2000000)
+            self.motor.set_velocity(self.__homing_dir * HOMING_VELOCITY)
 
         # contact with both switches -- error
         elif self.upper_switch.contacted() and self.lower_switch.contacted():
             raise Exception("Both contact switches are pressed. Fatal error.")  # Todo: error handling.
 
+    def stop(self):
+        self.motor.destructor()
+
     def contact_switch_callback(self, status):
-        if status is 1:
+        if status is 1 and self.__initial_contact:
+            self.__initial_contact = False
             self.pose_at_contact = self.motor.encoder_position()
             print("At contact, the error is: {} {}".format(self.pose_at_contact - self.contact_encoder_val,
                                                            self.motor.motor_position() - self.contact_tic_val))

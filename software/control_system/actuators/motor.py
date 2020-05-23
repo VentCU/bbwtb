@@ -65,7 +65,7 @@ class Motor:
         self.tic_device.halt_and_hold()
         self.tic_device.deenergize()
         self.encoder.cancel()
-        print("The motor has been stopped."
-              "The motor has been deenergized"
-              ""
-              "Warning: program should exit")
+        print("The motor has been stopped.\n"
+              "The motor has been deenergized\n"
+              "\n"
+              "Warning: program should exit\n")
