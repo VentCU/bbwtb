@@ -13,6 +13,8 @@ from time import sleep
 ENCODER_ONE_ROTATION = 400
 TIC_ONE_ROTATION = 12800
 HOMING_VELOCITY = 4000000
+VELOCITY_FACTOR = 1/30
+
 
 class VentilatorController:
 
@@ -34,6 +36,7 @@ class VentilatorController:
         self.motor_lower_target = 0     # the target pose of motor when the arm is coming down.
         self.motor_upper_target = 0
         self.motor_current_target = 0
+        self.bpm = 30 # todo: set default value
 
     def start(self):
 
@@ -45,17 +48,18 @@ class VentilatorController:
                 if self.motor_lower_target is 0 and self.motor_upper_target is 0:
                     raise Exception("homing finished but the motor target pose is still zero. FATAL BUG")
 
-                result, vel = self.motor.move_to_encoder_pose(self.motor_current_target)
+                result, vel = self.motor.move_to_encoder_pose(pose=self.motor_current_target,
+                                                              vel_const=self.bpm_to_velocity_constant())
 
                 # switching directions
                 if self.motor.encoder_position() == self.motor_upper_target and result is True:
                     print("{}, {}, {}".format(vel, self.motor.encoder_position(), self.motor.motor_position()))
-                    sleep(0.5) # todo: parameterize this!
+                    sleep(0.20)  # todo: parameterize this!
                     self.motor_current_target = self.motor_lower_target
 
                 elif self.motor.encoder_position() == self.motor_lower_target and result is True:
                     print("{}, {}, {}".format(vel, self.motor.encoder_position(), self.motor.motor_position()))
-                    sleep(0.5)
+                    sleep(0.20)
                     self.motor_current_target = self.motor_upper_target
 
     def initial_homing_procedure(self):
@@ -112,3 +116,15 @@ class VentilatorController:
             self.pose_at_contact = self.motor.encoder_position()
             print("At contact, the error is: {} {}".format(self.pose_at_contact - self.contact_encoder_val,
                                                            self.motor.motor_position() - self.contact_tic_val))
+
+    def bpm_to_velocity_constant(self):
+        """
+        convert bpm value to a velocity constant.
+        This velocity constant value is passed
+        to the motor
+        @return: velocity constant.
+        """
+        return self.bpm * VELOCITY_FACTOR
+
+    def update_bpm(self, value):
+        self.bpm = value
