@@ -18,7 +18,7 @@ class LimitSwitch:
         GPIO.setup(PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.add_event_detect(PIN, GPIO.RISING,
                               callback=self.switch_callback,
-                              bouncetime=20)
+                              bouncetime=100)
 
     def get_status(self):
         return GPIO.input(self.switch_pin)
