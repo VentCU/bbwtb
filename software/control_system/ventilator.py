@@ -5,8 +5,9 @@
 # (c) VentCU, 2020. All Rights Reserved.
 #
 
+import signal
+import sys
 import pigpio
-
 from actuators.motor import Motor
 from sensors.rotary_encoder import RotaryEncoder
 from sensors.limit_switch import LimitSwitch
@@ -42,11 +43,17 @@ class Ventilator:
         # instantiate ui
         # self.ui = UI()
 
+    def at_exit(self, sig, frame):
+        print("Exiting program...")
+        self.controller.stop()
+        sys.exit(0)
+
 
 def test():
     test_ventilator = Ventilator()
+    signal.signal(signal.SIGINT, test_ventilator.at_exit)
     test_ventilator.controller.start()
-
+    
 
 if __name__ == "__main__":
     test()
