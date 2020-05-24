@@ -69,7 +69,7 @@ border-style: none;
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QPushButton" name="tidal_volume_increase">
+       <widget class="QPushButton" name="tidal_increase_button">
         <property name="geometry">
          <rect>
           <x>150</x>
@@ -157,7 +157,7 @@ padding: 4px;</string>
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="tidal_volume">
+       <widget class="QLabel" name="tidal_volume_label_2">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -178,7 +178,7 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="tidal_volume_decrease">
+       <widget class="QLabel" name="tidal_decrease_button">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -237,7 +237,7 @@ border-style: none;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QPushButton" name="bpm_increase">
+       <widget class="QPushButton" name="bpm_increase_button">
         <property name="geometry">
          <rect>
           <x>150</x>
@@ -281,7 +281,7 @@ padding: 4px;</string>
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="bpm_decrease">
+       <widget class="QPushButton" name="bpm_decrease_button">
         <property name="geometry">
          <rect>
           <x>150</x>
@@ -325,7 +325,7 @@ padding: 4px;</string>
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="bpm">
+       <widget class="QLabel" name="bpm_label">
         <property name="geometry">
          <rect>
           <x>40</x>
@@ -366,10 +366,10 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
         </property>
        </widget>
        <zorder>breaths_per_min_label</zorder>
-       <zorder>bpm_increase</zorder>
-       <zorder>bpm</zorder>
+       <zorder>bpm_increase_button</zorder>
+       <zorder>bpm_label</zorder>
        <zorder>label_2</zorder>
-       <zorder>bpm_decrease</zorder>
+       <zorder>bpm_decrease_button</zorder>
       </widget>
      </item>
      <item row="0" column="2">
@@ -410,7 +410,7 @@ border-style: none;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QPushButton" name="ie_ratio_increase">
+       <widget class="QPushButton" name="ie_increase_button">
         <property name="geometry">
          <rect>
           <x>150</x>
@@ -498,7 +498,7 @@ padding: 4px;</string>
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="ie_ratio">
+       <widget class="QLabel" name="ie_ratio_label">
         <property name="geometry">
          <rect>
           <x>40</x>
@@ -567,7 +567,7 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(154, 202, 123);
+        <string notr="true">background-color: rgb(255, 105, 97);
 font: 14pt &quot;Bahnschrift&quot;;
 border-style: outset;
 border-width: 2px;
@@ -605,7 +605,8 @@ padding: 4px;</string>
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 105, 97);
+        <string notr="true">
+background-color: rgb(154, 202, 123);
 font: 14pt &quot;Bahnschrift&quot;;
 border-style: outset;
 border-width: 2px;

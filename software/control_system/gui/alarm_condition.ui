@@ -65,7 +65,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="back_button_2">
+       <widget class="QPushButton" name="dismiss_alarm_button">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -103,7 +103,7 @@ padding: 4px;</string>
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="silence_alarm">
+       <widget class="QPushButton" name="silence_alarm_button">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -129,7 +129,7 @@ padding: 4px;</string>
       </item>
      </layout>
     </widget>
-    <widget class="QLabel" name="error_message">
+    <widget class="QLabel" name="error_message_label">
      <property name="geometry">
       <rect>
        <x>130</x>

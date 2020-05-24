@@ -542,12 +542,12 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
      </item>
     </layout>
    </widget>
-   <widget class="QFrame" name="IE_frame_2">
+   <widget class="QFrame" name="confirm_settings">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>90</x>
       <y>50</y>
-      <width>571</width>
+      <width>621</width>
       <height>311</height>
      </rect>
     </property>
@@ -570,7 +570,7 @@ padding: 4px;
     <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>100</x>
        <y>200</y>
        <width>411</width>
        <height>80</height>
@@ -617,7 +617,7 @@ padding: 4px;</string>
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="start_ventilation_button">
+       <widget class="QPushButton" name="confirm_button">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -634,7 +634,7 @@ border-color: black;
 padding: 4px;</string>
         </property>
         <property name="text">
-         <string>Start Ventilation</string>
+         <string>Confirm</string>
         </property>
         <property name="flat">
          <bool>false</bool>
@@ -646,7 +646,7 @@ padding: 4px;</string>
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>10</y>
        <width>551</width>
        <height>61</height>
@@ -720,7 +720,7 @@ border-style: none;</string>
     <widget class="QWidget" name="verticalLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>290</x>
+       <x>310</x>
        <y>59</y>
        <width>191</width>
        <height>121</height>
@@ -728,7 +728,7 @@ border-style: none;</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QLabel" name="label_9">
+       <widget class="QLabel" name="tidal_volume_label_2">
         <property name="styleSheet">
          <string notr="true">font: 16pt &quot;Bahnschrift&quot;;
 border-style: none;</string>
@@ -742,7 +742,7 @@ border-style: none;</string>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_10">
+       <widget class="QLabel" name="confirm_bpm_label">
         <property name="styleSheet">
          <string notr="true">font: 16pt &quot;Bahnschrift&quot;;
 border-style: none;</string>
@@ -756,7 +756,7 @@ border-style: none;</string>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_8">
+       <widget class="QLabel" name="confirm_ie_label">
         <property name="styleSheet">
          <string notr="true">font: 16pt &quot;Bahnschrift&quot;;
 border-style: none;</string>

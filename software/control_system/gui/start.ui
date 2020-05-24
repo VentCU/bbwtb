@@ -54,7 +54,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="back_button_2">
+    <widget class="QPushButton" name="start_button">
      <property name="geometry">
       <rect>
        <x>130</x>
