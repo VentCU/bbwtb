@@ -15,7 +15,7 @@ class MainWindow(QtWidgets.QMainWindow):
         pg.setConfigOption('foreground', 'k')
 
         # Load the UI Page
-        uic.loadUi('gui/mock.ui', self)
+        uic.loadUi('mock.ui', self)
 
         self.edit_parameters_window = EditParameters(self)
         self.edit_parameters_button.clicked.connect(lambda: self.edit_parameters_window.show())
@@ -111,7 +111,7 @@ class EditParameters(QtWidgets.QMainWindow):
         super(EditParameters, self).__init__(*args, **kwargs)
 
         # Load the UI Page
-        uic.loadUi('gui/edit_parameters.ui', self)
+        uic.loadUi('edit_parameters.ui', self)
 
 
 class UI():
