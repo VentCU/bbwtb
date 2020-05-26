@@ -17,7 +17,7 @@ Also, feel free to [support us](https://www.gofundme.com/f/ventcu-open-source-ve
 - Software contains the VentCU control system in its native file structure. 
 
 ## Software
-VentCU runs currently on a Raspberry Pi 4 B, Python, and Flask stack, relying on a touchscreen web interface to view and control RPi GPIO. We have mocked up our main control, homing, and UI state diagrams below:
+VentCU runs currently on a Raspberry Pi 4 B, Python, and PyQT application stack, relying on a touchscreen interface to view and control RPi GPIO. We have mocked up our main control, homing, and UI state diagrams below:
 ### Main Control
 ![main control](software/documentation/main_control_fsm.jpg)
 ### Homing
