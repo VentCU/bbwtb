@@ -172,7 +172,7 @@ padding: 4px;</string>
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="start_ventilation_button">
+        <widget class="QPushButton" name="confirm_button">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
