@@ -32,10 +32,13 @@ class WindowStack(QtWidgets.QMainWindow):
         self.QtStack.addWidget(self.main_window)
         self.QtStack.addWidget(self.alarm_condition)
 
+        self.setup_window_navigation()
+
+        # set starting window
         self.QtStack.setCurrentWidget(self.start)
 
 
-        # Setup basic window navigation
+    def setup_window_navigation(self):
 
         # start window buttons
         self.start.start_button.clicked.connect(
