@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MockUI</class>
- <widget class="QMainWindow" name="MockUI">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="Main Window">
   <property name="windowModality">
    <enum>Qt::NonModal</enum>
   </property>
@@ -26,7 +26,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>VentCU Mock UI</string>
+   <string>VentCU</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="edit_parameters_button">
@@ -212,7 +212,7 @@ border-style: none;</string>
 font: 14pt &quot;Bahnschrift&quot;;</string>
         </property>
         <property name="text">
-         <string>Plateau 
+         <string>Plateau
 Pressure</string>
         </property>
         <property name="textFormat">
