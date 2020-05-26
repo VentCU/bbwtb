@@ -9,9 +9,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>829</width>
-    <height>1079</height>
+    <width>800</width>
+    <height>480</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>480</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>480</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>VentCU Mock UI</string>
@@ -125,7 +137,7 @@ border-style: none;
        <widget class="QLabel" name="label_8">
         <property name="geometry">
          <rect>
-          <x>0</x>
+          <x>10</x>
           <y>10</y>
           <width>141</width>
           <height>101</height>
@@ -136,7 +148,8 @@ border-style: none;
 font: 14pt &quot;Bahnschrift&quot;;</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Breaths/Min:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>Peak 
+Pressure</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>
@@ -145,7 +158,7 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_11">
+       <widget class="QLabel" name="peak_label">
         <property name="geometry">
          <rect>
           <x>120</x>
@@ -188,8 +201,8 @@ border-style: none;</string>
        <widget class="QLabel" name="label_9">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>10</y>
+          <x>10</x>
+          <y>20</y>
           <width>141</width>
           <height>101</height>
          </rect>
@@ -199,7 +212,9 @@ border-style: none;</string>
 font: 14pt &quot;Bahnschrift&quot;;</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Breaths/Min:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>Plateau 
+Pressure
+</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>
@@ -208,7 +223,7 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="plateau_label">
         <property name="geometry">
          <rect>
           <x>120</x>
@@ -262,7 +277,7 @@ border-style: none;</string>
 font: 14pt &quot;Bahnschrift&quot;;</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Breaths/Min:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>PEEP</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>
@@ -271,7 +286,7 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_12">
+       <widget class="QLabel" name="peep_label">
         <property name="geometry">
          <rect>
           <x>120</x>
@@ -366,7 +381,7 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="tidal_label">
         <property name="geometry">
          <rect>
           <x>140</x>
@@ -428,7 +443,7 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="ie_ratio_label">
         <property name="geometry">
          <rect>
           <x>140</x>
@@ -490,7 +505,7 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="bpm_label">
         <property name="geometry">
          <rect>
           <x>140</x>
