@@ -16,8 +16,8 @@ from configs.gpio_map import *
 # from sensors.flow_sensor import FlowSensor
 
 from ventilator_controller import VentilatorController
-
 from gui.ui import UI
+from ui_controller_interface import UIControllerInterface
 
 
 class Ventilator:
@@ -41,7 +41,9 @@ class Ventilator:
                                                self.contact_switch)
 
         # instantiate ui
-        # self.ui = UI()
+        self.ui = UI()
+
+        self.ui_controller_interface = UIControllerInterface(self.ui, self.controller)
 
     def at_exit(self, sig, frame):
         print("Exiting program...")
@@ -53,7 +55,7 @@ def test():
     test_ventilator = Ventilator()
     signal.signal(signal.SIGINT, test_ventilator.at_exit)
     test_ventilator.controller.start()
-    
+
 
 if __name__ == "__main__":
     test()
