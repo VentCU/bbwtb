@@ -9,7 +9,6 @@
 
 from time import sleep
 from datetime import datetime as time
-
 from configs.ventilation_configs import *
 
 
@@ -126,14 +125,11 @@ class VentilatorController:
         if self.current_state is self.START_STATE:  # TODO: define start behavior
             if self._entering_state:
                 self._entering_state = False
-            break
 
         elif self.current_state is self.HOMING_STATE:
             if self._entering_state:
                 self._entering_state = False
                 self.home()
-
-            break
 
         elif self.current_state is self.HOMING_VERIF_STATE:
             if self._entering_state:
@@ -141,7 +137,6 @@ class VentilatorController:
                 # self.motor.move_to_encoder_pose_over_duration(...)
 
             self.set_state(self.INSP_STATE)
-            break
 
         elif self.current_state is self.INSP_STATE:
             if self._entering_state:
@@ -155,7 +150,6 @@ class VentilatorController:
 
             if time.now() > self._t_insp_end:
                 self.set_state(self.INSP_PAUSE_STATE)
-            break
 
         elif self.current_state is self.INSP_PAUSE_STATE:
             if self._entering_state:
@@ -164,16 +158,14 @@ class VentilatorController:
 
             if time.now() > self._t_insp_pause_end:
                 self.set_state(self.EXP_STATE)
-            break
 
         elif self.current_state is self.EXP_STATE:
             if self._entering_state:
                 self._entering_state = False
                 # self.motor.move_to_encoder_pose_over_duration(...)
 
-            if abs(motor.encoder_position() - self.bag_clear_pos) < BAG_CLEAR_TOL:
+            if abs(self.motor.encoder_position() - self.bag_clear_pos) < BAG_CLEAR_TOL:
                 self.set_state(self.EXP_PAUSE_STATE)
-            break
 
         elif self.current_state is self.EXP_PAUSE_STATE:
             if self._entering_state:
@@ -182,23 +174,17 @@ class VentilatorController:
 
             if time.now() > self._t_exp_end + MIN_EXP_PAUSE:
                 self.set_state(self.HOMING_VERIF_STATE)
-            break
 
         elif self.current_state is self.PAUSE_STATE: # TODO: define off behavior
             if self._entering_state:
                 self._entering_state = False
-            break
 
         elif self.current_state is self.OFF_STATE:  # TODO: define off behavior
             if self._entering_state:
                 self._entering_state = False
-            break
-
 
         if self.current_state is self.DEBUG_STATE:  # TODO: define debug behavior
             self.motor.stop()
-            break
-
 
         # TODO: add delay to loop if there is extra time
 
