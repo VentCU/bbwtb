@@ -10,7 +10,8 @@
 from time import sleep
 from datetime import datetime as time
 
-from gui.ventilation_configs import *
+from configs.ventilation_configs import *
+
 
 class State:
     def __init__():
@@ -35,23 +36,23 @@ class VentilatorController:
 
         self.current_state = self.OFF_STATE
         self._entering_state = False
-        self._t_state_timer = 0         # absolute time (s) at start of current state
+        self._t_state_timer = 0                 # absolute time (s) at start of current state
 
         # cycle parameters
         self.cycle_count = 0
-        self._t_cycle_start = time()         # absolute time (s) at start of cycle
-        self._t_insp_end = time()            # calculated time (s) at end of insp
-        self._t_insp_pause_end = time()      # calculated time (s) at end of insp pause
-        self._t_exp_end = time()             # calculated time (s) at end of exp
-        self._t_exp_pause_end = time()       # calculated time (s) at end of exp pause
-        self._t_period = time()              # calculated time (s) at end of cycle
-        self._t_period_actual = time()       # absolute time (s) at end of cycle
-        self._t_loop_start = time()          # absolute time (s) at start of control loop
+        self._t_cycle_start = time.now()        # absolute time (s) at start of cycle
+        self._t_insp_end = time.now()           # calculated time (s) at end of insp
+        self._t_insp_pause_end = time.now()     # calculated time (s) at end of insp pause
+        self._t_exp_end = time.now()            # calculated time (s) at end of exp
+        self._t_exp_pause_end = time.now()      # calculated time (s) at end of exp pause
+        self._t_period = time.now()             # calculated time (s) at end of cycle
+        self._t_period_actual = time.now()      # absolute time (s) at end of cycle
+        self._t_loop_start = time.now()         # absolute time (s) at start of control loop
 
         # ventilation parameters
-        self.volume = 0                 # TODO: set default values
-        self.bpm = 30                   # TODO: set default values
-        self.ie = 0                     # TODO: set default values
+        self.volume = 0                         # TODO: set default values
+        self.bpm = 30                           # TODO: set default values
+        self.ie = 0                             # TODO: set default values
 
         # localize actuators and sensors
         self.motor = motor
@@ -148,7 +149,7 @@ class VentilatorController:
                 self._t_now = time.now()
                 self._t_period_actual = self._t_now - self._t_cycle_start
                 self._t_cycle_start = self._t_now
-                self.cycle_count++
+                self.cycle_count+=1
 
                 # self.motor.move_to_encoder_pose_over_duration(...)
 
