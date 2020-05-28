@@ -557,7 +557,7 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
    <widget class="QFrame" name="confirm_settings">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>100</x>
       <y>50</y>
       <width>621</width>
       <height>311</height>
