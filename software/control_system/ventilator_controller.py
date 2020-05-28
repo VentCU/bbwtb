@@ -39,6 +39,7 @@ class VentilatorController:
 
         # cycle parameters
         self.cycle_count = 0
+        self._t_now = time.now()
         self._t_cycle_start = time.now()        # absolute time (s) at start of cycle
         self._t_insp_end = time.now()           # calculated time (s) at end of insp
         self._t_insp_pause_end = time.now()     # calculated time (s) at end of insp pause
@@ -95,7 +96,7 @@ class VentilatorController:
 
     # calculate time parameters of ventilation
     def calculateWaveform(self, tidal_volume, ie_ratio, bpm):
-        self._t_period = time(second = 60.0 / self.bpm)    # seconds per breath
+        self._t_period = time(second= 60.0 / self.bpm)    # seconds per breath
         self._t_insp_pause_end = self._t_cycle_start + self._t_period / (1 + self.ie)                   # TODO: understand this
         self._t_insp_end = self._t_cycle_start + self._t_insp_pause_end - time(second=INSP_HOLD_DUR)    # TODO: understand this
         self._t_exp_end = min(self._t_insp_pause_end + time(second=MAX_EXP_DUR),                        # TODO: understand this
@@ -118,7 +119,9 @@ class VentilatorController:
     def ventilate(self):
 
         self._t_loop_start = time.now()
-        self.calculateWaveform()
+        self.calculateWaveform(tidal_volume=self.volume,
+                               ie_ratio=self.ie,
+                               bpm=self.bpm)
 
         # main finite state machine
 
@@ -144,7 +147,7 @@ class VentilatorController:
                 self._t_now = time.now()
                 self._t_period_actual = self._t_now - self._t_cycle_start
                 self._t_cycle_start = self._t_now
-                self.cycle_count+=1
+                self.cycle_count += 1
 
                 # self.motor.move_to_encoder_pose_over_duration(...)
 
@@ -217,8 +220,8 @@ class VentilatorController:
 
     def home(self):
 
-        if self.homing_finished is True:
-            raise Exception("Homing is already finished, why are you homing again?")  # TODO: error handling
+        if self.current_state is not self.HOMING_STATE:
+            raise Exception("Homing called outside of homing state")  # TODO: error handling
 
         # making contact with upper switch
         if self.upper_switch.contacted() and not self.lower_switch.contacted():
@@ -232,7 +235,7 @@ class VentilatorController:
                 self._homing_dir = -1
                 print("Upper bound for motor reached. \n"
                       "Motor current position: {}".format(self.motor.motor_position()))
-                sleep(0.5)
+                sleep(0.25)
 
             # moving downward, upper bound set
             else:
@@ -246,15 +249,19 @@ class VentilatorController:
             self.contact_tic_val = self.motor.motor_position()
             self.homing_finished = True
 
-            self.motor_lower_target = int(self.contact_encoder_val - ENCODER_ONE_ROTATION * 4 / 5) # TODO: tidal volume param
+            # todo: need to change this
+            self.motor_lower_target = int(self.contact_encoder_val - ENCODER_ONE_ROTATION * 4 / 5)
             self.motor_upper_target = int(self.contact_encoder_val + ENCODER_ONE_ROTATION * 1 / 10)
             self.motor_current_target = self.motor_upper_target
+
+            # change state
+            self.set_state(self.HOMING_VERIF_STATE)
 
             print("Lower bound for motor reached.\n"
                   "Motor current position: {} {}".format(self.motor.encoder_position(),
                                                          self.motor.motor_position()))
             print("=== Homing Finished ===")
-            sleep(0.5)
+            sleep(0.25)
 
         # no contact with any switch
         elif not self.upper_switch.contacted() and not self.lower_switch.contacted():
