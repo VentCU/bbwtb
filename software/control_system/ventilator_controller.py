@@ -14,11 +14,48 @@ ENCODER_ONE_ROTATION = 400
 TIC_ONE_ROTATION = 12800
 HOMING_VELOCITY = 4000000
 VELOCITY_FACTOR = 1/12
+# todo: set hold in time const.
+
+"""
+
+The Machine FSM
+
+-- start
+-- homing
+
+-- homing verification
+-- inspiratory phase
+-- inspiratory pause
+-- expiratory phase
+-- expiratory pause
+
+-- pause
+-- halt (off)
+-- debug
+
+"""
+
+class State:
+    def __init__():
+        pass
 
 
 class VentilatorController:
 
     def __init__(self, motor, pressure_sensor, upper_switch, lower_switch):
+
+        self.START_STATE = State()
+        self.OFF_STATE = State()
+        # todo: finish off the states
+        # .. 
+
+        self.current_state = self.OFF_STATE
+
+        self._entering_state = False
+        self.cycle_count = 0
+        self.t_cycle_start = 0
+        self.t_inspiratory_end = 0
+        
 
         self.motor = motor
         self.pressure_sensor = pressure_sensor
@@ -26,14 +63,15 @@ class VentilatorController:
         self.lower_switch = lower_switch
         self.lower_switch.callback = self.contact_switch_callback
 
+        # =========================================
         # init class variables
         self.pose_at_contact = 0        # position of the motor enc when arm contacts ambu bag
         self.contact_encoder_val = 0    # at the point of contact of the ambu bag, what's the encoder value.
         self.contact_tic_val = 0
         self.abs_limit_encoder_val = 0  # at the point of abs limit, what's the encoder value.
         self.homing_finished = False
-        self.__homing_dir = 1
-        self.__initial_contact = True
+        self._homing_dir = 1
+        self._initial_contact = True
         self.motor_lower_target = 0     # the target pose of motor when the arm is coming down.
         self.motor_upper_target = 0
         self.motor_current_target = 0
@@ -57,7 +95,7 @@ class VentilatorController:
                     print("{}, {}, {}".format(vel, self.motor.encoder_position(), self.motor.motor_position()))
                     sleep(0.20)  # todo: parameterize this!
                     self.motor_current_target = self.motor_lower_target
-                    self.__initial_contact = True
+                    self._initial_contact = True
 
                 elif self.motor.encoder_position() == self.motor_lower_target and result is True:
                     print("{}, {}, {}".format(vel, self.motor.encoder_position(), self.motor.motor_position()))
@@ -73,19 +111,19 @@ class VentilatorController:
         if self.upper_switch.contacted() and not self.lower_switch.contacted():
 
             # moving upward
-            if self.__homing_dir == 1:
+            if self._homing_dir == 1:
                 self.motor.stop()
                 # self.abs_limit_encoder_val = self.motor.encoder_position()
                 self.motor.stop_set_pose(0)
                 self.motor.encoder.reset_position()
-                self.__homing_dir = -1
+                self._homing_dir = -1
                 print("Upper bound for motor reached. \n"
                       "Motor current position: {}".format(self.motor.motor_position()))
                 sleep(0.5)
 
             # moving downward, upper bound set
             else:
-                self.motor.set_velocity(self.__homing_dir * HOMING_VELOCITY)
+                self.motor.set_velocity(self._homing_dir * HOMING_VELOCITY)
 
         # making contact with lower switch
         elif not self.upper_switch.contacted() and self.lower_switch.contacted():
@@ -107,7 +145,7 @@ class VentilatorController:
 
         # no contact with any switch
         elif not self.upper_switch.contacted() and not self.lower_switch.contacted():
-            self.motor.set_velocity(self.__homing_dir * HOMING_VELOCITY)
+            self.motor.set_velocity(self._homing_dir * HOMING_VELOCITY)
 
         # contact with both switches -- error
         elif self.upper_switch.contacted() and self.lower_switch.contacted():
@@ -117,8 +155,8 @@ class VentilatorController:
         self.motor.destructor()
 
     def contact_switch_callback(self, status):
-        if status is 1 and self.__initial_contact:
-            self.__initial_contact = False
+        if status is 1 and self._initial_contact:
+            self._initial_contact = False
             self.pose_at_contact = self.motor.encoder_position()
             print("At contact, the error is: {} {}".format(self.pose_at_contact - self.contact_encoder_val,
                                                            self.motor.motor_position() - self.contact_tic_val))
@@ -134,3 +172,19 @@ class VentilatorController:
 
     def update_bpm(self, value):
         self.bpm = value
+
+    def set_state(self, state):
+        """
+        Calling set_state in a unsafe way is not defined. 
+        """
+        self._entering_state = True
+        self.current_state = state
+
+    # def calculation(self, bpm, tidal_v, ie_ratio):
+    #     cycle_time = 1 / bpm
+    #     i_time = cycle_time * ie_ratio
+    #     e_time = cycle_time - i_time
+
+    #     down_dist = 0
+    #     up_dist = 0
+
