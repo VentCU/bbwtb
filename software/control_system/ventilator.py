@@ -47,14 +47,14 @@ class Ventilator:
 
     def at_exit(self, sig, frame):
         print("Exiting program...")
-        self.controller.stop()
+        self.controller.stop_ventilation()
         sys.exit(0)
 
 
 def test():
     test_ventilator = Ventilator()
     signal.signal(signal.SIGINT, test_ventilator.at_exit)
-    test_ventilator.controller.start()
+    test_ventilator.controller.start_ventilation()
 
 
 if __name__ == "__main__":
