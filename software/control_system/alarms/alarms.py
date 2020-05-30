@@ -10,7 +10,8 @@
 
 class Alarm(Exception):
 
-    def __init__(self, message, alarm_type):
+    # TODO: the alarm type param hasn't been implemented
+    def __init__(self, message, alarm_type=0):
         self.message = message
         self.type = alarm_type
 

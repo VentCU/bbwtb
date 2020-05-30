@@ -12,8 +12,9 @@ from datetime import datetime as time
 from configs.ventilation_configs import *
 from alarms.alarms import *
 
+
 class State:
-    def __init__():
+    def __init__(self):
         pass
 
 
@@ -64,6 +65,7 @@ class VentilatorController:
         self.lower_switch = lower_switch
 
         self.lower_switch.callback = self.contact_switch_callback
+        self.upper_switch.callback = self.limit_switch_callback
 
         # motion get_variables
         self.bag_clear_pos = 0
@@ -99,11 +101,11 @@ class VentilatorController:
     # calculate time parameters of ventilation
     def calculate_wave_form(self, tidal_volume, ie_ratio, bpm):
         # TODO: use tidal volume parameter
-        self._t_period = time(second=60.0 / bpm)    # seconds per breath
-        self._t_insp_pause_end = self._t_cycle_start + self._t_period / (1 + ie_ratio)                  # TODO: understand this
-        self._t_insp_end = self._t_cycle_start + self._t_insp_pause_end - time(second=INSP_HOLD_DUR)    # TODO: understand this
-        self._t_exp_end = min(self._t_insp_pause_end + time(second=MAX_EXP_DUR),                        # TODO: understand this
-                              self._t_period - time(second=MIN_EXP_PAUSE))
+        self._t_period = 60.0 / bpm    # seconds per breath
+        self._t_insp_pause_end = self._t_cycle_start + self._t_period / (1 + ie_ratio)     # TODO: understand this
+        self._t_insp_end = self._t_cycle_start + self._t_insp_pause_end - INSP_HOLD_DUR    # TODO: understand this
+        self._t_exp_end = min(self._t_insp_pause_end + MAX_EXP_DUR,                        # TODO: understand this
+                              self._t_period - MIN_EXP_PAUSE)
 
         self._t_exp_pause_end = self._t_exp_end + MIN_EXP_PAUSE
         # TODO: convert self.volume to encoder position
@@ -170,7 +172,7 @@ class VentilatorController:
                 self.set_state(self.INSP_PAUSE_STATE)
 
             if time.now() > self._t_insp_end:
-                raise Exception("Insp state takes too long")
+                raise SYSTEM_ALARM("Inspiration exceeds time limit")
 
         # ==
         elif self.current_state is self.INSP_PAUSE_STATE:
@@ -197,7 +199,7 @@ class VentilatorController:
                 self.set_state(self.EXP_PAUSE_STATE)
 
             if time.now() > self._t_exp_end:
-                raise Exception("Timing Error")
+                raise SYSTEM_ALARM("Expiration exceeds time limit")
 
         # ==
         elif self.current_state is self.EXP_PAUSE_STATE:
@@ -226,9 +228,11 @@ class VentilatorController:
         # TODO: add delay to loop if there is extra time
 
     def home(self):
-
+        """
+        Homing method for the ventilator
+        """
         if self.current_state is not self.HOMING_STATE:
-            raise Exception("Homing called outside of homing state")  # TODO: error handling
+            raise HOMING_ALARM("Attempted homing outside homing state")
 
         # making contact with upper switch
         if self.upper_switch.contacted() and not self.lower_switch.contacted():
@@ -236,12 +240,10 @@ class VentilatorController:
             # moving upward
             if self._homing_dir == 1:
                 self.motor.stop()
-                # self.abs_limit_encoder_val = self.motor.encoder_position()
                 self.motor.stop_set_pose(0)
                 self.motor.encoder.reset_position()
                 self._homing_dir = -1
-                print("Upper bound for motor reached. \n"
-                      "Motor current position: {}".format(self.motor.motor_position()))
+                self.log_motor_position("Homing upper bound reached")
                 sleep(0.25)
 
             # moving downward, upper bound set
@@ -252,20 +254,18 @@ class VentilatorController:
         elif not self.upper_switch.contacted() and self.lower_switch.contacted():
 
             self.motor.stop()
-            self.contact_encoder_val = self.motor.encoder_position()
+            self._pose_at_contact = self.motor.encoder_position()
             self.contact_tic_val = self.motor.motor_position()
 
             # todo: need to change this
-            self.motor_lower_target = int(self.contact_encoder_val - ENCODER_ONE_ROTATION * 4 / 5)
-            self.motor_upper_target = int(self.contact_encoder_val + ENCODER_ONE_ROTATION * 1 / 10)
+            self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * 4 / 5)
+            self.motor_upper_target = int(self._pose_at_contact + ENCODER_ONE_ROTATION * 1 / 100)
             self.motor_current_target = self.motor_upper_target
 
             # change state
             self.set_state(self.HOMING_VERIF_STATE)
 
-            print("Lower bound for motor reached.\n"
-                  "Motor current position: {} {}".format(self.motor.encoder_position(),
-                                                         self.motor.motor_position()))
+            self.log_motor_position("Homing lower bound reached")
             print("=== Homing Finished ===")
             sleep(0.25)
 
@@ -275,12 +275,28 @@ class VentilatorController:
 
         # contact with both switches -- error
         elif self.upper_switch.contacted() and self.lower_switch.contacted():
-            raise Exception("Both contact switches are pressed. Fatal error.")  # TODO: error handling.
+            raise HOMING_ALARM("Both contact switches are pressed")
 
     def contact_switch_callback(self, status):
+        """
+        This method is called when the contact
+        switch on the arm comes into contact with
+        the ambu bag
+        @param status: the status of the switch
+        """
         if status is 1 and self._pose_at_contact is None:
             self._pose_at_contact = self.motor.encoder_position()
             self.log_motor_position(message="Contacted ambu bag")
+
+    def limit_switch_callback(self, status):
+        """
+        This method is called when the limit switch
+        on the frame comes into contact with the arm
+        @param status: the status of the switch
+        """
+        if self.current_state is not self.HOMING_STATE:
+            self.stop_ventilation()
+            raise SYSTEM_ALARM("Limit switch tripped")
 
     def bpm_to_velocity_constant(self):
         """
