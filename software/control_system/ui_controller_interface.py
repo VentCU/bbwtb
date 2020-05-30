@@ -1,3 +1,9 @@
+#
+# UIControllerInterface class
+# VentCU - An open source ventilator
+#
+# (c) VentCU, 2020. All Rights Reserved.
+#
 
 from alarms.alarm_handler import AlarmHandler
 from alarms.alarms import *

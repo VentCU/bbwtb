@@ -1,41 +1,36 @@
+#
+# Alarm classes, defines types of alarms
+# that can be handled by the ventilator.
+#
+# VentCU - An open source ventilator
+#
+# (c) VentCU, 2020. All Rights Reserved.
+#
+
 
 class Alarm(Exception):
 
-    def __init__(self, alarm_type):
+    def __init__(self, message, alarm_type):
+        self.message = message
         self.type = alarm_type
 
 
 class OVER_PRESSURE_ALARM(Alarm):
-
-    def __init__(self, message):
-        self.message = message
-        pass
+    pass
 
 
 class UNDER_PRESSURE_ALARM(Alarm):
-
-    def __init__(self, message):
-        self.message = message
-        pass
-
+    pass
 
 class HOMING_ALARM(Alarm):
-
-    def __init__(self, message):
-        self.message = message
-        pass
+    pass
 
 
 class POSITION_ALARM(Alarm):
-
-    def __init__(self, message):
-        self.message = message
-        pass
+    pass
 
 
 class SYSTEM_ALARM(Alarm):
-
-    def __init__(self, message):
-        self.message = message
+    pass
 
 # TODO: do we need more alarm types?
