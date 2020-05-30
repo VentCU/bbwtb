@@ -21,6 +21,9 @@ class VentilatorController:
 
     def __init__(self, motor, pressure_sensor, upper_switch, lower_switch):
 
+        # alarms
+        self.current_alarms = []
+
         # states
         self.START_STATE = State()
         self.HOMING_STATE = State()
@@ -107,14 +110,19 @@ class VentilatorController:
         # self.motor_upper_target =
         # self.motor_lower_target =
 
-    # TODO: handle errors
-    def handleErrors(self):
-        pass
-
 
     ###########################
     ## Main Ventilation Loop ##
     ###########################
+
+    def start_ventilation(self):
+        while True:
+            self.ventilate()
+        # TODO
+
+    def stop_ventilation(self):
+        # TODO
+        pass
 
     def ventilate(self):
 
@@ -289,3 +297,6 @@ class VentilatorController:
 
     def update_bpm(self, value):
         self.bpm = value
+
+
+    # TODO: write alarm functions -> sound buzzer, etc.
