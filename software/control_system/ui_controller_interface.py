@@ -5,6 +5,7 @@
 # (c) VentCU, 2020. All Rights Reserved.
 #
 
+from time import sleep
 from alarms.alarm_handler import AlarmHandler
 from alarms.alarms import *
 
@@ -20,15 +21,17 @@ class UIControllerInterface:
         self.interface_elements()
 
     def interface_elements(self):
-
-        self.ui.stack.start.start_button.clicked.connect(
+        
+        self.ui.stack.start_homing.start_button.clicked.connect(
             lambda: self.try_start_ventilation()
         )
 
         # TODO: connect UI elements....
 
     def try_start_ventilation(self):
+
         try:
             self.controller.start_ventilation()
         except Alarm as alarm:
             self.alarm_handler.handle_alarms(alarm)
+            

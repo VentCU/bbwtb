@@ -101,7 +101,7 @@ class MainWindow(QtWidgets.QMainWindow):
         pg.setConfigOption('foreground', 'k')
 
         # Load the UI Page
-        uic.loadUi('main_window.ui', self)
+        uic.loadUi('gui/main_window.ui', self)
 
         self.initialize_plots()
 
@@ -194,7 +194,7 @@ class EditParameters(QtWidgets.QMainWindow):
         super(EditParameters, self).__init__(*args, **kwargs)
 
         # Load the UI Page
-        uic.loadUi('edit_parameters.ui', self)
+        uic.loadUi('gui/edit_parameters.ui', self)
 
 class ConfirmParameters(QtWidgets.QMainWindow):
 
@@ -202,7 +202,7 @@ class ConfirmParameters(QtWidgets.QMainWindow):
         super(ConfirmParameters, self).__init__(*args, **kwargs)
 
         # Load the UI Page
-        uic.loadUi('confirm_parameters.ui', self)
+        uic.loadUi('gui/confirm_parameters.ui', self)
 
 
 class Start(QtWidgets.QMainWindow):
@@ -211,7 +211,7 @@ class Start(QtWidgets.QMainWindow):
         super(Start, self).__init__(*args, **kwargs)
 
         # Load the UI Page
-        uic.loadUi('start.ui', self)
+        uic.loadUi('gui/start.ui', self)
 
 
 class StartHoming(QtWidgets.QMainWindow):
@@ -220,7 +220,7 @@ class StartHoming(QtWidgets.QMainWindow):
         super(StartHoming, self).__init__(*args, **kwargs)
 
         # Load the UI Page
-        uic.loadUi('start_homing.ui', self)
+        uic.loadUi('gui/start_homing.ui', self)
 
 
 class Homing(QtWidgets.QMainWindow):
@@ -229,7 +229,7 @@ class Homing(QtWidgets.QMainWindow):
         super(Homing, self).__init__(*args, **kwargs)
 
         # Load the UI Page
-        uic.loadUi('homing.ui', self)
+        uic.loadUi('gui/homing.ui', self)
 
 
 class ConfirmHoming(QtWidgets.QMainWindow):
@@ -238,7 +238,7 @@ class ConfirmHoming(QtWidgets.QMainWindow):
         super(ConfirmHoming, self).__init__(*args, **kwargs)
 
         # Load the UI Page
-        uic.loadUi('confirm_homing.ui', self)
+        uic.loadUi('gui/confirm_homing.ui', self)
 
 
 class AlarmCondition(QtWidgets.QMainWindow):
@@ -247,15 +247,14 @@ class AlarmCondition(QtWidgets.QMainWindow):
         super(AlarmCondition, self).__init__(*args, **kwargs)
 
         # Load the UI Page
-        uic.loadUi('alarm_condition.ui', self)
+        uic.loadUi('gui/alarm_condition.ui', self)
 
 
 class UI():
 
     def __init__(self):
-        app = QtWidgets.QApplication(sys.argv)
-        stack = WindowStack()
-        sys.exit( app.exec_() )
+        self.app = QtWidgets.QApplication(sys.argv)
+        self.stack = WindowStack()
 
 
 if __name__ == '__main__':

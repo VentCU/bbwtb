@@ -54,7 +54,7 @@ class Ventilator:
 def test():
     test_ventilator = Ventilator()
     signal.signal(signal.SIGINT, test_ventilator.at_exit)
-    test_ventilator.controller.start_ventilation()
+    sys.exit(test_ventilator.ui.app.exec_())
 
 
 if __name__ == "__main__":

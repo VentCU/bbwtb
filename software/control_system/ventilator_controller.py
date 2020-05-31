@@ -101,13 +101,15 @@ class VentilatorController:
     # calculate time parameters of ventilation
     def calculate_wave_form(self, tidal_volume, ie_ratio, bpm):
         # TODO: use tidal volume parameter
-        self._t_period = 60.0 / bpm    # seconds per breath
-        self._t_insp_pause_end = self._t_cycle_start + self._t_period / (1 + ie_ratio)     # TODO: understand this
-        self._t_insp_end = self._t_cycle_start + self._t_insp_pause_end - INSP_HOLD_DUR    # TODO: understand this
-        self._t_exp_end = min(self._t_insp_pause_end + MAX_EXP_DUR,                        # TODO: understand this
-                              self._t_period - MIN_EXP_PAUSE)
-
-        self._t_exp_pause_end = self._t_exp_end + MIN_EXP_PAUSE
+#         self._t_period = 60.0 / bpm    # seconds per breath
+#         self._t_insp_pause_end = self._t_cycle_start + self._t_period / (1 + ie_ratio)     # TODO: understand this
+#         self._t_insp_end = self._t_cycle_start + self._t_insp_pause_end - INSP_HOLD_DUR    # TODO: understand this
+#         self._t_exp_end = min(self._t_insp_pause_end + MAX_EXP_DUR,                        # TODO: understand this
+#                               self._t_period - MIN_EXP_PAUSE)
+# 
+#         self._t_exp_pause_end = self._t_exp_end + MIN_EXP_PAUSE
+        
+        pass
         # TODO: convert self.volume to encoder position
         # self.motor_upper_target =
         # self.motor_lower_target =
