@@ -13,6 +13,7 @@ class LimitSwitch:
         self.switch_pin = PIN
         self.callback = None
 
+        #Broadcom GPIO #s, NOT straight pin numbers on board
         GPIO.setmode(GPIO.BCM)
 
         GPIO.setup(PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)

@@ -1,6 +1,6 @@
 #
 # Pressure Sensor Class
-#
+# Implemented with an analog-digital converter communicating over I2C
 #
 import board
 import busio
@@ -16,17 +16,23 @@ class PressureSensor:
     def __init__(self):
 
         print("NOT IMPLEMENTED")
-        pass
+        # default i2c port set to 48
+        # default i2c communication on pins 3, 5 of pi
+        self.i2c = busio.I2C(board.SCL, board.SDA)
+        self.ads = ADS.ADS1115(self.i2c)      
 
-    # TODO: Implement
+    # Returns raw differential reading from pressure sensor
+    # Pressure transducer hard wired to ADC analog pins 0, 1
     def get_raw_value(self):
-
-        pass
+        chan = AnalogIn(self.ads, ADS.P0, ADS.P1)
+        raw_value = chan.value
+        return raw_value
 
     # TODO: Implement
-    def get_pressure(self):
-
-        pass
+    def get_pressure(self, raw_value):
+        # remove raw2data later
+        pressure = raw2data(raw_value)
+        return pressure
 
 #  
 
@@ -41,7 +47,7 @@ def raw2data(value):
               (output_max - output_min)) + pressure_min
     return output
 
-if __name__ == "__main__":
+def i2c_test():
     i2c = busio.I2C(board.SCL, board.SDA)
     ads = ADS.ADS1115(i2c)
 
@@ -64,3 +70,16 @@ if __name__ == "__main__":
     time = np.arange(ctr)
     plt.plot(time, np.asarray(values))
     plt.show()
+
+if __name__ == "__main__":
+    # i2c_test()
+    i2c_test = PressureSensor()
+    values = []
+    ctr = 0
+    while (ctr < 5):
+        sleep(0.1)
+        raw = i2c_test.get_raw_value()
+        values.append(raw)
+        print(f"Raw: {raw} Conv: {i2c_test.get_pressure(raw)}")
+        ctr += 1
+
