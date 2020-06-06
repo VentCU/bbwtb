@@ -15,15 +15,15 @@ from alarms.alarms import *
 
 
 def add_secs(tm, secs):
-    full_date = datetime.datetime(100, 1, 1, tm.hour, tm.minute, tm.second)
+    full_date = datetime.datetime(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second)
     full_date = full_date + datetime.timedelta(seconds=secs)
-    return full_date.time()
+    return full_date
 
 
 def subtract_secs(tm, secs):
-    full_date = datetime.datetime(100, 1, 1, tm.hour, tm.minute, tm.second)
+    full_date = datetime.datetime(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second)
     full_date = full_date - datetime.timedelta(seconds=secs)
-    return full_date.time()
+    return full_date
 
 
 class State:
@@ -56,7 +56,7 @@ class VentilatorController:
 
         # cycle parameters
         self.cycle_count = 0
-        self._t_cycle_start = None              # absolute time (s) at start of cycle
+        self._t_cycle_start = time.now()        # absolute time (s) at start of cycle
         self._t_insp_end = time.now()           # calculated time (s) at end of insp
         self._t_insp_pause_end = time.now()     # calculated time (s) at end of insp pause
         self._t_exp_end = time.now()            # calculated time (s) at end of exp
@@ -68,7 +68,7 @@ class VentilatorController:
         # ventilation parameters
         self.volume = 0                         # TODO: set default values
         self.bpm = 30                           # TODO: set default values
-        self.ie = 0                             # TODO: set default values
+        self.ie = 1                             # TODO: set default values
 
         # localize actuators and sensors
         self.motor = motor
@@ -112,18 +112,25 @@ class VentilatorController:
 
     # calculate time parameters of ventilation
     def calculate_wave_form(self, tidal_volume, ie_ratio, bpm):
-        # TODO: use tidal volume parameter
-
-        if self._t_cycle_start is not None:
-            self._t_period = 60.0 / bpm  # seconds per breath
-            self._t_insp_pause_end = add_secs(self._t_cycle_start, self._t_period / (1 + ie_ratio))  # TODO: understand this
-            self._t_insp_end = add_secs(self._t_cycle_start, (self._t_period / (1 + ie_ratio) - INSP_HOLD_DUR)) # self._t_cycle_start + self._t_insp_pause_end -   # TODO: understand this
-            self._t_exp_end = min(add_secs(self._t_insp_pause_end, MAX_EXP_DUR),  # TODO: understand this
-                                  subtract_secs(self._t_period, MIN_EXP_PAUSE))
-
-            self._t_exp_pause_end = add_secs(self._t_exp_end, MIN_EXP_PAUSE)
         
-        pass
+        self._t_period = 60.0 / bpm  # seconds per breath
+        _t_period_end = add_secs(self._t_cycle_start, self._t_period)
+        
+        self._t_insp_pause_end = add_secs(self._t_cycle_start, self._t_period / (1 + ie_ratio))  # TODO: understand this
+        self._t_insp_end = add_secs(self._t_cycle_start, (self._t_period / (1 + ie_ratio) - INSP_HOLD_DUR)) # self._t_cycle_start + self._t_insp_pause_end -   # TODO: understand this
+        self._t_exp_end = min(add_secs(self._t_insp_pause_end, MAX_EXP_DUR),  # TODO: understand this
+                              subtract_secs(_t_period_end, MIN_EXP_PAUSE))
+
+        self._t_exp_pause_end = add_secs(self._t_exp_end, MIN_EXP_PAUSE)
+        
+        print(time.now())
+        print(self._t_insp_end)
+        print(self._t_insp_pause_end)
+        print(self._t_exp_end)
+        print(self._t_exp_pause_end)
+
+        
+        # TODO: use tidal volume parameter
         # TODO: convert self.volume to encoder position
         # self.motor_upper_target =
         # self.motor_lower_target =
@@ -134,28 +141,31 @@ class VentilatorController:
     ###########################
 
     def start_ventilation(self):
+        
+        # TODO: might need to change this 
+        self.current_state = self.START_STATE
+        
         while True:
             self.ventilate()
-        # TODO
 
     def stop_ventilation(self):
         # TODO
         pass
 
     def ventilate(self):
-
+        
         self._t_loop_start = time.now()
-        self.calculate_wave_form(tidal_volume=self.volume,
-                                 ie_ratio=self.ie,
-                                 bpm=self.bpm)
-
+        
         # main finite state machine
 
         # ==
         if self.current_state is self.START_STATE:
             if self._entering_state:
                 self._entering_state = False
-
+            
+            # does nothing in the start state
+            self.current_state = self.HOMING_STATE
+            
         # ==
         elif self.current_state is self.HOMING_STATE:
             if self._entering_state:
@@ -176,6 +186,9 @@ class VentilatorController:
                 self._entering_state = False
                 self._t_period_actual = time.now() - self._t_cycle_start
                 self._t_cycle_start = time.now()
+                self.calculate_wave_form(tidal_volume=self.volume,
+                                 ie_ratio=self.ie,
+                                 bpm=self.bpm)
                 self.cycle_count += 1
 
             # TODO: change/update this method
@@ -310,9 +323,10 @@ class VentilatorController:
         on the frame comes into contact with the arm
         @param status: the status of the switch
         """
-        if self.current_state is not self.HOMING_STATE:
-            self.stop_ventilation()
-            raise SYSTEM_ALARM("Limit switch tripped")
+#         if self.current_state is not self.HOMING_STATE:
+#             self.stop_ventilation()
+#             raise SYSTEM_ALARM("Limit switch tripped")
+        pass
 
     def bpm_to_velocity_constant(self):
         """

@@ -35,7 +35,7 @@ class LimitSwitch:
 # Switch configured for NC (normally closed)
 # Returns 1 when pressed, 0 when open
 def test():
-    limit_switch = LimitSwitch(23)  # GPIO 23
+    limit_switch = LimitSwitch(17)  # GPIO 23
 
     while True:
         print(limit_switch.get_status())

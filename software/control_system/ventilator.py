@@ -28,7 +28,7 @@ class Ventilator:
         self.encoder = RotaryEncoder(pigpio.pi(), ENCODER_B_PLUS_PIN, ENCODER_A_PLUS_PIN)
         self.contact_switch = LimitSwitch(CONTACT_SWITCH_PIN)
         self.absolute_switch = LimitSwitch(ABSOLUTE_SWITCH_PIN)
-        self.pressure_sensor = PressureSensor()
+        # self.pressure_sensor = PressureSensor()
         # self.flow_sensor = FlowSensor(FLOW_SENSOR_PIN)
 
         # instantiate actuators
@@ -36,7 +36,7 @@ class Ventilator:
 
         # instantiate controller
         self.controller = VentilatorController(self.motor,
-                                               self.pressure_sensor,
+                                               None,
                                                self.absolute_switch,
                                                self.contact_switch)
 

@@ -41,7 +41,7 @@ class Motor:
         encoder_value = self.encoder.value()
         self.pid.update(encoder_value)
         value = self.pid.output * vel_const
-        self.tic_device.set_target_velocity(int(value))
+        # self.tic_device.set_target_velocity(int(value))
         
         if self.pid.output == 0:
             return True, int(value)
