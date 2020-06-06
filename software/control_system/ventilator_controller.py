@@ -9,8 +9,21 @@
 
 from time import sleep
 from datetime import datetime as time
+import datetime
 from configs.ventilation_configs import *
 from alarms.alarms import *
+
+
+def add_secs(tm, secs):
+    full_date = datetime.datetime(100, 1, 1, tm.hour, tm.minute, tm.second)
+    full_date = full_date + datetime.timedelta(seconds=secs)
+    return full_date.time()
+
+
+def subtract_secs(tm, secs):
+    full_date = datetime.datetime(100, 1, 1, tm.hour, tm.minute, tm.second)
+    full_date = full_date - datetime.timedelta(seconds=secs)
+    return full_date.time()
 
 
 class State:
@@ -43,8 +56,7 @@ class VentilatorController:
 
         # cycle parameters
         self.cycle_count = 0
-        # self._t_now = time.now()
-        self._t_cycle_start = time.now()        # absolute time (s) at start of cycle
+        self._t_cycle_start = None              # absolute time (s) at start of cycle
         self._t_insp_end = time.now()           # calculated time (s) at end of insp
         self._t_insp_pause_end = time.now()     # calculated time (s) at end of insp pause
         self._t_exp_end = time.now()            # calculated time (s) at end of exp
@@ -101,13 +113,15 @@ class VentilatorController:
     # calculate time parameters of ventilation
     def calculate_wave_form(self, tidal_volume, ie_ratio, bpm):
         # TODO: use tidal volume parameter
-#         self._t_period = 60.0 / bpm    # seconds per breath
-#         self._t_insp_pause_end = self._t_cycle_start + self._t_period / (1 + ie_ratio)     # TODO: understand this
-#         self._t_insp_end = self._t_cycle_start + self._t_insp_pause_end - INSP_HOLD_DUR    # TODO: understand this
-#         self._t_exp_end = min(self._t_insp_pause_end + MAX_EXP_DUR,                        # TODO: understand this
-#                               self._t_period - MIN_EXP_PAUSE)
-# 
-#         self._t_exp_pause_end = self._t_exp_end + MIN_EXP_PAUSE
+
+        if self._t_cycle_start is not None:
+            self._t_period = 60.0 / bpm  # seconds per breath
+            self._t_insp_pause_end = add_secs(self._t_cycle_start, self._t_period / (1 + ie_ratio))  # TODO: understand this
+            self._t_insp_end = add_secs(self._t_cycle_start, (self._t_period / (1 + ie_ratio) - INSP_HOLD_DUR)) # self._t_cycle_start + self._t_insp_pause_end -   # TODO: understand this
+            self._t_exp_end = min(add_secs(self._t_insp_pause_end, MAX_EXP_DUR),  # TODO: understand this
+                                  subtract_secs(self._t_period, MIN_EXP_PAUSE))
+
+            self._t_exp_pause_end = add_secs(self._t_exp_end, MIN_EXP_PAUSE)
         
         pass
         # TODO: convert self.volume to encoder position
