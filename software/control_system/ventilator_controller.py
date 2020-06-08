@@ -70,6 +70,9 @@ class VentilatorController:
         self.bpm = 30                           # TODO: set default values
         self.ie = 1                             # TODO: set default values
 
+        # physical parameters
+        self.bag_size = 7                       # diameter of the ambu bag (in)
+
         # localize actuators and sensors
         self.motor = motor
         self.pressure_sensor = pressure_sensor
@@ -112,24 +115,24 @@ class VentilatorController:
 
     # calculate time parameters of ventilation
     def calculate_wave_form(self, tidal_volume, ie_ratio, bpm):
-        
+
         self._t_period = 60.0 / bpm  # seconds per breath
         _t_period_end = add_secs(self._t_cycle_start, self._t_period)
-        
+
         self._t_insp_pause_end = add_secs(self._t_cycle_start, self._t_period / (1 + ie_ratio))  # TODO: understand this
         self._t_insp_end = add_secs(self._t_cycle_start, (self._t_period / (1 + ie_ratio) - INSP_HOLD_DUR)) # self._t_cycle_start + self._t_insp_pause_end -   # TODO: understand this
         self._t_exp_end = min(add_secs(self._t_insp_pause_end, MAX_EXP_DUR),  # TODO: understand this
                               subtract_secs(_t_period_end, MIN_EXP_PAUSE))
 
         self._t_exp_pause_end = add_secs(self._t_exp_end, MIN_EXP_PAUSE)
-        
+
         print(time.now())
         print(self._t_insp_end)
         print(self._t_insp_pause_end)
         print(self._t_exp_end)
         print(self._t_exp_pause_end)
 
-        
+
         # TODO: use tidal volume parameter
         # TODO: convert self.volume to encoder position
         # self.motor_upper_target =
@@ -141,10 +144,9 @@ class VentilatorController:
     ###########################
 
     def start_ventilation(self):
-        
-        # TODO: might need to change this 
+
         self.current_state = self.START_STATE
-        
+
         while True:
             self.ventilate()
 
@@ -153,19 +155,19 @@ class VentilatorController:
         pass
 
     def ventilate(self):
-        
+
         self._t_loop_start = time.now()
-        
+
         # main finite state machine
 
         # ==
         if self.current_state is self.START_STATE:
             if self._entering_state:
                 self._entering_state = False
-            
+
             # does nothing in the start state
-            self.current_state = self.HOMING_STATE
-            
+            self.current_state = self.INSP_STATE
+
         # ==
         elif self.current_state is self.HOMING_STATE:
             if self._entering_state:
@@ -177,8 +179,6 @@ class VentilatorController:
         elif self.current_state is self.HOMING_VERIF_STATE:
             if self._entering_state:
                 self._entering_state = False
-
-            self.set_state(self.INSP_STATE)
 
         # ==
         elif self.current_state is self.INSP_STATE:
@@ -291,6 +291,8 @@ class VentilatorController:
             self.motor_upper_target = int(self._pose_at_contact + ENCODER_ONE_ROTATION * 1 / 100)
             self.motor_current_target = self.motor_upper_target
 
+            # TODO: set bag_size appropriately
+
             # change state
             self.set_state(self.HOMING_VERIF_STATE)
 
@@ -347,6 +349,8 @@ class VentilatorController:
         print("{} encoder: {}, motor controller: {}".format(message,
                                                             self.motor.encoder_position(),
                                                             self.motor.motor_position()))
+
+    # TODO: raise errors for values outside defined bounds
 
     def update_bpm(self, value):
         self.bpm = value

@@ -21,17 +21,73 @@ class UIControllerInterface:
         self.interface_elements()
 
     def interface_elements(self):
-        
+
+        # start_homing window elements
         self.ui.stack.start_homing.start_button.clicked.connect(
-            lambda: self.try_start_ventilation()
+            lambda:
+                self.try_controller_method( self.controller.home() )
+
+                # switch window if homing successfuly completes
+                if self.controller.current_state = self.controller.HOMING_VERIF_STATE:
+                    self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)
         )
 
-        # TODO: connect UI elements....
+        # confirm_homing window elements
+        self.ui.stack.confirm_homing.rehome_button.clicked.connect(
+            lambda: self.try_controller_method( self.controller.home() )
+        )
 
-    def try_start_ventilation(self):
+        self.ui.stack.confirm_homing.bag_size_label.setText( self.controller.bag_size )     # TODO: format text as inches
+
+        # edit_parameters window elements
+        if self.controller.current_state = self.controller.HOMING_VERIF_STATE:
+            self.ui.stack.edit_parameters.back_button.hide()
+
+        self.ui.stack.edit_parameters.tidal_volume_label.setText( self.controller.volume )
+        self.ui.stack.edit_parameters.bpm_label.setText( self.controller.bpm )
+        self.ui.stack.edit_parameters.ie_ratio_label.setText( self.controller.ie )
+
+        # TODO: redefine logical values for increasing and decreasing
+        self.ui.stack.edit_parameters.tidal_increase_button.connect(
+            lambda: self.try_controller_method( self.controller.update_tidal_volume(self.controller.volume + 1) )
+        )
+        self.ui.stack.edit_parameters.tidal_decrease_button.connect(
+            lambda: self.try_controller_method( self.controller.update_tidal_volume(self.controller.volume - 1) )
+        )
+
+        self.ui.stack.edit_parameters.bpm_increase_button.connect(
+            lambda: self.try_controller_method( self.controller.update_bpm(self.controller.bpm + 1) )
+        )
+        self.ui.stack.edit_parameters.bpm_decrease_button.connect(
+            lambda: self.try_controller_method( self.controller.update_bpm(self.controller.bpm - 1) )
+        )
+
+        self.ui.stack.edit_parameters.ie_increase_button.connect(
+            lambda: self.try_controller_method( self.controller.update_ie(self.controller.ie + 1) )
+        )
+        self.ui.stack.edit_parameters.ie_decrease_button.connect(
+            lambda: self.try_controller_method( self.controller.update_ie(self.controller.ie - 1) )
+        )
+
+        # confirm_parameters window elements
+        if self.controller.current_state = self.controller.HOMING_VERIF_STATE:
+            self.ui.stack.confirm_parameters.confirm_button.setText( "Start Ventilation" )
+        else self.ui.stack.confirm_parameters.confirm_button.setText( "Confirm" )      # TODO: determine if necessary
+
+        self.ui.stack.confirm_parameters.confirm_button.connect(
+            lambda: self.try_controller_method( self.controller.start_ventilation() )  # TODO: spawn a thread to do this
+        )
+
+        # main_window window elements
+        self.ui.stack.main_window.tidal_label.setText( self.controller.volume )
+        self.ui.stack.main_window.bpm_label.setText( self.controller.bpm )
+        self.ui.stack.main_window.ie_label.setText( self.controller.ie )
+        # TODO: connect graph to pressure data from controller
+
+
+    def try_controller_method(self, method):
 
         try:
-            self.controller.start_ventilation()
+            method()
         except Alarm as alarm:
             self.alarm_handler.handle_alarms(alarm)
-            
