@@ -8,7 +8,7 @@
 from time import sleep
 from alarms.alarm_handler import AlarmHandler
 from alarms.alarms import *
-
+import threading
 
 class UIControllerInterface:
 
@@ -17,6 +17,7 @@ class UIControllerInterface:
         self.controller = ventilator_controller
 
         self.alarm_handler = AlarmHandler(self.ui, self.controller)
+        threading.excepthook = self.except_alarm_hook
 
         self.interface_elements()
 
@@ -75,7 +76,9 @@ class UIControllerInterface:
         else self.ui.stack.confirm_parameters.confirm_button.setText( "Confirm" )      # TODO: determine if necessary
 
         self.ui.stack.confirm_parameters.confirm_button.connect(
-            lambda: self.try_controller_method( self.controller.start_ventilation() )  # TODO: spawn a thread to do this
+            lambda: self.try_controller_method( self.controller.start_ventilation() )
+                self.ventilate_thread = threading.Thread(target=self.controller.start_ventilation(), args=(), daemon=True)
+                self.ventilate_thread.start()
         )
 
         # main_window window elements
@@ -91,3 +94,10 @@ class UIControllerInterface:
             method()
         except Alarm as alarm:
             self.alarm_handler.handle_alarms(alarm)
+
+    def except_alarm_hook(args):
+
+        if args.exc_type is type(Alarm):
+            self.alarm_handler.handle_alarms(args.exc_value)   # TODO: verify that raising exception kills thread
+
+        else raise args.exec_value
