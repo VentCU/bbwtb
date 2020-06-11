@@ -32,7 +32,7 @@ class UIControllerInterface:
            # switch window if homing successfuly completes
         if (self.controller.current_state is self.controller.HOMING_VERIF_STATE):
             self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)
-        
+
 
         # confirm_homing window elements
         self.ui.stack.confirm_homing.rehome_button.clicked.connect(
@@ -45,9 +45,9 @@ class UIControllerInterface:
         if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
             self.ui.stack.edit_parameters.back_button.hide()
 
-        self.ui.stack.edit_parameters.tidal_volume_label.setText( str(self.controller.volume) )
-        self.ui.stack.edit_parameters.bpm_label.setText( str(self.controller.bpm) )
-        self.ui.stack.edit_parameters.ie_ratio_label.setText( str(self.controller.ie) )
+        self.ui.stack.edit_parameters.TV_volume_label.setText( str(self.controller.volume) )
+        self.ui.stack.edit_parameters.BPM_label.setText( str(self.controller.bpm) )
+        self.ui.stack.edit_parameters.IE_label.setText( str(self.controller.ie) )
 
         # TODO: redefine logical values for increasing and decreasing
         self.ui.stack.edit_parameters.tidal_increase_button.clicked.connect(
@@ -77,17 +77,34 @@ class UIControllerInterface:
         else:
             self.ui.stack.confirm_parameters.confirm_button.setText( "Confirm" )      # TODO: determine if necessary
 
-        self.ui.stack.confirm_parameters.confirm_button.clicked.connect( 
-            lambda: self.start_ventilate_thread() 
+        self.ui.stack.confirm_parameters.confirm_button.clicked.connect(
+            lambda: self.start_ventilate_thread()
         )
 
         # main_window window elements
-        self.ui.stack.main_window.tidal_label.setText( str(self.controller.volume) )
-        self.ui.stack.main_window.bpm_label.setText( str(self.controller.bpm) )
-        self.ui.stack.main_window.ie_label.setText( str(self.controller.ie) )
+        self.ui.stack.main_window.TV_label.setText( str(self.controller.volume) )
+        self.ui.stack.main_window.BPM_label.setText( str(self.controller.bpm) )
+        self.ui.stack.main_window.IE_label.setText( str(self.controller.ie) )
+
         # TODO: connect graph to pressure data from controller
 
-    
+        # TODO: connect the following
+        # self.ui.stack.main_window.PEEP_label.setText( str() )
+        # self.ui.stack.main_window.PIP_label.setText( str() )
+        # self.ui.stack.main_window.PLAT_label.setText( str() )
+        # self.ui.stack.main_window.set_PEEP_label.setText( str() )
+        # self.ui.stack.main_window.set_PIP_label.setText( str() )
+        # self.ui.stack.main_window.set_PLAT_label.setText( str() )
+        # self.ui.stack.main_window.measure_TV_label.setText( str() )
+        # self.ui.stack.main_window.measure_BPM_label.setText( str() )
+        # self.ui.stack.main_window.measure_IE_label.setText( str() )
+        # self.ui.stack.main_window.measure_PEEP_label.setText( str() )
+        # self.ui.stack.main_window.measure_PIP_label.setText( str() )
+        # self.ui.stack.main_window.measure_PLAT_label.setText( str() )
+
+        # self.ui.stack.main_window.message_log_label.setText( str() )
+
+
     def start_ventilate_thread(self):
         self.ventilate_thread = threading.Thread(target=self.controller.start_ventilation(), args=(), daemon=True)
         self.ventilate_thread.start()
@@ -96,8 +113,8 @@ class UIControllerInterface:
     def try_controller_method(self, method, state_to_set=None):
         if state_to_set is not None:
             self.controller.set_state(state_to_set)
-        
-        try: 
+
+        try:
             method()
         except Alarm as alarm:
             self.alarm_handler.handle_alarms(alarm)
