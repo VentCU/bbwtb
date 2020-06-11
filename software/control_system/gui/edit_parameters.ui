@@ -125,7 +125,7 @@ padding: 4px;</string>
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="tidal_decrease_button_2">
+       <widget class="QPushButton" name="tidal_decrease_button">
         <property name="geometry">
          <rect>
           <x>150</x>
