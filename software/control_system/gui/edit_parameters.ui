@@ -190,7 +190,7 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="tidal_decrease_button">
+       <widget class="QLabel" name="label">
         <property name="geometry">
          <rect>
           <x>30</x>
