@@ -3,6 +3,10 @@ from pyqtgraph import PlotWidget
 import pyqtgraph as pg
 import sys
 from random import uniform
+import logging
+
+pyqt_logger = logging.getLogger('PyQt5')
+pyqt_logger.setLevel(logging.CRITICAL)
 
 
 class WindowStack(QtWidgets.QMainWindow):

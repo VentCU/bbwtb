@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import logging
 
-plt_logger = logging.getLogger('plt')
+plt_logger = logging.getLogger('matplotlib')
 plt_logger.setLevel(logging.CRITICAL)
 
 

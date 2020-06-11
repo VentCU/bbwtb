@@ -256,10 +256,21 @@ class VentilatorController:
 
         # TODO: add delay to loop if there is extra time
 
+
+    def start_homing(self):
+
+        self.current_state = self.HOMING_STATE
+
+        while self.current_state is self.HOMING_STATE:
+            self.home()
+
+
     def home(self):
         """
         Homing method for the ventilator
         """
+        print("=== Homing Started ===")
+
         if self.current_state is not self.HOMING_STATE:
             raise HOMING_ALARM("Attempted homing outside homing state")
 

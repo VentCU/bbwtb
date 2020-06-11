@@ -26,7 +26,7 @@ class UIControllerInterface:
         # start_homing window elements
         self.ui.stack.start_homing.start_button.clicked.connect(
             lambda:
-                self.try_controller_method( self.controller.home() )
+                self.try_controller_method( self.controller.home )
         )
 
            # switch window if homing successfuly completes
@@ -36,7 +36,7 @@ class UIControllerInterface:
 
         # confirm_homing window elements
         self.ui.stack.confirm_homing.rehome_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.home() )
+            lambda: self.try_controller_method( self.controller.start_homing )
         )
 
         self.ui.stack.confirm_homing.bag_size_label.setText( str(self.controller.bag_size) )     # TODO: format text as inches
@@ -77,7 +77,9 @@ class UIControllerInterface:
         else:
             self.ui.stack.confirm_parameters.confirm_button.setText( "Confirm" )      # TODO: determine if necessary
 
-        self.ui.stack.confirm_parameters.confirm_button.connect( self.start_ventilate_thread() )
+        self.ui.stack.confirm_parameters.confirm_button.clicked.connect( 
+            lambda: self.start_ventilate_thread() 
+        )
 
         # main_window window elements
         self.ui.stack.main_window.tidal_label.setText( str(self.controller.volume) )
@@ -91,9 +93,11 @@ class UIControllerInterface:
         self.ventilate_thread.start()
 
 
-    def try_controller_method(self, method):
-
-        try:
+    def try_controller_method(self, method, state_to_set=None):
+        if state_to_set is not None:
+            self.controller.set_state(state_to_set)
+        
+        try: 
             method()
         except Alarm as alarm:
             self.alarm_handler.handle_alarms(alarm)
