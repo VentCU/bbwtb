@@ -35,10 +35,10 @@ class AlarmHandler:
             self.system_fault()
 
         else:
-            raise Exception("Undefined alarm type.")
+            raise alarm
 
     def over_pressure(self):
-        self.controller.start_ventilation()
+        self.controller.start_ventilation()     # TODO: this needs to be threaded
 
     def under_pressure(self):
         pass
