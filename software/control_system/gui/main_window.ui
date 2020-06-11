@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="Main Window">
-  <property name="windowModality">
-   <enum>Qt::NonModal</enum>
-  </property>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -26,497 +23,440 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>VentCU</string>
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #292F36;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="edit_parameters_button">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>390</y>
-      <width>131</width>
-      <height>81</height>
+      <x>580</x>
+      <y>330</y>
+      <width>211</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(154, 202, 123);
-font: 14pt &quot;Bahnschrift&quot;;
-border-style: outset;
-border-width: 2px;
-border-radius: 15px;
-border-color: black;
-padding: 4px;</string>
+     <string notr="true">background-color: #495867;
+border: 3px solid;
+border-color: #EAEAEA;
+padding: 2px;
+font:18pt &quot;Calibri&quot;;
+color: #EAEAEA;</string>
     </property>
     <property name="text">
-     <string>Edit Parameters</string>
+     <string>MODIFY 
+VALUES</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>64</width>
+      <height>32</height>
+     </size>
     </property>
     <property name="flat">
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="Line" name="line">
+   <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>370</y>
-      <width>821</width>
-      <height>20</height>
+      <x>70</x>
+      <y>0</y>
+      <width>61</width>
+      <height>21</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">font: 12pt &quot;Arial&quot;;
+color: #EAEAEA;
+border: none;</string>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
+    <property name="text">
+     <string>SET</string>
     </property>
-    <property name="lineWidth">
-     <number>5</number>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="Line" name="line_2">
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>592</x>
+      <x>130</x>
       <y>0</y>
-      <width>20</width>
-      <height>381</height>
+      <width>101</width>
+      <height>21</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Arial&quot;;
+color: #EAEAEA;
+border: none;</string>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
+    <property name="text">
+     <string>MEASURED</string>
     </property>
-    <property name="lineWidth">
-     <number>5</number>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QLabel" name="message_log_label">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>10</y>
-      <width>181</width>
-      <height>361</height>
+      <x>240</x>
+      <y>330</y>
+      <width>331</width>
+      <height>101</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QFrame" name="peak_pressure">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(150, 170, 218);
-border-style: outset;
-border-width: 2px;
-border-radius: 15px;
-border-color: black;
-padding: 4px;
-border-style: none;
-
+    <property name="styleSheet">
+     <string notr="true">background-color: #EAEAEA;
+font: 12pt &quot;Calibri&quot;;
+padding: 8px;
+color: #292F36
 </string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <widget class="QLabel" name="label_8">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>10</y>
-          <width>141</width>
-          <height>101</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>Peak
-Pressure</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::AutoText</enum>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="peak_label">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>40</y>
-          <width>51</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </widget>
-     </item>
-     <item>
-      <widget class="QFrame" name="plateau_pressure">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(150, 170, 218);
-border-style: outset;
-border-width: 2px;
-border-radius: 15px;
-border-color: black;
-padding: 4px;
-border-style: none;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <widget class="QLabel" name="label_9">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>10</y>
-          <width>141</width>
-          <height>101</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>Plateau
-Pressure</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::AutoText</enum>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="plateau_label">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>40</y>
-          <width>51</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </widget>
-     </item>
-     <item>
-      <widget class="QFrame" name="PEEP">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(150, 170, 218);
-border-style: outset;
-border-width: 2px;
-border-radius: 15px;
-border-color: black;
-padding: 4px;
-border-style: none;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <widget class="QLabel" name="label_10">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>10</y>
-          <width>141</width>
-          <height>101</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>PEEP</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::AutoText</enum>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="PEEP_label">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>40</y>
-          <width>51</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </widget>
-     </item>
-    </layout>
+    </property>
+    <property name="text">
+     <string>Relevant Messages can be displayed here</string>
+    </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>581</width>
-      <height>361</height>
+      <y>20</y>
+      <width>221</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="styleSheet">
+        <string notr="true">background-color: #EAEAEA;
+font: 18pt &quot;Calibri&quot;;
+color: #292F36;
+border: 3px solid;
+border-color: #495867;
+</string>
+       </property>
+       <property name="text">
+        <string> TV</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_7">
+       <property name="styleSheet">
+        <string notr="true">background-color: #EAEAEA;
+font: 18pt &quot;Calibri&quot;;
+color: #292F36;
+border: 3px solid;
+border-color: #495867;
+</string>
+       </property>
+       <property name="text">
+        <string> BPM</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="styleSheet">
+        <string notr="true">background-color: #EAEAEA;
+font: 18pt &quot;Calibri&quot;;
+color: #292F36;
+border: 3px solid;
+border-color: #495867;
+</string>
+       </property>
+       <property name="text">
+        <string> I:E</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_11">
+       <property name="styleSheet">
+        <string notr="true">background-color: #495867;
+border: 3px solid;
+border-color: #EAEAEA;
+font: 18pt &quot;Calibri&quot;;
+color: #EAEAEA;</string>
+       </property>
+       <property name="text">
+        <string> PIP</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_12">
+       <property name="styleSheet">
+        <string notr="true">background-color: #495867;
+border: 3px solid;
+border-color: #EAEAEA;
+font: 18pt &quot;Calibri&quot;;
+color: #EAEAEA;</string>
+       </property>
+       <property name="text">
+        <string> PEEP</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_16">
+       <property name="styleSheet">
+        <string notr="true">background-color: #495867;
+border: 3px solid;
+border-color: #EAEAEA;
+font: 18pt &quot;Calibri&quot;;
+color: #EAEAEA;</string>
+       </property>
+       <property name="text">
+        <string> PLAT</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>20</y>
+      <width>61</width>
+      <height>410</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="set_TV_label">
+       <property name="styleSheet">
+        <string notr="true">color: #292F36;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="set_BPM_label">
+       <property name="styleSheet">
+        <string notr="true">color: #292F36;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="set_IE_label">
+       <property name="styleSheet">
+        <string notr="true">color: #292F36;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="set_PIP_label">
+       <property name="styleSheet">
+        <string notr="true">color: #EAEAEA;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="set_PEEP_label">
+       <property name="styleSheet">
+        <string notr="true">color: #EAEAEA;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="set_PLAT_label">
+       <property name="styleSheet">
+        <string notr="true">color: #EAEAEA;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>20</y>
+      <width>61</width>
+      <height>410</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QLabel" name="measure_TV_label">
+       <property name="styleSheet">
+        <string notr="true">color: #292F36;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="measure_BPM_label">
+       <property name="styleSheet">
+        <string notr="true">color: #292F36;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="measure_IE_label">
+       <property name="styleSheet">
+        <string notr="true">color: #292F36;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="measure_PIP_label">
+       <property name="styleSheet">
+        <string notr="true">color: #EAEAEA;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="measure_PEEP_label">
+       <property name="styleSheet">
+        <string notr="true">color: #EAEAEA;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="measure_PLAT_label">
+       <property name="styleSheet">
+        <string notr="true">color: #EAEAEA;
+background-color: None;
+border-style: none;
+font: 38pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>20</y>
+      <width>551</width>
+      <height>301</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="PlotWidget" name="pressure_graph" native="true"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>390</y>
-      <width>641</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="0">
-      <widget class="QFrame" name="PEEP_2">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(150, 170, 218);
-border-style: outset;
-border-width: 2px;
-border-radius: 15px;
-border-color: black;
-padding: 4px;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <widget class="QLabel" name="label_6">
+      <widget class="PlotWidget" name="pressure_graph" native="true">
+       <widget class="PlotWidget" name="volume_graph" native="true">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>211</width>
-          <height>81</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Tidal Volume:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::AutoText</enum>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="tidal_label">
-        <property name="geometry">
-         <rect>
-          <x>140</x>
+          <x>-20</x>
           <y>20</y>
-          <width>51</width>
-          <height>41</height>
+          <width>549</width>
+          <height>146</height>
          </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QFrame" name="PEEP_4">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(150, 170, 218);
-border-style: outset;
-border-width: 2px;
-border-radius: 15px;
-border-color: black;
-padding: 4px;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <widget class="QLabel" name="label_7">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>211</width>
-          <height>81</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;I:E Ratio:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::AutoText</enum>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="ie_label">
-        <property name="geometry">
-         <rect>
-          <x>140</x>
-          <y>20</y>
-          <width>51</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QFrame" name="PEEP_3">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(150, 170, 218);
-border-style: outset;
-border-width: 2px;
-border-radius: 15px;
-border-color: black;
-padding: 4px;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <widget class="QLabel" name="label_5">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>211</width>
-          <height>81</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Breaths/Min:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::AutoText</enum>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="bpm_label">
-        <property name="geometry">
-         <rect>
-          <x>140</x>
-          <y>20</y>
-          <width>51</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </widget>
@@ -524,6 +464,17 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
     </layout>
    </widget>
   </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
   <customwidget>

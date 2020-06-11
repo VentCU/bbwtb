@@ -29,12 +29,12 @@ confirm_parameters.ui -> user must review and confirm parameters before they are
 -Clicking confirm_button should close current window and open main_screen.ui
 -Clicking cancel_button should close current window and open edit_parameters.ui
 
-main_screen.ui -> default window shown during ventilation that shows status of different parameters/pressure readings
+main_window.ui -> default window shown during ventilation that shows status of different parameters/pressure readings
 Note: this screen is exactly the same as mock.ui but only contains pressure graph
--Graph must receive and plot pressure readings from Pi
--peak_label, PEEP_label and pleateau_label must all display most recent pressure reading relied back from the Pi
--tidal_label, bpm_label and ie_label should all display their current setting
--Clicking edit_parameters_button should close current window and open edit_parameters.ui
+-Graphs (pressure_graph and volume_graph) must receive and plot pressure readings from Pi-Clicking edit_parameters_button should close current window and open edit_parameters.ui
+-NEW: set_TV_label, set_BPM_label, set_IE_label, set_PIP_label, set_PEEP_label, set_PLAT_label should all display user settings for the parameters (or preset thresholds for pressures)
+-NEW: measure_TV_label, measure_BPM_label, measure_IE_label, measure_PIP_label, measure_PEEP_label, measure_PLAT_label should display measured pressures and parameters
+-NEW: message_log_label should display appropriate message (alarm message, nothing etc.)
 
 alarm_condidtion.ui -> shown when alarm condition is triggered
 -Raspberry Pi must send alarm signal. Current window closes and alarm_condition.ui is shown.
