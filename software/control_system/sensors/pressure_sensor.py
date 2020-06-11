@@ -9,6 +9,10 @@ from adafruit_ads1x15.analog_in import AnalogIn
 from time import sleep
 import matplotlib.pyplot as plt
 import numpy as np
+import logging
+
+plt_logger = logging.getLogger('plt')
+plt_logger.setLevel(logging.CRITICAL)
 
 
 class PressureSensor:
