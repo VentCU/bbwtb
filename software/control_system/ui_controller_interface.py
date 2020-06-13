@@ -82,25 +82,22 @@ class UIControllerInterface:
         )
 
         # main_window window elements
-        self.ui.stack.main_window.TV_label.setText( str(self.controller.volume) )
-        self.ui.stack.main_window.BPM_label.setText( str(self.controller.bpm) )
-        self.ui.stack.main_window.IE_label.setText( str(self.controller.ie) )
+        self.ui.stack.main_window.set_TV_label.setText( str(self.controller.volume) )
+        self.ui.stack.main_window.set_BPM_label.setText( str(self.controller.bpm) )
+        self.ui.stack.main_window.set_IE_label.setText( str(self.controller.ie) )
 
         # TODO: connect graph to pressure data from controller
 
         # TODO: connect the following
-        # self.ui.stack.main_window.PEEP_label.setText( str() )
-        # self.ui.stack.main_window.PIP_label.setText( str() )
-        # self.ui.stack.main_window.PLAT_label.setText( str() )
         # self.ui.stack.main_window.set_PEEP_label.setText( str() )
         # self.ui.stack.main_window.set_PIP_label.setText( str() )
         # self.ui.stack.main_window.set_PLAT_label.setText( str() )
-        # self.ui.stack.main_window.measure_TV_label.setText( str() )
-        # self.ui.stack.main_window.measure_BPM_label.setText( str() )
-        # self.ui.stack.main_window.measure_IE_label.setText( str() )
-        # self.ui.stack.main_window.measure_PEEP_label.setText( str() )
-        # self.ui.stack.main_window.measure_PIP_label.setText( str() )
-        # self.ui.stack.main_window.measure_PLAT_label.setText( str() )
+        # self.ui.stack.main_window.measured_TV_label.setText( str() )
+        # self.ui.stack.main_window.measured_BPM_label.setText( str() )
+        # self.ui.stack.main_window.measured_IE_label.setText( str() )
+        # self.ui.stack.main_window.measured_PEEP_label.setText( str() )
+        # self.ui.stack.main_window.measured_PIP_label.setText( str() )
+        # self.ui.stack.main_window.measured_PLAT_label.setText( str() )
 
         # self.ui.stack.main_window.message_log_label.setText( str() )
 
