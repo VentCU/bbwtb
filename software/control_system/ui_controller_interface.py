@@ -45,7 +45,7 @@ class UIControllerInterface:
         if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
             self.ui.stack.edit_parameters.back_button.hide()
 
-        self.ui.stack.edit_parameters.TV_volume_label.setText( str(self.controller.volume) )
+        self.ui.stack.edit_parameters.TV_label.setText( str(self.controller.volume) )
         self.ui.stack.edit_parameters.BPM_label.setText( str(self.controller.bpm) )
         self.ui.stack.edit_parameters.IE_label.setText( str(self.controller.ie) )
 

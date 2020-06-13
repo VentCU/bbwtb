@@ -169,7 +169,7 @@ padding: 4px;</string>
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="tidal_volume_label_2">
+       <widget class="QLabel" name="TV_label">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -337,7 +337,7 @@ padding: 4px;</string>
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="bpm_label">
+       <widget class="QLabel" name="BPM_label">
         <property name="geometry">
          <rect>
           <x>40</x>
@@ -379,7 +379,7 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
        </widget>
        <zorder>breaths_per_min_label</zorder>
        <zorder>bpm_increase_button</zorder>
-       <zorder>bpm_label</zorder>
+       <zorder>BPM_label</zorder>
        <zorder>label_2</zorder>
        <zorder>bpm_decrease_button</zorder>
       </widget>
@@ -400,7 +400,7 @@ border-style: none;</string>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
-       <widget class="QLabel" name="IE_label">
+       <widget class="QLabel" name="IE_title_label">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -510,7 +510,7 @@ padding: 4px;</string>
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="ie_ratio_label">
+       <widget class="QLabel" name="IE_label">
         <property name="geometry">
          <rect>
           <x>40</x>
