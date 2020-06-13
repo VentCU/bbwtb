@@ -173,7 +173,7 @@ class VentilatorController:
             if self._entering_state:
                 self._entering_state = False
 
-            self.home()
+            self.start_homing()
 
         # ==
         elif self.current_state is self.HOMING_VERIF_STATE:
@@ -263,9 +263,18 @@ class VentilatorController:
 
         print("=== Homing Started ===")
 
+        self.clear_limit_switches()
+
         while self.current_state is self.HOMING_STATE:
             self.home()
 
+    def clear_limit_switches(self):
+
+        while self.upper_switch.contacted():
+            self.motor.set_velocity(-1 * HOMING_VELOCITY)
+
+        while self.lower_switch.contacted():
+            self.motor.set_velocity(HOMING_VELOCITY)
 
     def home(self):
         """
