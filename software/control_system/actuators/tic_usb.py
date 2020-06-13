@@ -35,9 +35,10 @@ import logging
 import decimal
 import time
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s.%(msecs)d-%(name)s-%(threadName)s-%(levelname)s %(message)s',
-                    datefmt='%M:%S')
+# logging.basicConfig(level=logging.DEBUG,
+#                    format='%(asctime)s.%(msecs)d-%(name)s-%(threadName)s-%(levelname)s %(message)s',
+#                    datefmt='%M:%S')
+
 log = logging.getLogger(__name__)
 
 

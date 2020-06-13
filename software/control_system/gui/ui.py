@@ -56,9 +56,6 @@ class WindowStack(QtWidgets.QMainWindow):
         self.start_homing.cancel_button.clicked.connect(
             lambda: self.QtStack.setCurrentWidget(self.start)
         )
-        self.confirm_homing.rehome_button.clicked.connect(
-            lambda: self.QtStack.setCurrentWidget(self.homing)
-        )
 
         # confirm_homing window buttons
         self.confirm_homing.rehome_button.clicked.connect(

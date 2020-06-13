@@ -72,8 +72,8 @@ def i2c_test():
 #        print("ch3: ", chan3.value, chan3.voltage)
         
     time = np.arange(ctr)
-    plt.plot(time, np.asarray(values))
-    plt.show()
+    # plt.plot(time, np.asarray(values))
+    # plt.show()
 
 if __name__ == "__main__":
     # i2c_test()

@@ -259,7 +259,9 @@ class VentilatorController:
 
     def start_homing(self):
 
-        self.current_state = self.HOMING_STATE
+        self.set_state(self.HOMING_STATE)
+
+        print("=== Homing Started ===")
 
         while self.current_state is self.HOMING_STATE:
             self.home()
@@ -269,7 +271,6 @@ class VentilatorController:
         """
         Homing method for the ventilator
         """
-        print("=== Homing Started ===")
 
         if self.current_state is not self.HOMING_STATE:
             raise HOMING_ALARM("Attempted homing outside homing state")

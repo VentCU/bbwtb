@@ -25,14 +25,8 @@ class UIControllerInterface:
 
         # start_homing window elements
         self.ui.stack.start_homing.start_button.clicked.connect(
-            lambda:
-                self.try_controller_method( self.controller.home )
+            lambda: self.start_homing()
         )
-
-           # switch window if homing successfuly completes
-        if (self.controller.current_state is self.controller.HOMING_VERIF_STATE):
-            self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)
-
 
         # confirm_homing window elements
         self.ui.stack.confirm_homing.rehome_button.clicked.connect(
@@ -107,6 +101,14 @@ class UIControllerInterface:
         self.ventilate_thread.start()
 
 
+    def start_homing(self):
+        self.try_controller_method( self.controller.start_homing )
+
+        # switch window if homing successfuly completes
+        if (self.controller.current_state is self.controller.HOMING_VERIF_STATE):
+            self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)
+    
+    
     def try_controller_method(self, method, state_to_set=None):
         if state_to_set is not None:
             self.controller.set_state(state_to_set)
