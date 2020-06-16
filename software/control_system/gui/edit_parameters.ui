@@ -28,12 +28,15 @@
   <property name="windowTitle">
    <string>VentCU Mock UI</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #292F36;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>60</y>
+      <y>100</y>
       <width>751</width>
       <height>211</height>
      </rect>
@@ -45,13 +48,13 @@
      <item row="0" column="0">
       <widget class="QFrame" name="tidal_volume_frame">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(150, 170, 218);
-border-style: outset;
-border-radius: 15px;
-border-color: black;
-padding: 4px;
-border-style: none;
-</string>
+        <string notr="true">background-color: #495867;
+border: 3px solid;
+border-color: #EAEAEA;
+padding: 2px;
+font:18pt &quot;Calibri&quot;;
+color: #EAEAEA;
+border-radius: 4px;</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -62,14 +65,17 @@ border-style: none;
        <widget class="QLabel" name="tidal_volume_label">
         <property name="geometry">
          <rect>
-          <x>0</x>
+          <x>10</x>
           <y>10</y>
-          <width>241</width>
+          <width>221</width>
           <height>31</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 18pt &quot;Bahnschrift&quot;;</string>
+         <string notr="true">font: 14pt &quot;Calibri&quot;;
+border: none;
+color: #EAEAEA;
+background: none;</string>
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Tidal Volume&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -181,7 +187,8 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
+font: 24pt &quot;Calibri&quot;;
+color: 292F36;</string>
         </property>
         <property name="text">
          <string>500</string>
@@ -200,7 +207,9 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 12pt &quot;Bahnschrift&quot;;</string>
+         <string notr="true">font: 14pt &quot;Calibri&quot;;
+border: none;
+color: #EAEAEA;</string>
         </property>
         <property name="text">
          <string>(mililiters)</string>
@@ -214,12 +223,13 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
      <item row="0" column="1">
       <widget class="QFrame" name="breaths_per_min_frame">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(150, 170, 218);
-border-style: outset;
-border-radius: 15px;
-border-color: black;
-padding: 4px;
-border-style: none;</string>
+        <string notr="true">background-color: #495867;
+border: 3px solid;
+border-color: #EAEAEA;
+padding: 2px;
+font:18pt &quot;Calibri&quot;;
+color: #EAEAEA;
+border-radius: 4px;</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -237,7 +247,10 @@ border-style: none;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Bahnschrift&quot;;</string>
+         <string notr="true">font: 14pt &quot;Calibri&quot;;
+border: none;
+color: #EAEAEA;
+background: none;</string>
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Breaths/Min&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -349,7 +362,8 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
+font: 24pt &quot;Calibri&quot;;
+color: 292F36;</string>
         </property>
         <property name="text">
          <string>40</string>
@@ -368,7 +382,10 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 12pt &quot;Bahnschrift&quot;;</string>
+         <string notr="true">font: 14pt &quot;Calibri&quot;;
+border: none;
+color: #EAEAEA;
+background: none;</string>
         </property>
         <property name="text">
          <string>(breaths/minute)</string>
@@ -387,12 +404,13 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
      <item row="0" column="2">
       <widget class="QFrame" name="IE_frame">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(150, 170, 218);
-border-style: outset;
-border-radius: 15px;
-border-color: black;
-padding: 4px;
-border-style: none;</string>
+        <string notr="true">background-color: #495867;
+border: 3px solid;
+border-color: #EAEAEA;
+padding: 2px;
+font:18pt &quot;Calibri&quot;;
+color: #EAEAEA;
+border-radius: 4px;</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -410,7 +428,10 @@ border-style: none;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Bahnschrift&quot;;</string>
+         <string notr="true">font: 14pt &quot;Calibri&quot;;
+border: none;
+color: #EAEAEA;
+background: none;</string>
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;I:E Ratio&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -522,7 +543,8 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 14pt &quot;Bahnschrift&quot;;</string>
+font: 24pt &quot;Calibri&quot;;
+color: 292F36;</string>
         </property>
         <property name="text">
          <string>1:2</string>
@@ -541,7 +563,10 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 12pt &quot;Bahnschrift&quot;;</string>
+         <string notr="true">font: 14pt &quot;Calibri&quot;;
+border: none;
+color: #EAEAEA;
+background: none;</string>
         </property>
         <property name="text">
          <string>(I:E ratio)</string>
@@ -557,10 +582,10 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>290</y>
-      <width>261</width>
-      <height>111</height>
+      <x>30</x>
+      <y>330</y>
+      <width>751</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -578,14 +603,26 @@ font: 14pt &quot;Bahnschrift&quot;;</string>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>125</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>300</width>
+         <height>125</height>
+        </size>
+       </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 105, 97);
-font: 14pt &quot;Bahnschrift&quot;;
-border-style: outset;
-border-width: 2px;
-border-radius: 15px;
-border-color: black;
-padding: 4px;</string>
+        <string notr="true">background-color: #495867;
+border: 3px solid;
+border-color: #EAEAEA;
+padding: 2px;
+font:36pt &quot;Calibri&quot;;
+color: #EAEAEA;
+border-radius: 4px;</string>
        </property>
        <property name="text">
         <string>Back</string>
@@ -596,14 +633,14 @@ padding: 4px;</string>
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer">
+      <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Vertical</enum>
+        <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>20</width>
-         <height>40</height>
+         <width>40</width>
+         <height>20</height>
         </size>
        </property>
       </spacer>
@@ -616,15 +653,26 @@ padding: 4px;</string>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>125</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>300</width>
+         <height>125</height>
+        </size>
+       </property>
        <property name="styleSheet">
-        <string notr="true">
-background-color: rgb(154, 202, 123);
-font: 14pt &quot;Bahnschrift&quot;;
-border-style: outset;
-border-width: 2px;
-border-radius: 15px;
-border-color: black;
-padding: 4px;</string>
+        <string notr="true">background-color: #EAEAEA;
+border: 3px solid;
+border-color: #495867;
+padding: 2px;
+font:36pt &quot;Calibri&quot;;
+color: #292F36;
+border-radius: 4px;</string>
        </property>
        <property name="text">
         <string>Set</string>
@@ -635,6 +683,25 @@ padding: 4px;</string>
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>81</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../../../../../Downloads/WhiteFullLogo.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
   </widget>
  </widget>
