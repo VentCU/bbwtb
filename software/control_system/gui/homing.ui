@@ -36,13 +36,13 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>-10</y>
+      <y>-20</y>
       <width>781</width>
       <height>111</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 75 45pt &quot;Calibri&quot;;
+     <string notr="true">font: 75 45pt &quot;Nimbus sans L&quot;;
 background-color: none;
 color: #EAEAEA;</string>
     </property>
@@ -57,19 +57,20 @@ color: #EAEAEA;</string>
     <property name="geometry">
      <rect>
       <x>260</x>
-      <y>140</y>
+      <y>130</y>
       <width>281</width>
-      <height>251</height>
+      <height>271</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:none;</string>
+     <string notr="true">background-color:none;
+color: #EAEAEA</string>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/home-run.png</pixmap>
+     <pixmap>../../../../../Downloads/PmpqDjP-outline-of-simple-house-vector.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -80,20 +81,23 @@ color: #EAEAEA;</string>
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>81</width>
-      <height>81</height>
+      <width>71</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/WhiteFullLogo.png</pixmap>
+     <pixmap>../../../../../Downloads/WhiteVLogo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
     </property>
    </widget>
+   <zorder>label</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_11</zorder>
   </widget>
  </widget>
  <resources/>

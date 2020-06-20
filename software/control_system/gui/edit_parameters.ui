@@ -72,7 +72,7 @@ border-radius: 4px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Calibri&quot;;
+         <string notr="true">font: 14pt &quot;Nimbus sans L&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -187,7 +187,7 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 24pt &quot;Calibri&quot;;
+font: 24pt &quot;Nimbus sans L&quot;;
 color: 292F36;</string>
         </property>
         <property name="text">
@@ -247,7 +247,7 @@ border-radius: 4px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Calibri&quot;;
+         <string notr="true">font: 14pt &quot;Nimbus sans L&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -362,7 +362,7 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 24pt &quot;Calibri&quot;;
+font: 24pt &quot;Nimbus sans L&quot;;
 color: 292F36;</string>
         </property>
         <property name="text">
@@ -428,7 +428,7 @@ border-radius: 4px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Calibri&quot;;
+         <string notr="true">font: 14pt &quot;Nimbus sans L&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -543,7 +543,7 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 24pt &quot;Calibri&quot;;
+font: 24pt &quot;Nimbus sans L&quot;;
 color: 292F36;</string>
         </property>
         <property name="text">
@@ -620,7 +620,7 @@ background: none;</string>
 border: 3px solid;
 border-color: #EAEAEA;
 padding: 2px;
-font:36pt &quot;Calibri&quot;;
+font:36pt &quot;Nimbus sans L&quot;;
 color: #EAEAEA;
 border-radius: 4px;</string>
        </property>
@@ -670,7 +670,7 @@ border-radius: 4px;</string>
 border: 3px solid;
 border-color: #495867;
 padding: 2px;
-font:36pt &quot;Calibri&quot;;
+font:36pt &quot;Nimbus sans L&quot;;
 color: #292F36;
 border-radius: 4px;</string>
        </property>
@@ -689,15 +689,15 @@ border-radius: 4px;</string>
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>81</width>
-      <height>81</height>
+      <width>71</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/WhiteFullLogo.png</pixmap>
+     <pixmap>../../../../../Downloads/WhiteVLogo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
