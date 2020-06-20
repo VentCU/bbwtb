@@ -10,6 +10,8 @@ from alarms.alarm_handler import AlarmHandler
 from alarms.alarms import *
 import threading
 
+from PyQt5 import QtCore
+
 class UIControllerInterface:
 
     def __init__(self, ventilator_ui, ventilator_controller):
@@ -22,6 +24,10 @@ class UIControllerInterface:
         self.interface_elements()
 
     def interface_elements(self):
+
+        self.controller.state_change_sender.state_change_signal.connect(
+            lambda: self.state_change()
+        )
 
         # start_homing window elements
         self.ui.stack.start_homing.start_button.clicked.connect(
@@ -72,7 +78,7 @@ class UIControllerInterface:
             self.ui.stack.confirm_parameters.confirm_button.setText( "Confirm" )      # TODO: determine if necessary
 
         self.ui.stack.confirm_parameters.confirm_button.clicked.connect(
-            lambda: self.start_ventilate_thread()
+            lambda: self.new_thread("ventilate_thread", self.controller.start_ventilation)
         )
 
         # main_window window elements
@@ -96,19 +102,27 @@ class UIControllerInterface:
         # self.ui.stack.main_window.message_log_label.setText( str() )
 
 
-    def start_ventilate_thread(self):
-        self.ventilate_thread = threading.Thread(target=self.controller.start_ventilation(), args=(), daemon=True)
-        self.ventilate_thread.start()
+
+    def new_thread(self, name, target_method):
+        self.new_thread = threading.Thread(target=target_method, args=(), daemon=True)
+        self.new_thread.setName(name)
+        self.new_thread.start()
+        print("New thread spawned: " + name)
 
 
     def start_homing(self):
-        self.try_controller_method( self.controller.start_homing )
+        self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.homing)
 
+        self.new_thread("homing_thread", self.controller.start_homing)
+
+
+    def state_change(self):
+    
         # switch window if homing successfuly completes
-        if (self.controller.current_state is self.controller.HOMING_VERIF_STATE):
+        if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
             self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)
-    
-    
+
+
     def try_controller_method(self, method, state_to_set=None):
         if state_to_set is not None:
             self.controller.set_state(state_to_set)

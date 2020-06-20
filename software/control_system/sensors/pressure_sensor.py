@@ -80,7 +80,7 @@ if __name__ == "__main__":
     i2c_test = PressureSensor()
     values = []
     ctr = 0
-    while (ctr < 5):
+    while (ctr < 500):
         sleep(0.1)
         raw = i2c_test.get_raw_value()
         values.append(raw)

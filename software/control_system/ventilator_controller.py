@@ -12,6 +12,9 @@ from datetime import datetime as time
 import datetime
 from configs.ventilation_configs import *
 from alarms.alarms import *
+from threading import Lock
+from PyQt5.QtCore import pyqtSignal
+from PyQt5 import QtCore
 
 
 def add_secs(tm, secs):
@@ -27,11 +30,16 @@ def subtract_secs(tm, secs):
 
 
 class State:
-    def __init__(self):
-        pass
+    def __init__(self, name):
+        self.name = name
+
+class StateChangeSender(QtCore.QObject):
+    state_change_signal = pyqtSignal()
 
 
 class VentilatorController:
+
+    state_change_sender = StateChangeSender()
 
     def __init__(self, motor, pressure_sensor, upper_switch, lower_switch):
 
@@ -39,19 +47,20 @@ class VentilatorController:
         self.current_alarms = []
 
         # states
-        self.START_STATE = State()
-        self.HOMING_STATE = State()
-        self.HOMING_VERIF_STATE = State()
-        self.INSP_STATE = State()
-        self.INSP_PAUSE_STATE = State()
-        self.EXP_STATE = State()
-        self.EXP_PAUSE_STATE = State()
-        self.PAUSE_STATE = State()
-        self.OFF_STATE = State()
-        self.DEBUG_STATE = State()
+        self.START_STATE = State("START_STATE")
+        self.HOMING_STATE = State("HOMING_STATE")
+        self.HOMING_VERIF_STATE = State("HOMING_VERIF_STATE")
+        self.INSP_STATE = State("INSP_STATE")
+        self.INSP_PAUSE_STATE = State("INSP_PAUSE")
+        self.EXP_STATE = State("EXP_STATE")
+        self.EXP_PAUSE_STATE = State("EXP_PAUSE_STATE")
+        self.PAUSE_STATE = State("PAUSE_STATE")
+        self.OFF_STATE = State("OFF_STATE")
+        self.DEBUG_STATE = State("DEBUG_STATE")
 
         self.current_state = self.OFF_STATE
         self._entering_state = False
+        self._state_lock = Lock()
         self._t_state_timer = 0                 # absolute time (s) at start of current state
 
         # cycle parameters
@@ -109,10 +118,19 @@ class VentilatorController:
         """
         Calling set_state in a unsafe way is not defined.
         """
-        self._entering_state = True
-        self.current_state = state
-        self._t_state_timer = time.now()
 
+        print("State change: " + self.current_state.name, end="")
+
+        with self._state_lock:  
+            self._entering_state = True
+            self.current_state = state
+            self._t_state_timer = time.now()
+
+        self.state_change_sender.state_change_signal.emit()
+
+        print(" --> " + self.current_state.name)
+
+        
     # calculate time parameters of ventilation
     def calculate_wave_form(self, tidal_volume, ie_ratio, bpm):
 
@@ -268,6 +286,7 @@ class VentilatorController:
         while self.current_state is self.HOMING_STATE:
             self.home()
 
+
     def clear_limit_switches(self):
 
         while self.upper_switch.contacted():
@@ -275,6 +294,7 @@ class VentilatorController:
 
         while self.lower_switch.contacted():
             self.motor.set_velocity(HOMING_VELOCITY)
+
 
     def home(self):
         """
