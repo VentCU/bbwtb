@@ -43,8 +43,9 @@
 border: 3px solid;
 border-color: #EAEAEA;
 padding: 2px;
-font:18pt &quot;Calibri&quot;;
-color: #EAEAEA;</string>
+font:18pt &quot;Nimbus sans L&quot;;
+color: #EAEAEA;
+border-radius: 4px;</string>
     </property>
     <property name="text">
      <string>MODIFY 
@@ -70,7 +71,7 @@ VALUES</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;Arial&quot;;
+     <string notr="true">font: 12pt &quot;Nimbus sans L&quot;;
 color: #EAEAEA;
 border: none;</string>
     </property>
@@ -91,7 +92,7 @@ border: none;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;Arial&quot;;
+     <string notr="true">font: 12pt &quot;Nimbus sans L&quot;;
 color: #EAEAEA;
 border: none;</string>
     </property>
@@ -113,10 +114,10 @@ border: none;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: #EAEAEA;
-font: 12pt &quot;Calibri&quot;;
+font: 12pt &quot;Nimbus sans L&quot;;
 padding: 8px;
-color: #292F36
-</string>
+color: #292F36;
+border-radius: 4px;</string>
     </property>
     <property name="text">
      <string>Relevant Messages can be displayed here</string>
@@ -136,11 +137,11 @@ color: #292F36
       <widget class="QLabel" name="label_4">
        <property name="styleSheet">
         <string notr="true">background-color: #EAEAEA;
-font: 18pt &quot;Calibri&quot;;
+font: 16pt &quot;Nimbus sans L&quot;;
 color: #292F36;
 border: 3px solid;
 border-color: #495867;
-</string>
+border-radius: 4px;</string>
        </property>
        <property name="text">
         <string> TV</string>
@@ -151,10 +152,11 @@ border-color: #495867;
       <widget class="QLabel" name="label_7">
        <property name="styleSheet">
         <string notr="true">background-color: #EAEAEA;
-font: 18pt &quot;Calibri&quot;;
+font: 16pt &quot;Nimbus sans L&quot;;;
 color: #292F36;
 border: 3px solid;
 border-color: #495867;
+border-radius: 4px;
 </string>
        </property>
        <property name="text">
@@ -166,10 +168,11 @@ border-color: #495867;
       <widget class="QLabel" name="label_5">
        <property name="styleSheet">
         <string notr="true">background-color: #EAEAEA;
-font: 18pt &quot;Calibri&quot;;
+font: 16pt &quot;Nimbus sans L&quot;;
 color: #292F36;
 border: 3px solid;
 border-color: #495867;
+border-radius: 4px;
 </string>
        </property>
        <property name="text">
@@ -183,8 +186,9 @@ border-color: #495867;
         <string notr="true">background-color: #495867;
 border: 3px solid;
 border-color: #EAEAEA;
-font: 18pt &quot;Calibri&quot;;
-color: #EAEAEA;</string>
+font: 16pt &quot;Nimbus sans L&quot;;
+color: #EAEAEA;
+border-radius: 4px;</string>
        </property>
        <property name="text">
         <string> PIP</string>
@@ -197,8 +201,9 @@ color: #EAEAEA;</string>
         <string notr="true">background-color: #495867;
 border: 3px solid;
 border-color: #EAEAEA;
-font: 18pt &quot;Calibri&quot;;
-color: #EAEAEA;</string>
+font: 16pt &quot;Nimbus sans L&quot;;
+color: #EAEAEA;
+border-radius: 4px;</string>
        </property>
        <property name="text">
         <string> PEEP</string>
@@ -211,8 +216,10 @@ color: #EAEAEA;</string>
         <string notr="true">background-color: #495867;
 border: 3px solid;
 border-color: #EAEAEA;
-font: 18pt &quot;Calibri&quot;;
-color: #EAEAEA;</string>
+font: 16pt &quot;Nimbus sans L&quot;;
+color: #EAEAEA;
+border-radius: 4px;
+</string>
        </property>
        <property name="text">
         <string> PLAT</string>
@@ -237,7 +244,7 @@ color: #EAEAEA;</string>
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -253,7 +260,7 @@ font: 38pt &quot;Calibri&quot;;</string>
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -269,7 +276,7 @@ font: 38pt &quot;Calibri&quot;;</string>
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -285,7 +292,7 @@ font: 38pt &quot;Calibri&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -301,7 +308,7 @@ font: 38pt &quot;Calibri&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -317,7 +324,7 @@ font: 38pt &quot;Calibri&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -345,7 +352,7 @@ font: 38pt &quot;Calibri&quot;;</string>
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -361,7 +368,7 @@ font: 38pt &quot;Calibri&quot;;</string>
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -377,7 +384,7 @@ font: 38pt &quot;Calibri&quot;;</string>
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -393,7 +400,7 @@ font: 38pt &quot;Calibri&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -409,7 +416,7 @@ font: 38pt &quot;Calibri&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -425,7 +432,7 @@ font: 38pt &quot;Calibri&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Calibri&quot;;</string>
+font: 38pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -452,8 +459,8 @@ font: 38pt &quot;Calibri&quot;;</string>
        <widget class="PlotWidget" name="volume_graph" native="true">
         <property name="geometry">
          <rect>
-          <x>-20</x>
-          <y>20</y>
+          <x>0</x>
+          <y>0</y>
           <width>549</width>
           <height>146</height>
          </rect>

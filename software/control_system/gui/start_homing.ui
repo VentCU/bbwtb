@@ -75,7 +75,7 @@ border-radius: 4px;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 24pt &quot;Calibri&quot;;
+      <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
 border-style: none;
 color: #EAEAEA;
 background-color: none;</string>
@@ -94,13 +94,13 @@ start homing procedure, click &quot;Start&quot;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>-20</y>
+      <y>-30</y>
       <width>781</width>
       <height>111</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 75 45pt &quot;Calibri&quot;;
+     <string notr="true">font: 75 45pt &quot;Nimbus sans L&quot;;
 background-color: none;
 color: #EAEAEA;</string>
     </property>
@@ -146,7 +146,7 @@ color: #EAEAEA;</string>
 border: 3px solid;
 border-color: #EAEAEA;
 padding: 2px;
-font:36pt &quot;Calibri&quot;;
+font:36pt &quot;Nimbus sans L&quot;;
 color: #EAEAEA;
 border-radius: 4px;
 </string>
@@ -197,7 +197,7 @@ border-radius: 4px;
 border: 3px solid;
 border-color: #495867;
 padding: 2px;
-font:36pt &quot;Calibri&quot;;
+font:36pt &quot;Nimbus sans L&quot;;
 color: #292F36;
 border-radius: 4px;</string>
        </property>
@@ -216,15 +216,15 @@ border-radius: 4px;</string>
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>81</width>
-      <height>81</height>
+      <width>71</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/WhiteFullLogo.png</pixmap>
+     <pixmap>../../../../../Downloads/WhiteVLogo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>

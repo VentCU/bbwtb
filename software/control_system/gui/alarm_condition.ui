@@ -26,22 +26,22 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #AF5B5B;</string>
+   <string notr="true">background-color: #E9C46A;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>-20</y>
+      <y>0</y>
       <width>781</width>
-      <height>111</height>
+      <height>71</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 75 45pt &quot;Calibri&quot;;
+     <string notr="true">font: 45pt &quot;Nimbus sans L&quot;;
 background-color: none;
-color: #EAEAEA;</string>
+color: #292F36;</string>
     </property>
     <property name="text">
      <string>ALARM CONDITION</string>
@@ -53,8 +53,8 @@ color: #EAEAEA;</string>
    <widget class="QLabel" name="error_message_label">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>80</y>
+      <x>100</x>
+      <y>90</y>
       <width>600</width>
       <height>200</height>
      </rect>
@@ -73,7 +73,7 @@ color: #EAEAEA;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: #EAEAEA;
-font: 16pt &quot;Calibri&quot;;
+font: 20pt &quot;Nimbus sans L&quot;;
 padding: 8px;
 color: #292F36;
 border-radius: 4px;</string>
@@ -88,8 +88,8 @@ border-radius: 4px;</string>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>300</y>
+      <x>20</x>
+      <y>310</y>
       <width>761</width>
       <height>127</height>
      </rect>
@@ -120,7 +120,7 @@ border-radius: 4px;</string>
 border: 3px solid;
 border-color: #EAEAEA;
 padding: 2px;
-font:30pt &quot;Calibri&quot;;
+font:30pt &quot;Nimbus sans L&quot;;
 color: #EAEAEA;
 border-radius: 4px;
 </string>
@@ -171,7 +171,7 @@ border-radius: 4px;
 border: 3px solid;
 border-color: #495867;
 padding: 2px;
-font:22pt &quot;Calibri&quot;;
+font:22pt &quot;Nimbus sans L&quot;;
 color: #292F36;
 border-radius: 4px;</string>
        </property>
@@ -190,21 +190,25 @@ border-radius: 4px;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
-      <width>81</width>
-      <height>81</height>
+      <y>10</y>
+      <width>71</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/WhiteFullLogo.png</pixmap>
+     <pixmap>../../../../../Downloads/BlackVLogo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
     </property>
    </widget>
+   <zorder>error_message_label</zorder>
+   <zorder>horizontalLayoutWidget</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

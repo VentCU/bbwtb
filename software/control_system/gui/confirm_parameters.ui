@@ -81,7 +81,7 @@ border-radius: 4px;</string>
       <item>
        <widget class="QLabel" name="label_5">
         <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Calibri&quot;;
+         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
 border-style: none;
 color: #EAEAEA</string>
         </property>
@@ -96,7 +96,7 @@ color: #EAEAEA</string>
       <item>
        <widget class="QLabel" name="label_6">
         <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Calibri&quot;;
+         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
 border-style: none;
 color: #EAEAEA</string>
         </property>
@@ -111,7 +111,7 @@ color: #EAEAEA</string>
       <item>
        <widget class="QLabel" name="label_7">
         <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Calibri&quot;;
+         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
 border-style: none;
 color: #EAEAEA</string>
         </property>
@@ -138,7 +138,7 @@ color: #EAEAEA</string>
       <item>
        <widget class="QLabel" name="tidal_volume_label_2">
         <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Calibri&quot;;
+         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
 border-style: none;
 color: #EAEAEA</string>
         </property>
@@ -153,7 +153,7 @@ color: #EAEAEA</string>
       <item>
        <widget class="QLabel" name="confirm_bpm_label">
         <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Calibri&quot;;
+         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
 border-style: none;
 color: #EAEAEA</string>
         </property>
@@ -168,7 +168,7 @@ color: #EAEAEA</string>
       <item>
        <widget class="QLabel" name="confirm_ie_label">
         <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Calibri&quot;;
+         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
 border-style: none;
 color: #EAEAEA</string>
         </property>
@@ -218,7 +218,7 @@ color: #EAEAEA</string>
 border: 3px solid;
 border-color: #EAEAEA;
 padding: 2px;
-font:36pt &quot;Calibri&quot;;
+font:36pt &quot;Nimbus sans L&quot;;
 color: #EAEAEA;
 border-radius: 4px;
 </string>
@@ -230,6 +230,19 @@ border-radius: 4px;
         <bool>false</bool>
        </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item>
       <widget class="QPushButton" name="confirm_button">
@@ -256,7 +269,7 @@ border-radius: 4px;
 border: 3px solid;
 border-color: #495867;
 padding: 2px;
-font:36pt &quot;Calibri&quot;;
+font:36pt &quot;Nimbus sans L&quot;;
 color: #292F36;
 border-radius: 4px;</string>
        </property>
@@ -274,13 +287,13 @@ border-radius: 4px;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>0</y>
       <width>781</width>
-      <height>61</height>
+      <height>71</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 75 45pt &quot;Calibri&quot;;
+     <string notr="true">font: 75 45pt &quot;Nimbus sans L&quot;;
 background-color: none;
 color: #EAEAEA;</string>
     </property>
@@ -296,15 +309,15 @@ color: #EAEAEA;</string>
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>81</width>
-      <height>81</height>
+      <width>71</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/WhiteFullLogo.png</pixmap>
+     <pixmap>../../../../../Downloads/WhiteVLogo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
