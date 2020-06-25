@@ -11,6 +11,39 @@ from alarms.alarms import *
 import threading
 
 from PyQt5 import QtCore
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+
+# Worker takes in a function and runs it within a QRunnable
+# so that in can run in a separate thread within the QThreadPool
+# https://www.learnpyqt.com/courses/concurrent-execution/multithreading-pyqt-applications-qthreadpool/
+class Worker(QRunnable):
+    '''
+    Worker thread
+
+    Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
+
+    :param callback: The function callback to run on this worker thread. Supplied args and 
+                     kwargs will be passed through to the runner.
+    :type callback: function
+    :param args: Arguments to pass to the callback function
+    :param kwargs: Keywords to pass to the callback function
+
+    '''
+    def __init__(self, fn, *args, **kwargs):
+        super(Worker, self).__init__()
+        self.fn = fn
+        self.args = args
+        self.kwargs = kwargs
+    
+    @pyqtSlot()
+    def run(self):
+        '''
+        Initialise the runner function with passed args, kwargs
+        '''
+        self.fn(*self.args, **self.kwargs)
+
 
 class UIControllerInterface:
 
@@ -18,6 +51,7 @@ class UIControllerInterface:
         self.ui = ventilator_ui
         self.controller = ventilator_controller
 
+        self.threadpool = QThreadPool()
         self.alarm_handler = AlarmHandler(self.ui, self.controller)
         threading.excepthook = self.except_alarm_hook
 
@@ -76,6 +110,10 @@ class UIControllerInterface:
             self.ui.stack.confirm_parameters.confirm_button.setText( "Start Ventilation" )
         else:
             self.ui.stack.confirm_parameters.confirm_button.setText( "Confirm" )      # TODO: determine if necessary
+        
+        print(self.controller.ie)
+        print(self.controller.bpm)
+        print(self.controller.volume)
 
         self.ui.stack.confirm_parameters.confirm_button.clicked.connect(
             lambda: self.new_thread("ventilate_thread", self.controller.start_ventilation)
@@ -104,9 +142,11 @@ class UIControllerInterface:
 
 
     def new_thread(self, name, target_method):
-        self.new_thread = threading.Thread(target=target_method, args=(), daemon=True)
+        """ self.new_thread = threading.Thread(target=target_method, args=(), daemon=True)
         self.new_thread.setName(name)
-        self.new_thread.start()
+        self.new_thread.start() """
+        worker = Worker(target_method)
+        self.threadpool.start(worker)
         print("New thread spawned: " + name)
 
 
