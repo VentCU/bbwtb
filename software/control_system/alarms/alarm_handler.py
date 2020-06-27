@@ -8,6 +8,7 @@ import sys
 from alarms.alarms import *
 sys.path.append('/home/pi/Workspace/bbwtb/software/control_system/actuators')
 from actuators import buzzer
+sys.path.append('/home/pi/Workspace/bbwtb/software/control_system/configs')
 from configs import gpio_map
 
 
