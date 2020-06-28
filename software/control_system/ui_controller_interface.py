@@ -88,21 +88,21 @@ class UIControllerInterface:
             lambda: self.try_controller_method( self.controller.update_tidal_volume, None, (self.controller.volume + 1) )
         )
         self.ui.stack.edit_parameters.tidal_decrease_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_tidal_volume(self.controller.volume - 1) )
+            lambda: self.try_controller_method( self.controller.update_tidal_volume, None, (self.controller.volume - 1) )
         )
 
         self.ui.stack.edit_parameters.bpm_increase_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_bpm(self.controller.bpm + 1) )
+            lambda: self.try_controller_method( self.controller.update_bpm, None, (self.controller.bpm + 1) )
         )
         self.ui.stack.edit_parameters.bpm_decrease_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_bpm(self.controller.bpm - 1) )
+            lambda: self.try_controller_method( self.controller.update_bpm, None, (self.controller.bpm - 1) )
         )
 
         self.ui.stack.edit_parameters.ie_increase_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_ie(self.controller.ie + 1) )
+            lambda: self.try_controller_method( self.controller.update_ie, None, (self.controller.ie + 1) )
         )
         self.ui.stack.edit_parameters.ie_decrease_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_ie(self.controller.ie - 1) )
+            lambda: self.try_controller_method( self.controller.update_ie, None, (self.controller.ie - 1) )
         )
 
         # confirm_parameters window elements
