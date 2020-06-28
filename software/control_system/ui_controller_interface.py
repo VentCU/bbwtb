@@ -85,7 +85,7 @@ class UIControllerInterface:
 
         # TODO: redefine logical values for increasing and decreasing
         self.ui.stack.edit_parameters.tidal_increase_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_tidal_volume(), None, (self.controller.volume + 1) )
+            lambda: self.try_controller_method( self.controller.update_tidal_volume, None, (self.controller.volume + 1) )
         )
         self.ui.stack.edit_parameters.tidal_decrease_button.clicked.connect(
             lambda: self.try_controller_method( self.controller.update_tidal_volume(self.controller.volume - 1) )
@@ -168,7 +168,7 @@ class UIControllerInterface:
             self.controller.set_state(state_to_set)
 
         try:
-            if parameter is not None:
+            if parameter is None:
                 method()
             else:
                 method(parameter)
