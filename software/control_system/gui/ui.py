@@ -38,9 +38,14 @@ class WindowStack(QtWidgets.QMainWindow):
 
         self.setup_window_navigation()
 
+        # show window in fullscreen when changed
+        self.QtStack.currentChanged.connect(
+            lambda: self.QtStack.currentWidget().showFullScreen()
+        )
+
         # set starting window
         self.QtStack.setCurrentWidget(self.start)
-
+        self.QtStack.currentWidget().showFullScreen()
 
     def setup_window_navigation(self):
 
