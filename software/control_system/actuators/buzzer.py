@@ -27,8 +27,7 @@ class Buzzer:
 def buzzer_test():
     buzzer = Buzzer(25)
     ctr = 0
-    while(ctr < 100):
-        sleep(0.1)
+    while(ctr < 10):
         ctr += 1
         buzzer.enable_buzzer()
     buzzer.disable_buzzer()

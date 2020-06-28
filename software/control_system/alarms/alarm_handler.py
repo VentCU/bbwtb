@@ -64,10 +64,7 @@ class AlarmHandler:
 if __name__ == "__main__":
     buz = buzzer.Buzzer(gpio_map.BUZZER_PIN_1)
     ctr = 0
-    print(ctr)
-    while(ctr < 100):
-        sleep(0.1)
+    while(ctr < 10):
         ctr += 1
         buz.enable_buzzer()
-        print(ctr)
     buz.disable_buzzer()

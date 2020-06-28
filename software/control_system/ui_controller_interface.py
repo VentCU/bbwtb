@@ -85,7 +85,7 @@ class UIControllerInterface:
 
         # TODO: redefine logical values for increasing and decreasing
         self.ui.stack.edit_parameters.tidal_increase_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_tidal_volume(self.controller.volume + 1) )
+            lambda: self.try_controller_method( self.controller.update_tidal_volume(), None, (self.controller.volume + 1) )
         )
         self.ui.stack.edit_parameters.tidal_decrease_button.clicked.connect(
             lambda: self.try_controller_method( self.controller.update_tidal_volume(self.controller.volume - 1) )
@@ -163,12 +163,15 @@ class UIControllerInterface:
             self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)
 
 
-    def try_controller_method(self, method, state_to_set=None):
+    def try_controller_method(self, method, state_to_set=None, parameter=None):
         if state_to_set is not None:
             self.controller.set_state(state_to_set)
 
         try:
-            method()
+            if parameter is not None:
+                method()
+            else:
+                method(parameter)
         except Alarm as alarm:
             self.alarm_handler.handle_alarms(alarm)
 
