@@ -26,7 +26,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #292F36;</string>
+   <string notr="true">background-color: None;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="edit_parameters_button">
@@ -45,7 +45,7 @@ border-color: #EAEAEA;
 padding: 2px;
 font:18pt &quot;Arial&quot;;
 color: #EAEAEA;
-border-radius: 4px;</string>
+border-radius: 10px;</string>
     </property>
     <property name="text">
      <string>MODIFY 
@@ -460,9 +460,9 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-5</y>
           <width>549</width>
-          <height>146</height>
+          <height>151</height>
          </rect>
         </property>
        </widget>
@@ -470,6 +470,28 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
      </item>
     </layout>
    </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-40</y>
+      <width>801</width>
+      <height>491</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #292F36</string>
+    </property>
+   </widget>
+   <zorder>widget</zorder>
+   <zorder>edit_parameters_button</zorder>
+   <zorder>label</zorder>
+   <zorder>label_2</zorder>
+   <zorder>message_log_label</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>verticalLayoutWidget</zorder>
+   <zorder>verticalLayoutWidget_2</zorder>
+   <zorder>layoutWidget_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

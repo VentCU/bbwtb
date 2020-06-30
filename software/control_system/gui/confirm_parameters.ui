@@ -232,7 +232,7 @@ border-color: #EAEAEA;
 padding: 2px;
 font:36pt &quot;Nimbus sans L&quot;;
 color: #EAEAEA;
-border-radius: 4px;
+border-radius: 10px;
 </string>
        </property>
        <property name="text">
@@ -283,7 +283,7 @@ border-color: #495867;
 padding: 2px;
 font:36pt &quot;Nimbus sans L&quot;;
 color: #292F36;
-border-radius: 4px;</string>
+border-radius: 10px;</string>
        </property>
        <property name="text">
         <string>Confirm</string>
@@ -299,7 +299,7 @@ border-radius: 4px;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
+      <y>10</y>
       <width>781</width>
       <height>71</height>
      </rect>
@@ -310,7 +310,7 @@ background-color: none;
 color: #EAEAEA;</string>
     </property>
     <property name="text">
-     <string>Enact new settings?</string>
+     <string>Enact New Settings?</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -320,9 +320,9 @@ color: #EAEAEA;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>20</y>
       <width>71</width>
-      <height>61</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">

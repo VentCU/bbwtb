@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>EditParameters</class>
+ <widget class="QMainWindow" name="EditParameters">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,17 +26,17 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>VentCU Mock UI</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #292F36;</string>
+   <string notr="true">background-color: #292F36</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="IE_frame_2">
+   <widget class="QFrame" name="confirm_settings">
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>90</y>
+      <y>100</y>
       <width>600</width>
       <height>200</height>
      </rect>
@@ -52,12 +55,12 @@
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: #495867;
-border-style: solid;
-border-width: 3px;
+border: 3px solid;
 border-color: #EAEAEA;
-padding: 4px;
-border-radius: 4px;
-</string>
+padding: 2px;
+font:18pt &quot;Calibri&quot;;
+color: #EAEAEA;
+border-radius: 4px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -65,141 +68,80 @@ border-radius: 4px;
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="bag_size_label">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>581</width>
-       <height>61</height>
+       <x>420</x>
+       <y>100</y>
+       <width>141</width>
+       <height>44</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 30pt &quot;Nimbus sans L&quot;;
+      <string notr="true">font: 24pt  &quot;Arial&quot;;
 border-style: none;
-color: #EAEAEA;
-background-color: none;</string>
+color: #EAEAEA</string>
      </property>
      <property name="text">
-      <string>Please Verify</string>
+      <string>500</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="confirm_bpm_label">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>100</y>
+       <width>321</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 24pt  &quot;Arial&quot;;
+border-style: none;
+color: #EAEAEA</string>
+     </property>
+     <property name="text">
+      <string>Ambu-Bag Diameter:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="confirm_ie_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>581</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 32pt  &quot;Arial&quot;;
+border-style: none;
+color: #EAEAEA</string>
+     </property>
+     <property name="text">
+      <string>Please Confirm</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>70</y>
-       <width>581</width>
-       <height>91</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_6">
-        <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
-border-style: none;
-color: #EAEAEA;</string>
-        </property>
-        <property name="text">
-         <string>Ambu Bag Diameter : </string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QLabel" name="bag_size_label">
-        <property name="styleSheet">
-         <string notr="true">font: 36pt &quot;Nimbus sans L&quot;;
-border-style: none;
-color: #EAEAEA;</string>
-        </property>
-        <property name="text">
-         <string>8''</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>-20</y>
-      <width>781</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 75 45pt &quot;Nimbus sans L&quot;;
-background-color: none;
-color: #EAEAEA;</string>
-    </property>
-    <property name="text">
-     <string>Homing in Process</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>309</y>
+      <x>21</x>
+      <y>320</y>
       <width>761</width>
-      <height>127</height>
+      <height>141</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QPushButton" name="rehome_button">
        <property name="sizePolicy">
@@ -227,7 +169,7 @@ border-color: #EAEAEA;
 padding: 2px;
 font:36pt &quot;Nimbus sans L&quot;;
 color: #EAEAEA;
-border-radius: 4px;
+border-radius: 10px;
 </string>
        </property>
        <property name="text">
@@ -278,7 +220,7 @@ border-color: #495867;
 padding: 2px;
 font:36pt &quot;Nimbus sans L&quot;;
 color: #292F36;
-border-radius: 4px;</string>
+border-radius: 10px;</string>
        </property>
        <property name="text">
         <string>Confirm</string>
@@ -290,13 +232,34 @@ border-radius: 4px;</string>
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>781</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 45pt &quot;Nimbus sans L&quot;;
+background-color: none;
+color: #EAEAEA;</string>
+    </property>
+    <property name="text">
+     <string>Homing Complete</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
+      <y>20</y>
       <width>71</width>
-      <height>61</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -310,17 +273,6 @@ border-radius: 4px;</string>
     </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

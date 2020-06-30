@@ -41,7 +41,8 @@
     <property name="styleSheet">
      <string notr="true">font: 45pt &quot;Nimbus sans L&quot;;
 background-color: none;
-color: #292F36;</string>
+color: #292F36;
+font-weight: bold;</string>
     </property>
     <property name="text">
      <string>ALARM CONDITION</string>
@@ -76,7 +77,8 @@ color: #292F36;</string>
 font: 20pt &quot;Nimbus sans L&quot;;
 padding: 8px;
 color: #292F36;
-border-radius: 4px;</string>
+border-radius: 4px;
+font-weight: bold;</string>
     </property>
     <property name="text">
      <string>Error message displayed here</string>
@@ -122,7 +124,7 @@ border-color: #EAEAEA;
 padding: 2px;
 font:30pt &quot;Arial&quot;;
 color: #EAEAEA;
-border-radius: 4px;
+border-radius: 10px;
 </string>
        </property>
        <property name="text">
@@ -173,7 +175,7 @@ border-color: #495867;
 padding: 2px;
 font:22pt &quot;Nimbus sans L&quot;;
 color: #292F36;
-border-radius: 4px;</string>
+border-radius: 10px;</string>
        </property>
        <property name="text">
         <string>Silence Alarm 
@@ -192,7 +194,7 @@ border-radius: 4px;</string>
       <x>10</x>
       <y>10</y>
       <width>71</width>
-      <height>61</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">

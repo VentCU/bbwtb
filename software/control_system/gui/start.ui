@@ -35,9 +35,9 @@
    <widget class="QPushButton" name="start_button">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>220</x>
       <y>370</y>
-      <width>271</width>
+      <width>371</width>
       <height>91</height>
      </rect>
     </property>
@@ -67,10 +67,10 @@ border-radius: 10px;
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>220</x>
       <y>20</y>
-      <width>341</width>
-      <height>331</height>
+      <width>361</width>
+      <height>301</height>
      </rect>
     </property>
     <property name="text">
@@ -80,7 +80,7 @@ border-radius: 10px;
      <pixmap>WhiteVLogo.png</pixmap>
     </property>
     <property name="scaledContents">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <zorder>label</zorder>
