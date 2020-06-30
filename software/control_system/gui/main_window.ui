@@ -43,7 +43,7 @@
 border: 3px solid;
 border-color: #EAEAEA;
 padding: 2px;
-font:18pt &quot;Nimbus sans L&quot;;
+font:18pt &quot;Arial&quot;;
 color: #EAEAEA;
 border-radius: 4px;</string>
     </property>
@@ -71,7 +71,7 @@ VALUES</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;Nimbus sans L&quot;;
+     <string notr="true">font: 12pt &quot;Arial&quot;;
 color: #EAEAEA;
 border: none;</string>
     </property>
@@ -92,7 +92,7 @@ border: none;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;Nimbus sans L&quot;;
+     <string notr="true">font: 12pt &quot;Arial&quot;;
 color: #EAEAEA;
 border: none;</string>
     </property>
@@ -114,7 +114,7 @@ border: none;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: #EAEAEA;
-font: 12pt &quot;Nimbus sans L&quot;;
+font: 12pt &quot;Arial&quot;;
 padding: 8px;
 color: #292F36;
 border-radius: 4px;</string>

@@ -72,7 +72,7 @@ border-radius: 4px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Nimbus sans L&quot;;
+         <string notr="true">font: 14pt  &quot;Arial&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -119,7 +119,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/up arrow.png</normaloff>../../../../../Downloads/up arrow.png</iconset>
+          <normaloff>up_arrow.png</normaloff>up_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -163,7 +163,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/down arrow.png</normaloff>../../../../../Downloads/down arrow.png</iconset>
+          <normaloff>down_arrow.png</normaloff>down_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -187,7 +187,7 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 24pt &quot;Nimbus sans L&quot;;
+font: 24pt  &quot;Arial&quot;;
 color: 292F36;</string>
         </property>
         <property name="text">
@@ -247,7 +247,7 @@ border-radius: 4px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Nimbus sans L&quot;;
+         <string notr="true">font: 14pt  &quot;Arial&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -294,7 +294,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/up arrow.png</normaloff>../../../../../Downloads/up arrow.png</iconset>
+          <normaloff>up_arrow.png</normaloff>up_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -338,7 +338,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/down arrow.png</normaloff>../../../../../Downloads/down arrow.png</iconset>
+          <normaloff>down_arrow.png</normaloff>down_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -362,7 +362,7 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 24pt &quot;Nimbus sans L&quot;;
+font: 24pt  &quot;Arial&quot;;
 color: 292F36;</string>
         </property>
         <property name="text">
@@ -428,7 +428,7 @@ border-radius: 4px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Nimbus sans L&quot;;
+         <string notr="true">font: 14pt  &quot;Arial&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -475,7 +475,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/up arrow.png</normaloff>../../../../../Downloads/up arrow.png</iconset>
+          <normaloff>up_arrow.png</normaloff>up_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -519,7 +519,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/down arrow.png</normaloff>../../../../../Downloads/down arrow.png</iconset>
+          <normaloff>down_arrow.png</normaloff>down_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -543,7 +543,7 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 24pt &quot;Nimbus sans L&quot;;
+font: 24pt  &quot;Arial&quot;;
 color: 292F36;</string>
         </property>
         <property name="text">
@@ -697,7 +697,7 @@ border-radius: 4px;</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/WhiteVLogo.png</pixmap>
+     <pixmap>WhiteVLogo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>

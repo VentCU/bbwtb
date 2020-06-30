@@ -68,119 +68,131 @@ border-radius: 4px;</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QWidget" name="verticalLayoutWidget">
+    <widget class="QLabel" name="tidal_volume_label_2">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>30</y>
-       <width>331</width>
-       <height>146</height>
+       <x>390</x>
+       <y>120</y>
+       <width>189</width>
+       <height>44</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QLabel" name="label_5">
-        <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
+     <property name="styleSheet">
+      <string notr="true">font: 24pt  &quot;Arial&quot;;
 border-style: none;
 color: #EAEAEA</string>
-        </property>
-        <property name="text">
-         <string>Tidal Volume (ml):</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_6">
-        <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
-border-style: none;
-color: #EAEAEA</string>
-        </property>
-        <property name="text">
-         <string>BPM:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_7">
-        <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
-border-style: none;
-color: #EAEAEA</string>
-        </property>
-        <property name="text">
-         <string>I:E Ratio: </string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     </property>
+     <property name="text">
+      <string>500</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
     </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_2">
+    <widget class="QLabel" name="confirm_bpm_label">
      <property name="geometry">
       <rect>
-       <x>380</x>
+       <x>390</x>
        <y>30</y>
-       <width>191</width>
-       <height>146</height>
+       <width>189</width>
+       <height>41</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QLabel" name="tidal_volume_label_2">
-        <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
+     <property name="styleSheet">
+      <string notr="true">font: 24pt  &quot;Arial&quot;;
 border-style: none;
 color: #EAEAEA</string>
-        </property>
-        <property name="text">
-         <string>500</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="confirm_bpm_label">
-        <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
+     </property>
+     <property name="text">
+      <string>40</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="confirm_ie_label">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>70</y>
+       <width>189</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 24pt  &quot;Arial&quot;;
 border-style: none;
 color: #EAEAEA</string>
-        </property>
-        <property name="text">
-         <string>40</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="confirm_ie_label">
-        <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
+     </property>
+     <property name="text">
+      <string>1:2</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>30</y>
+       <width>329</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 24pt &quot;Arial&quot;;
 border-style: none;
 color: #EAEAEA</string>
-        </property>
-        <property name="text">
-         <string>1:2</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     </property>
+     <property name="text">
+      <string>Tidal Volume (ml):</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>70</y>
+       <width>329</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 24pt &quot;Arial&quot;;
+border-style: none;
+color: #EAEAEA</string>
+     </property>
+     <property name="text">
+      <string>BPM:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>120</y>
+       <width>329</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 24pt &quot;Arial&quot;;
+border-style: none;
+color: #EAEAEA</string>
+     </property>
+     <property name="text">
+      <string>I:E Ratio: </string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
