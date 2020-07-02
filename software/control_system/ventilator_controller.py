@@ -339,6 +339,7 @@ class VentilatorController:
                 print(self.motor_lower_target)
                 print(self.motor_upper_target)
                 self.set_state(self.HOMING_VERIF_STATE)
+                self._homing_dir = 1
             else:
                 # TODO: raise alarm that reached lower bound without reaching upper, delete print statements
                 print("reached lower bound before upper bound")
