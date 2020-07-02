@@ -347,6 +347,7 @@ class VentilatorController:
 
         # contact with both switches -- error
         elif self.upper_switch.contacted() and self.lower_switch.contacted():
+            self.motor.stop()
             raise HOMING_ALARM("Both contact switches are pressed")
 
     def contact_switch_callback(self, status):

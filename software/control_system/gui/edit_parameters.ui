@@ -72,7 +72,7 @@ border-radius: 4px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Nimbus sans L&quot;;
+         <string notr="true">font: 14pt  &quot;Arial&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -119,7 +119,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/up arrow.png</normaloff>../../../../../Downloads/up arrow.png</iconset>
+          <normaloff>up_arrow.png</normaloff>up_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -163,7 +163,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/down arrow.png</normaloff>../../../../../Downloads/down arrow.png</iconset>
+          <normaloff>down_arrow.png</normaloff>down_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -187,7 +187,7 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 24pt &quot;Nimbus sans L&quot;;
+font: 24pt  &quot;Arial&quot;;
 color: 292F36;</string>
         </property>
         <property name="text">
@@ -207,7 +207,7 @@ color: 292F36;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Calibri&quot;;
+         <string notr="true">font: 12pt &quot;Calibri&quot;;
 border: none;
 color: #EAEAEA;</string>
         </property>
@@ -247,7 +247,7 @@ border-radius: 4px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Nimbus sans L&quot;;
+         <string notr="true">font: 14pt  &quot;Arial&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -294,7 +294,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/up arrow.png</normaloff>../../../../../Downloads/up arrow.png</iconset>
+          <normaloff>up_arrow.png</normaloff>up_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -338,7 +338,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/down arrow.png</normaloff>../../../../../Downloads/down arrow.png</iconset>
+          <normaloff>down_arrow.png</normaloff>down_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -362,7 +362,7 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 24pt &quot;Nimbus sans L&quot;;
+font: 24pt  &quot;Arial&quot;;
 color: 292F36;</string>
         </property>
         <property name="text">
@@ -382,7 +382,7 @@ color: 292F36;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Calibri&quot;;
+         <string notr="true">font: 12pt &quot;Calibri&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -428,7 +428,7 @@ border-radius: 4px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Nimbus sans L&quot;;
+         <string notr="true">font: 14pt  &quot;Arial&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -475,7 +475,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/up arrow.png</normaloff>../../../../../Downloads/up arrow.png</iconset>
+          <normaloff>up_arrow.png</normaloff>up_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -519,7 +519,7 @@ padding: 4px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../Downloads/down arrow.png</normaloff>../../../../../Downloads/down arrow.png</iconset>
+          <normaloff>down_arrow.png</normaloff>down_arrow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -543,7 +543,7 @@ padding: 4px;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 border-style: none;
-font: 24pt &quot;Nimbus sans L&quot;;
+font: 24pt  &quot;Arial&quot;;
 color: 292F36;</string>
         </property>
         <property name="text">
@@ -563,7 +563,7 @@ color: 292F36;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Calibri&quot;;
+         <string notr="true">font: 12pt &quot;Calibri&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -622,7 +622,7 @@ border-color: #EAEAEA;
 padding: 2px;
 font:36pt &quot;Nimbus sans L&quot;;
 color: #EAEAEA;
-border-radius: 4px;</string>
+border-radius: 10px;</string>
        </property>
        <property name="text">
         <string>Back</string>
@@ -672,7 +672,7 @@ border-color: #495867;
 padding: 2px;
 font:36pt &quot;Nimbus sans L&quot;;
 color: #292F36;
-border-radius: 4px;</string>
+border-radius: 10px;</string>
        </property>
        <property name="text">
         <string>Set</string>
@@ -688,19 +688,40 @@ border-radius: 4px;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>20</y>
       <width>71</width>
-      <height>61</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/WhiteVLogo.png</pixmap>
+     <pixmap>WhiteVLogo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>781</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 45pt &quot;Nimbus sans L&quot;;
+background-color: none;
+color: #EAEAEA;</string>
+    </property>
+    <property name="text">
+     <string>Edit Parameters</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

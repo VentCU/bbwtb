@@ -4,8 +4,13 @@
 #
 # (c) VentCU, 2020. All Rights Reserved.
 #
-
-from alarms.alarms import *
+import sys
+from alarms import *
+sys.path.append('/home/pi/Workspace/bbwtb/software/control_system')
+from actuators import buzzer
+sys.path.append('/home/pi/Workspace/bbwtb/software/control_system/configs')
+from configs import gpio_map
+from time import sleep
 
 
 class AlarmHandler:
@@ -13,7 +18,8 @@ class AlarmHandler:
     def __init__(self, ventilator_ui, ventilator_controller):
         self.ui = ventilator_ui
         self.controller = ventilator_controller
-
+        self.buzzer = buzzer.Buzzer(gpio_map.BUZZER_PIN_1)
+        
     def handle_alarms(self, alarm):
 
         self.controller.current_alarms.append(alarm)
@@ -53,3 +59,12 @@ class AlarmHandler:
         pass
 
     # TODO: handler function for each alarm type
+
+# test
+if __name__ == "__main__":
+    buz = buzzer.Buzzer(gpio_map.BUZZER_PIN_1)
+    ctr = 0
+    while(ctr < 10):
+        ctr += 1
+        buz.enable_buzzer()
+    buz.disable_buzzer()

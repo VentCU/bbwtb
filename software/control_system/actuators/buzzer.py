@@ -25,13 +25,24 @@ class Buzzer:
     # TODO: this.
 
 def buzzer_test():
-    buzzer = Buzzer(25)
-    ctr = 0
-    while(ctr < 100):
-        sleep(0.1)
-        ctr += 1
-        buzzer.enable_buzzer()
-    buzzer.disable_buzzer()
+    buzzer1 = Buzzer(25)
+    buzzer2 = Buzzer(8)
+    
+    beep_ctr = 0
+
+    while(beep_ctr < 5):
+        beep_ctr +=1
+        
+        dur_ctr = 0
+        while(dur_ctr < 100000):
+            dur_ctr += 1
+            buzzer1.enable_buzzer()
+            buzzer2.enable_buzzer()
+        
+        buzzer1.disable_buzzer()
+        buzzer2.disable_buzzer()
+
+        sleep(1)
 
 if __name__ == "__main__":
     buzzer_test()
