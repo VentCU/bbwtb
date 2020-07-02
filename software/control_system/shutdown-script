@@ -1,0 +1,12 @@
+#!/bin/bash
+
+printf "Pulling latest software version\n"
+git pull
+
+
+printf "Denergizing motor\n"
+ticcmd --deenergize
+
+printf "Shutting down\n"
+sudo shutdown -h now
+
