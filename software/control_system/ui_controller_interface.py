@@ -80,8 +80,15 @@ class UIControllerInterface:
         self.update_label(self.ui.stack.confirm_homing.bag_size_label, self.controller.bag_size)     # TODO: format text as inches
 
         # edit_parameters window elements
-        if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
-            self.ui.stack.edit_parameters.back_button.hide()
+
+        def update_edit_parameters_elements():
+            if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
+                self.ui.stack.edit_parameters.back_button.hide()
+            else:
+                self.ui.stack.edit_parameters.back_button.show()
+        
+        self.ui.stack.confirm_homing.confirm_button.clicked.connect(update_edit_parameters_elements)
+        self.ui.stack.main_window.edit_parameters_button.clicked.connect(update_edit_parameters_elements)
 
         self.update_label(self.ui.stack.edit_parameters.TV_label, self.controller.volume)
         self.update_label(self.ui.stack.edit_parameters.BPM_label, self.controller.bpm)
@@ -108,17 +115,18 @@ class UIControllerInterface:
         )
 
         # confirm_parameters window elements
-        self.update_label(self.ui.stack.confirm_parameters.confirm_TV_label, self.modified_volume)
-        self.update_label(self.ui.stack.confirm_parameters.confirm_BPM_label, self.modified_bpm)
-        self.update_label(self.ui.stack.confirm_parameters.confirm_IE_label, self.modified_ie)
 
-        def update_confirm_or_start_button():
+        def update_confirm_parameters_elements():
             if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
-                self.update_label(self.ui.stack.confirm_parameters.confirm_button, "Start Ventilation" )
+                self.update_label(self.ui.stack.confirm_parameters.confirm_button, "Start")
             else:
                 self.update_label(self.ui.stack.confirm_parameters.confirm_button,  "Confirm" )
 
-        self.ui.stack.edit_parameters.confirm_button.clicked.connect(update_confirm_or_start_button)
+            self.update_label(self.ui.stack.confirm_parameters.confirm_TV_label, self.modified_volume)
+            self.update_label(self.ui.stack.confirm_parameters.confirm_BPM_label, self.modified_bpm)
+            self.update_label(self.ui.stack.confirm_parameters.confirm_IE_label, self.modified_ie)
+            
+        self.ui.stack.edit_parameters.set_button.clicked.connect(update_confirm_parameters_elements)
 
         # begin main ventilate thread
         self.ui.stack.confirm_parameters.confirm_button.clicked.connect(
