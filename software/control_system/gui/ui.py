@@ -103,7 +103,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__(*args, **kwargs)
 
         # Set default plot colors
-        pg.setConfigOption('background', 'w')
+        pg.setConfigOption('background', '#EAEAEA')
         pg.setConfigOption('foreground', 'k')
 
         # Load the UI Page
@@ -126,22 +126,22 @@ class MainWindow(QtWidgets.QMainWindow):
 
         pressure_data = []
         # flow_data = []
-        # volume_data = []
+        volume_data = []
 
-        pen_red = pg.mkPen(color=(255, 0, 0), width=3)
+        pen_yellow = pg.mkPen(color=("#E9C46A"), width=3)
         # pen_blue = pg.mkPen(color=(0, 0, 255), width=3)
         # pen_green = pg.mkPen(color=(100, 160, 100), width=3)
-        self.pressure_curve = self.pressure_graph.plot(x_axis, pressure_data, pen=pen_red)
+        self.pressure_curve = self.pressure_graph.plot(x_axis, pressure_data, pen=pen_yellow)
         # self.flow_curve = self.flow_graph.plot(x_axis, flow_data, pen=pen_blue)
-        # self.volume_curve = self.volume_graph.plot(x_axis, volume_data,pen=pen_green)
+        self.volume_curve = self.volume_graph.plot(x_axis, volume_data,pen=pen_yellow)
 
         self.pressure_graph.setMouseEnabled(x=False, y=False)
         # self.flow_graph.setMouseEnabled(x=False, y=False)
-        # self.volume_graph.setMouseEnabled(x=False, y=False)
+        self.volume_graph.setMouseEnabled(x=False, y=False)
 
         self.pressure_graph.setMenuEnabled(False)
         # self.flow_graph.setMenuEnabled(False)
-        # self.volume_graph.setMenuEnabled(False)
+        self.volume_graph.setMenuEnabled(False)
 
         # Labeling the x-axis takes up too much space
         # self.pressure_graph.setLabel('bottom', 'Time', 's')
@@ -151,24 +151,24 @@ class MainWindow(QtWidgets.QMainWindow):
         # set graph labels
         self.pressure_graph.setLabel('left', 'Pressure', 'cmH2O')
         # self.flow_graph.setLabel('left', 'Flow', 'L/m')
-        # self.volume_graph.setLabel('left', 'Volume', 'L')
+        self.volume_graph.setLabel('left', 'Volume', 'L')
 
         # set the y axis range
         self.pressure_graph.setYRange(0, 50)
         # self.flow_graph.setYRange(-60, 60)
-        # self.volume_graph.setYRange(0, 1)
+        self.volume_graph.setYRange(0, 1)
 
         self.pressure_graph.setXRange(0, chunk_size)
         # self.flow_graph.setXRange(0, chunk_size)
-        # self.volume_graph.setXRange(0, chunk_size)
+        self.volume_graph.setXRange(0, chunk_size)
 
         # hide the little A buttons
         self.pressure_graph.hideButtons()
         # self.flow_graph.hideButtons()
-        # self.volume_graph.hideButtons()
+        self.volume_graph.hideButtons()
 
     def update_plots(self):
-        global chunk_size, x_axis, pressure_data, plot_ptr #, flow_data, volume_data
+        global chunk_size, x_axis, pressure_data, plot_ptr, volume_data #, flow_data
 
         # Clear plot if chunk size reached
         if plot_ptr == chunk_size:
@@ -176,7 +176,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
             pressure_data = []
             # flow_data = []
-            # volume_data = []
+            volume_data = []
 
             plot_ptr = 0
 
@@ -184,11 +184,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         pressure_data.append( uniform(0, 50) )
         # flow_data.append( uniform(-60, 60) )
-        # volume_data.append( uniform(0, 1) )
+        volume_data.append( uniform(0, 1) )
 
         self.pressure_curve.setData(x_axis, pressure_data)
         # self.flow_curve.setData(x_axis, flow_data)
-        # self.volume_curve.setData(x_axis, volume_data)
+        self.volume_curve.setData(x_axis, volume_data)
 
         plot_ptr += 1
 
