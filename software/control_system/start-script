@@ -10,7 +10,7 @@ printf "Locating constrol software directory\n"
 cd ~/bbwtb/software/control_system
 
 printf "Pulling latest software version\n"
-git pull
+sudo git pull
 
 
 printf "Resetting and energizing motor\n"
