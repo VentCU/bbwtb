@@ -396,14 +396,14 @@ class VentilatorController:
 
     def update_bpm(self, value):
         self.bpm = value
-        print('BPM set to: ' + value)
+        print('BPM set to: ' + str(value))
 
     def update_ie(self, value):
         self.ie = value
-        print('IE set to: ' + value)
+        print('IE set to: ' + str(value))
 
     def update_tidal_volume(self, value):
         self.volume = value
-        print('TV set to: ' + value)
+        print('TV set to: ' + str(value))
 
     # TODO: write alarm functions -> sound buzzer, etc.
