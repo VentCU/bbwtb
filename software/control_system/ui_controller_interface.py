@@ -137,11 +137,11 @@ class UIControllerInterface:
 
         # self.ui.stack.main_window.message_log_label.setText( str() )
 
-    def modify_interface_parameters(self, volume=self.modified_volume, bmp=self.modified_bmp, ie=self.modified_ie):
+    def modify_interface_parameters(self, volume=None, bpm=None, ie=None):
         # update local modified parameters
-        self.modified_volume = volume
-        self.modified_bpm = bpm
-        self.modified_ie = ie
+        if volume: self.modified_volume = volume
+        if bpm: self.modified_bpm = bpm
+        if ie: self.modified_ie = ie
 
         # update display elements
         self.ui.stack.edit_parameters.TV_label.setText( str(self.modified_volume) )
