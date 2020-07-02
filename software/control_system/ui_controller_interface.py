@@ -67,26 +67,31 @@ class UIControllerInterface:
             lambda: self.state_change()
         )
 
-        # start_homing window elements
+        """
+        start_homing window elements
+        """
         self.ui.stack.start_homing.start_button.clicked.connect(
             lambda: self.start_homing()
         )
 
-        # confirm_homing window elements
+        """
+        confirm_homing window elements
+        """
         self.ui.stack.confirm_homing.rehome_button.clicked.connect(
             lambda: self.try_controller_method( self.controller.start_homing )
         )
 
         self.update_label(self.ui.stack.confirm_homing.bag_size_label, self.controller.bag_size)     # TODO: format text as inches
 
-        # edit_parameters window elements
-
+        """
+        edit_parameters window elements
+        """
         def update_edit_parameters_elements():
             if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
                 self.ui.stack.edit_parameters.back_button.hide()
             else:
                 self.ui.stack.edit_parameters.back_button.show()
-        
+
         self.ui.stack.confirm_homing.confirm_button.clicked.connect(update_edit_parameters_elements)
         self.ui.stack.main_window.edit_parameters_button.clicked.connect(update_edit_parameters_elements)
 
@@ -114,8 +119,9 @@ class UIControllerInterface:
             lambda: self.modify_interface_parameters(ie=self.modified_ie - 1)
         )
 
-        # confirm_parameters window elements
-
+        """
+        confirm_parameters window elements
+        """
         def update_confirm_parameters_elements():
             if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
                 self.update_label(self.ui.stack.confirm_parameters.confirm_button, "Start")
@@ -125,7 +131,7 @@ class UIControllerInterface:
             self.update_label(self.ui.stack.confirm_parameters.confirm_TV_label, self.modified_volume)
             self.update_label(self.ui.stack.confirm_parameters.confirm_BPM_label, self.modified_bpm)
             self.update_label(self.ui.stack.confirm_parameters.confirm_IE_label, self.modified_ie)
-            
+
         self.ui.stack.edit_parameters.set_button.clicked.connect(update_confirm_parameters_elements)
 
         # begin main ventilate thread
@@ -133,7 +139,9 @@ class UIControllerInterface:
             lambda: self.start_ventilate_thread()
         )
 
-        # main_window window elements
+        """
+        main_window window elements
+        """
         self.update_label(self.ui.stack.main_window.set_TV_label, self.controller.volume)
         self.update_label(self.ui.stack.main_window.set_BPM_label, self.controller.bpm)
         self.update_label(self.ui.stack.main_window.set_IE_label, self.controller.ie)
@@ -183,19 +191,14 @@ class UIControllerInterface:
         self.threadpool.start(worker)
         print("New thread spawned: " + name)
 
-
     def start_homing(self):
         self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.homing)
-
         self.new_thread("homing_thread", self.controller.start_homing)
 
-
     def state_change(self):
-
         # switch window if homing successfuly completes
         if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
             self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)
-
 
     def try_controller_method(self, method, state_to_set=None, parameter=None):
         if state_to_set is not None:
@@ -210,7 +213,6 @@ class UIControllerInterface:
             self.alarm_handler.handle_alarms(alarm)
 
     def except_alarm_hook(args):
-
         if args.exc_type is type(Alarm):
             self.alarm_handler.handle_alarms(args.exc_value)   # TODO: verify that raising exception kills thread
 
