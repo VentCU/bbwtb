@@ -42,8 +42,8 @@ class PressureSensor:
 
 # takes channel data from transducer and coverts to psi
 def raw2data(value):
-    output_max = 1 #psi
-    output_min = -1 #psi
+    output_max = 14745 #psi
+    output_min = 1638 #psi
     pressure_max = 1
     pressure_min = -1
     output = (((value - output_min) * 
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     values_raw = []
     values_conv = []
     ctr = 0
-    while (ctr < 100):
+    while (ctr < 500):
         sleep(0.01)
         raw = i2c_test.get_raw_value()
         conv = i2c_test.get_pressure(raw)
@@ -91,16 +91,18 @@ if __name__ == "__main__":
         ctr += 1
     time = np.arange(ctr)
     
-    fd = open('unit_tests/ps_log.csv', 'w')   
+    fd = open('../unit_tests/ps_log.csv', 'w')   
     header = 'Time (0.01s), Raw, Conv'
     fd.write(header)
     fd.write('\n')
-    for time, raw, conv in zip(ctr, values_raw, values_conv):
-        line = f"{time}, {raw}, {conv}"
+    for t, raw, conv in zip(time, values_raw, values_conv):
+        line = f"{t}, {raw}, {conv}"
         fd.write(line)
         fd.write('\n')
-
-    plt.plot(time, np.asarray(values_raw))
-    plt.plot(time, np.asarray(values_conv))
+    
+    fig, (ax1, ax2) = plt.subplots(2)
+    fig.suptitle('Raw, Conv Pressure Readings vs Time (0.01s)')
+    ax1.plot(time, np.asarray(values_raw))
+    ax2.plot(time, np.asarray(values_conv))
     plt.show()
 
