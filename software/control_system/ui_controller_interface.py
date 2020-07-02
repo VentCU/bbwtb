@@ -78,7 +78,7 @@ class UIControllerInterface:
         confirm_homing window elements
         """
         self.ui.stack.confirm_homing.rehome_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.start_homing )
+            lambda: self.start_homing()
         )
 
         self.update_label(self.ui.stack.confirm_homing.bag_size_label, self.controller.bag_size)     # TODO: format text as inches
