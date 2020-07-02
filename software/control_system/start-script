@@ -1,0 +1,23 @@
+#!/bin/bash
+
+printf "Starting GPIO Daemon\n"
+if ! pgrep -x "pigpiod" > /dev/null
+then
+	sudo pigpiod	
+fi
+
+printf "Locating constrol software directory\n"
+cd ~/bbwtb/software/control_system
+
+printf "Pulling latest software version\n"
+git pull
+
+
+printf "Resetting and energizing motor\n"
+ticcmd --reset
+ticcmd --resume
+
+printf "Running ventilator\n"
+python3 ventilator.py
+
+printf "\n"

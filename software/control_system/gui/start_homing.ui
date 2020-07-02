@@ -75,7 +75,7 @@ border-radius: 4px;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 24pt &quot;Nimbus sans L&quot;;
+      <string notr="true">font: 24pt &quot;Arial&quot;;
 border-style: none;
 color: #EAEAEA;
 background-color: none;</string>
@@ -94,7 +94,7 @@ start homing procedure, click &quot;Start&quot;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>-30</y>
+      <y>-20</y>
       <width>781</width>
       <height>111</height>
      </rect>
@@ -148,7 +148,7 @@ border-color: #EAEAEA;
 padding: 2px;
 font:36pt &quot;Nimbus sans L&quot;;
 color: #EAEAEA;
-border-radius: 4px;
+border-radius: 10px;
 </string>
        </property>
        <property name="text">
@@ -199,7 +199,7 @@ border-color: #495867;
 padding: 2px;
 font:36pt &quot;Nimbus sans L&quot;;
 color: #292F36;
-border-radius: 4px;</string>
+border-radius: 10px;</string>
        </property>
        <property name="text">
         <string>Start</string>
@@ -215,7 +215,7 @@ border-radius: 4px;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
+      <y>10</y>
       <width>71</width>
       <height>61</height>
      </rect>
@@ -224,7 +224,7 @@ border-radius: 4px;</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/WhiteVLogo.png</pixmap>
+     <pixmap>WhiteVLogo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>

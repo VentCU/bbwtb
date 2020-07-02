@@ -121,7 +121,7 @@ class VentilatorController:
 
         print("State change: " + self.current_state.name, end="")
 
-        with self._state_lock:  
+        with self._state_lock:
             self._entering_state = True
             self.current_state = state
             self._t_state_timer = time.now()
@@ -130,7 +130,7 @@ class VentilatorController:
 
         print(" --> " + self.current_state.name)
 
-        
+
     # calculate time parameters of ventilation
     def calculate_wave_form(self, tidal_volume, ie_ratio, bpm):
 
@@ -354,6 +354,7 @@ class VentilatorController:
 
         # contact with both switches -- error
         elif self.upper_switch.contacted() and self.lower_switch.contacted():
+            self.motor.stop()
             raise HOMING_ALARM("Both contact switches are pressed")
 
     def contact_switch_callback(self, status):
@@ -402,11 +403,14 @@ class VentilatorController:
 
     def update_bpm(self, value):
         self.bpm = value
+        print('BPM set to: ' + str(value))
 
     def update_ie(self, value):
         self.ie = value
+        print('IE set to: ' + str(value))
 
     def update_tidal_volume(self, value):
         self.volume = value
+        print('TV set to: ' + str(value))
 
     # TODO: write alarm functions -> sound buzzer, etc.

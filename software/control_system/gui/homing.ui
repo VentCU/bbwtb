@@ -70,7 +70,7 @@ color: #EAEAEA</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/PmpqDjP-outline-of-simple-house-vector.png</pixmap>
+     <pixmap>house_image.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -82,7 +82,7 @@ color: #EAEAEA</string>
       <x>10</x>
       <y>10</y>
       <width>71</width>
-      <height>61</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
