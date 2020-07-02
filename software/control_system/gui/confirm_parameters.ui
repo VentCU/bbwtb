@@ -68,7 +68,7 @@ border-radius: 4px;</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="confirm_ie_label">
+    <widget class="QLabel" name="confirm_IE_label">
      <property name="geometry">
       <rect>
        <x>390</x>
@@ -89,7 +89,7 @@ color: #EAEAEA</string>
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="confirm_tidal_label">
+    <widget class="QLabel" name="confirm_TV_label">
      <property name="geometry">
       <rect>
        <x>390</x>
@@ -110,7 +110,7 @@ color: #EAEAEA</string>
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="confirm_bpm_label">
+    <widget class="QLabel" name="confirm_BPM_label">
      <property name="geometry">
       <rect>
        <x>390</x>

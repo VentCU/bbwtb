@@ -77,15 +77,15 @@ class UIControllerInterface:
             lambda: self.try_controller_method( self.controller.start_homing )
         )
 
-        self.ui.stack.confirm_homing.bag_size_label.setText( str(self.controller.bag_size) )     # TODO: format text as inches
+        self.update_label(self.ui.stack.confirm_homing.bag_size_label, self.controller.bag_size)     # TODO: format text as inches
 
         # edit_parameters window elements
         if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
             self.ui.stack.edit_parameters.back_button.hide()
 
-        self.ui.stack.edit_parameters.TV_label.setText( str(self.controller.volume) )
-        self.ui.stack.edit_parameters.BPM_label.setText( str(self.controller.bpm) )
-        self.ui.stack.edit_parameters.IE_label.setText( str(self.controller.ie) )
+        self.update_label(self.ui.stack.edit_parameters.TV_label, self.controller.volume)
+        self.update_label(self.ui.stack.edit_parameters.BPM_label, self.controller.bpm)
+        self.update_label(self.ui.stack.edit_parameters.IE_label, self.controller.ie)
 
         # TODO: redefine logical values for increasing and decreasing
         self.ui.stack.edit_parameters.tidal_increase_button.clicked.connect(
@@ -95,58 +95,65 @@ class UIControllerInterface:
             lambda: self.modify_interface_parameters(volume=self.modified_volume - 1)
         )
         self.ui.stack.edit_parameters.bpm_increase_button.clicked.connect(
-            lambda: self.modify_interface_parameters(volume=self.modified_bpm + 1)
+            lambda: self.modify_interface_parameters(bpm=self.modified_bpm + 1)
         )
         self.ui.stack.edit_parameters.bpm_decrease_button.clicked.connect(
-            lambda: self.modify_interface_parameters(volume=self.modified_bpm - 1)
+            lambda: self.modify_interface_parameters(bpm=self.modified_bpm - 1)
         )
         self.ui.stack.edit_parameters.ie_increase_button.clicked.connect(
-            lambda: self.modify_interface_parameters(volume=self.modified_ie + 1)
+            lambda: self.modify_interface_parameters(ie=self.modified_ie + 1)
         )
         self.ui.stack.edit_parameters.ie_decrease_button.clicked.connect(
-            lambda: self.modify_interface_parameters(volume=self.modified_ie - 1)
+            lambda: self.modify_interface_parameters(ie=self.modified_ie - 1)
         )
 
         # confirm_parameters window elements
-        if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
-            self.ui.stack.confirm_parameters.confirm_button.setText( "Start Ventilation" )
-        else:
-            self.ui.stack.confirm_parameters.confirm_button.setText( "Confirm" )      # TODO: determine if necessary
+        self.update_label(self.ui.stack.confirm_parameters.confirm_TV_label, self.modified_volume)
+        self.update_label(self.ui.stack.confirm_parameters.confirm_BPM_label, self.modified_bpm)
+        self.update_label(self.ui.stack.confirm_parameters.confirm_IE_label, self.modified_ie)
 
+        def update_confirm_or_start_button():
+            if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
+                self.update_label(self.ui.stack.confirm_parameters.confirm_button, "Start Ventilation" )
+            else:
+                self.update_label(self.ui.stack.confirm_parameters.confirm_button,  "Confirm" )
+
+        self.ui.stack.edit_parameters.confirm_button.clicked.connect(update_confirm_or_start_button)
+
+        # begin main ventilate thread
         self.ui.stack.confirm_parameters.confirm_button.clicked.connect(
             lambda: self.start_ventilate_thread()
         )
 
         # main_window window elements
-        self.ui.stack.main_window.set_TV_label.setText( str(self.controller.volume) )
-        self.ui.stack.main_window.set_BPM_label.setText( str(self.controller.bpm) )
-        self.ui.stack.main_window.set_IE_label.setText( str(self.controller.ie) )
+        self.update_label(self.ui.stack.main_window.set_TV_label, self.controller.volume)
+        self.update_label(self.ui.stack.main_window.set_BPM_label, self.controller.bpm)
+        self.update_label(self.ui.stack.main_window.set_IE_label, self.controller.ie)
 
         # TODO: connect graph to pressure data from controller
 
         # TODO: connect the following
-        # self.ui.stack.main_window.set_PEEP_label.setText( str() )
-        # self.ui.stack.main_window.set_PIP_label.setText( str() )
-        # self.ui.stack.main_window.set_PLAT_label.setText( str() )
-        # self.ui.stack.main_window.measured_TV_label.setText( str() )
-        # self.ui.stack.main_window.measured_BPM_label.setText( str() )
-        # self.ui.stack.main_window.measured_IE_label.setText( str() )
-        # self.ui.stack.main_window.measured_PEEP_label.setText( str() )
-        # self.ui.stack.main_window.measured_PIP_label.setText( str() )
-        # self.ui.stack.main_window.measured_PLAT_label.setText( str() )
-
-        # self.ui.stack.main_window.message_log_label.setText( str() )
+        # self.update_label(self.ui.stack.main_window.set_PEEP_label, value )
+        # self.update_label(self.ui.stack.main_window.set_PIP_label, value )
+        # self.update_label(self.ui.stack.main_window.set_PLAT_label, value )
+        # self.update_label(self.ui.stack.main_window.measured_TV_label, value )
+        # self.update_label(self.ui.stack.main_window.measured_BPM_label, value )
+        # self.update_label(self.ui.stack.main_window.measured_IE_label, value )
+        # self.update_label(self.ui.stack.main_window.measured_PEEP_label, value )
+        # self.update_label(self.ui.stack.main_window.measured_PIP_label, value )
+        # self.update_label(self.ui.stack.main_window.measured_PLAT_label, value )
+        # self.update_label(self.ui.stack.main_window.message_log_label, value )
 
     def modify_interface_parameters(self, volume=None, bpm=None, ie=None):
         # update local modified parameters
-        if volume: self.modified_volume = volume
-        if bpm: self.modified_bpm = bpm
-        if ie: self.modified_ie = ie
+        if volume: self.modified_volume = volume    # TODO: add bounds
+        if bpm: self.modified_bpm = bpm             # TODO: add bounds
+        if ie: self.modified_ie = ie                # TODO: add bounds
 
         # update display elements
-        self.ui.stack.edit_parameters.TV_label.setText( str(self.modified_volume) )
-        self.ui.stack.edit_parameters.BPM_label.setText( str(self.modified_bpm) )
-        self.ui.stack.edit_parameters.IE_label.setText( str(self.modified_ie) )
+        self.update_label(self.ui.stack.edit_parameters.TV_label, self.modified_volume)
+        self.update_label(self.ui.stack.edit_parameters.BPM_label, self.modified_bpm)
+        self.update_label(self.ui.stack.edit_parameters.IE_label, self.modified_ie)
 
     def start_ventilate_thread(self):
         # update controller parameters from interface parameters
@@ -156,6 +163,9 @@ class UIControllerInterface:
 
         # spawn ventilate thread
         self.new_thread("ventilate_thread", self.controller.start_ventilation)
+
+    def update_label(self, label, value):
+        label.setText( str(value) )
 
     def new_thread(self, name, target_method):
         """ self.new_thread = threading.Thread(target=target_method, args=(), daemon=True)
