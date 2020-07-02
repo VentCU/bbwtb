@@ -68,7 +68,7 @@ border-radius: 4px;</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="tidal_volume_label_2">
+    <widget class="QLabel" name="confirm_ie_label">
      <property name="geometry">
       <rect>
        <x>390</x>
@@ -89,7 +89,7 @@ color: #EAEAEA</string>
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="confirm_bpm_label">
+    <widget class="QLabel" name="confirm_tidal_label">
      <property name="geometry">
       <rect>
        <x>390</x>
@@ -110,7 +110,7 @@ color: #EAEAEA</string>
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="confirm_ie_label">
+    <widget class="QLabel" name="confirm_bpm_label">
      <property name="geometry">
       <rect>
        <x>390</x>
@@ -134,9 +134,9 @@ color: #EAEAEA</string>
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>40</x>
+       <x>48</x>
        <y>30</y>
-       <width>329</width>
+       <width>321</width>
        <height>44</height>
       </rect>
      </property>
@@ -155,9 +155,9 @@ color: #EAEAEA</string>
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>48</x>
        <y>70</y>
-       <width>329</width>
+       <width>331</width>
        <height>51</height>
       </rect>
      </property>
@@ -176,9 +176,9 @@ color: #EAEAEA</string>
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>48</x>
        <y>120</y>
-       <width>329</width>
+       <width>331</width>
        <height>51</height>
       </rect>
      </property>

@@ -207,7 +207,7 @@ color: 292F36;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Calibri&quot;;
+         <string notr="true">font: 12pt &quot;Calibri&quot;;
 border: none;
 color: #EAEAEA;</string>
         </property>
@@ -382,7 +382,7 @@ color: 292F36;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Calibri&quot;;
+         <string notr="true">font: 12pt &quot;Calibri&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>
@@ -563,7 +563,7 @@ color: 292F36;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Calibri&quot;;
+         <string notr="true">font: 12pt &quot;Calibri&quot;;
 border: none;
 color: #EAEAEA;
 background: none;</string>

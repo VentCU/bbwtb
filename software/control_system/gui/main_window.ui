@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>480</height>
+    <height>517</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>800</width>
-    <height>480</height>
+    <height>1000</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -144,7 +144,7 @@ border-color: #495867;
 border-radius: 4px;</string>
        </property>
        <property name="text">
-        <string> TV</string>
+        <string>TV</string>
        </property>
       </widget>
      </item>
@@ -160,7 +160,7 @@ border-radius: 4px;
 </string>
        </property>
        <property name="text">
-        <string> BPM</string>
+        <string>BPM</string>
        </property>
       </widget>
      </item>
@@ -176,7 +176,7 @@ border-radius: 4px;
 </string>
        </property>
        <property name="text">
-        <string> I:E</string>
+        <string>I:E</string>
        </property>
       </widget>
      </item>
@@ -191,7 +191,7 @@ color: #EAEAEA;
 border-radius: 4px;</string>
        </property>
        <property name="text">
-        <string> PIP</string>
+        <string>PIP</string>
        </property>
       </widget>
      </item>
@@ -206,7 +206,7 @@ color: #EAEAEA;
 border-radius: 4px;</string>
        </property>
        <property name="text">
-        <string> PEEP</string>
+        <string>PEEP</string>
        </property>
       </widget>
      </item>
@@ -222,7 +222,7 @@ border-radius: 4px;
 </string>
        </property>
        <property name="text">
-        <string> PLAT</string>
+        <string>PLAT</string>
        </property>
       </widget>
      </item>
@@ -244,10 +244,10 @@ border-radius: 4px;
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -260,10 +260,10 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -276,10 +276,10 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -292,10 +292,10 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -308,10 +308,10 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -324,10 +324,10 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -352,10 +352,10 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -368,10 +368,10 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -384,10 +384,10 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <string notr="true">color: #292F36;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -400,10 +400,10 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -416,10 +416,10 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -432,10 +432,10 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
         <string notr="true">color: #EAEAEA;
 background-color: None;
 border-style: none;
-font: 38pt &quot;Nimbus sans L&quot;;</string>
+font: 32pt &quot;Nimbus sans L&quot;;</string>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -476,7 +476,7 @@ font: 38pt &quot;Nimbus sans L&quot;;</string>
       <x>0</x>
       <y>-40</y>
       <width>801</width>
-      <height>491</height>
+      <height>541</height>
      </rect>
     </property>
     <property name="styleSheet">
