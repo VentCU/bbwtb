@@ -335,7 +335,14 @@ class VentilatorController:
             # TODO: set bag_size appropriately
 
             # change state
-            self.set_state(self.HOMING_VERIF_STATE)
+            if self._homing_dir != 1:
+                print(self.motor_lower_target)
+                print(self.motor_upper_target)
+                self.set_state(self.HOMING_VERIF_STATE)
+            else:
+                # TODO: raise alarm that reached lower bound without reaching upper, delete print statements
+                print("reached lower bound before upper bound")
+                print("check pulley winding")
 
             self.log_motor_position("Homing lower bound reached")
             print("=== Homing Finished ===")
