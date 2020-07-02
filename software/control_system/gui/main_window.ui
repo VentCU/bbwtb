@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>517</height>
+    <height>480</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>800</width>
-    <height>1000</height>
+    <height>480</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -476,7 +476,7 @@ font: 32pt &quot;Nimbus sans L&quot;;</string>
       <x>0</x>
       <y>-40</y>
       <width>801</width>
-      <height>541</height>
+      <height>531</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -493,17 +493,6 @@ font: 32pt &quot;Nimbus sans L&quot;;</string>
    <zorder>verticalLayoutWidget_2</zorder>
    <zorder>layoutWidget_2</zorder>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
   <customwidget>

@@ -65,9 +65,9 @@ border-radius: 4px;</string>
        <widget class="QLabel" name="tidal_volume_label">
         <property name="geometry">
          <rect>
-          <x>10</x>
+          <x>0</x>
           <y>10</y>
-          <width>221</width>
+          <width>241</width>
           <height>31</height>
          </rect>
         </property>
