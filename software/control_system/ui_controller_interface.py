@@ -24,7 +24,7 @@ class Worker(QRunnable):
 
     Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
 
-    :param callback: The function callback to run on this worker thread. Supplied args and 
+    :param callback: The function callback to run on this worker thread. Supplied args and
                      kwargs will be passed through to the runner.
     :type callback: function
     :param args: Arguments to pass to the callback function
@@ -36,7 +36,7 @@ class Worker(QRunnable):
         self.fn = fn
         self.args = args
         self.kwargs = kwargs
-    
+
     @pyqtSlot()
     def run(self):
         '''
@@ -54,6 +54,10 @@ class UIControllerInterface:
         self.threadpool = QThreadPool()
         self.alarm_handler = AlarmHandler(self.ui, self.controller)
         threading.excepthook = self.except_alarm_hook
+
+        self.modified_volume = self.controller.volume
+        self.modified_bpm = self.controller.bpm
+        self.modified_ie = self.controller.ie
 
         self.interface_elements()
 
@@ -85,24 +89,22 @@ class UIControllerInterface:
 
         # TODO: redefine logical values for increasing and decreasing
         self.ui.stack.edit_parameters.tidal_increase_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_tidal_volume, None, (self.controller.volume + 1) )
+            lambda: self.modify_interface_parameters(volume=self.modified_volume + 1)
         )
         self.ui.stack.edit_parameters.tidal_decrease_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_tidal_volume(self.controller.volume - 1) )
+            lambda: self.modify_interface_parameters(volume=self.modified_volume - 1)
         )
-
         self.ui.stack.edit_parameters.bpm_increase_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_bpm(self.controller.bpm + 1) )
+            lambda: self.modify_interface_parameters(volume=self.modified_bpm + 1)
         )
         self.ui.stack.edit_parameters.bpm_decrease_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_bpm(self.controller.bpm - 1) )
+            lambda: self.modify_interface_parameters(volume=self.modified_bpm - 1)
         )
-
         self.ui.stack.edit_parameters.ie_increase_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_ie(self.controller.ie + 1) )
+            lambda: self.modify_interface_parameters(volume=self.modified_ie + 1)
         )
         self.ui.stack.edit_parameters.ie_decrease_button.clicked.connect(
-            lambda: self.try_controller_method( self.controller.update_ie(self.controller.ie - 1) )
+            lambda: self.modify_interface_parameters(volume=self.modified_ie - 1)
         )
 
         # confirm_parameters window elements
@@ -110,13 +112,9 @@ class UIControllerInterface:
             self.ui.stack.confirm_parameters.confirm_button.setText( "Start Ventilation" )
         else:
             self.ui.stack.confirm_parameters.confirm_button.setText( "Confirm" )      # TODO: determine if necessary
-        
-        print(self.controller.ie)
-        print(self.controller.bpm)
-        print(self.controller.volume)
 
         self.ui.stack.confirm_parameters.confirm_button.clicked.connect(
-            lambda: self.new_thread("ventilate_thread", self.controller.start_ventilation)
+            lambda: self.start_ventilate_thread()
         )
 
         # main_window window elements
@@ -139,7 +137,25 @@ class UIControllerInterface:
 
         # self.ui.stack.main_window.message_log_label.setText( str() )
 
+    def modify_interface_parameters(self, volume=self.modified_volume, bmp=self.modified_bmp, ie=self.modified_ie):
+        # update local modified parameters
+        self.modified_volume = volume
+        self.modified_bpm = bpm
+        self.modified_ie = ie
 
+        # update display elements
+        self.ui.stack.edit_parameters.TV_label.setText( str(self.modified_volume) )
+        self.ui.stack.edit_parameters.BPM_label.setText( str(self.modified_bpm) )
+        self.ui.stack.edit_parameters.IE_label.setText( str(self.modified_ie) )
+
+    def start_ventilate_thread(self):
+        # update controller parameters from interface parameters
+        self.try_controller_method( self.controller.update_tidal_volume, parameter=self.modified_volume )
+        self.try_controller_method( self.controller.update_bpm, parameter=self.modified_bpm )
+        self.try_controller_method( self.controller.update_ie, parameter=self.modified_ie )
+
+        # spawn ventilate thread
+        self.new_thread("ventilate_thread", self.controller.start_ventilation)
 
     def new_thread(self, name, target_method):
         """ self.new_thread = threading.Thread(target=target_method, args=(), daemon=True)
@@ -157,7 +173,7 @@ class UIControllerInterface:
 
 
     def state_change(self):
-    
+
         # switch window if homing successfuly completes
         if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
             self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)
