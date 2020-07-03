@@ -33,13 +33,19 @@ class State:
     def __init__(self, name):
         self.name = name
 
+
 class StateChangeSender(QtCore.QObject):
     state_change_signal = pyqtSignal()
+
+
+class ShutdownSender(QtCore.QObject):
+    shutdown_signal = pyqtSignal()
 
 
 class VentilatorController:
 
     state_change_sender = StateChangeSender()
+    shutdown_sender = ShutdownSender()
 
     def __init__(self, motor, pressure_sensor, upper_switch, lower_switch):
 
