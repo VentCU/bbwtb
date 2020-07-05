@@ -5,7 +5,7 @@ TIC_ONE_ROTATION = 12800
 
 # motion constants
 HOMING_VELOCITY = 4000000
-VELOCITY_FACTOR = 1/12
+VELOCITY_FACTOR = 2/12
 
 # time constants (s)
 MIN_EXP_PAUSE = 0.25   # TODO
