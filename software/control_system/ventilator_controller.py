@@ -171,7 +171,7 @@ class VentilatorController:
 
     def start_ventilation(self):
 
-        self.current_state = self.START_STATE
+        self.set_state(self.START_STATE)
 
         while True:
             self.ventilate()
