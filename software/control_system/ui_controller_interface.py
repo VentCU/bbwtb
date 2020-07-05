@@ -212,9 +212,8 @@ class UIControllerInterface:
         except Alarm as alarm:
             self.alarm_handler.handle_alarms(alarm)
 
-    def except_alarm_hook(args):
+    def except_alarm_hook(self, args):
         if args.exc_type is type(Alarm):
             self.alarm_handler.handle_alarms(args.exc_value)   # TODO: verify that raising exception kills thread
-
         else:
             raise args.exec_value
