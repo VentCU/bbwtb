@@ -9,7 +9,7 @@ VELOCITY_FACTOR = 1/12
 
 # time constants (s)
 MIN_EXP_PAUSE = 0.25   # TODO
-INSP_HOLD_DUR = 0.25   # TODO
+INSP_HOLD_DUR = 0.025   # TODO
 MAX_EXP_DUR = 0.25     # TODO
 
 # safety constants

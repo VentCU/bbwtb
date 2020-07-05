@@ -30,4 +30,5 @@ if __name__ == "__main__":
 
     controller.start_homing()
 
+    print("Start ventilation...")
     controller.start_ventilation()
