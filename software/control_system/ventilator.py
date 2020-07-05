@@ -11,6 +11,7 @@ import pigpio
 from actuators.motor import Motor
 from sensors.rotary_encoder import RotaryEncoder
 from sensors.limit_switch import LimitSwitch
+from sensors.power_switch import PowerSwitch
 from sensors.pressure_sensor import PressureSensor
 from configs.gpio_map import *
 # from sensors.flow_sensor import FlowSensor
@@ -28,6 +29,7 @@ class Ventilator:
         self.encoder = RotaryEncoder(pigpio.pi(), ENCODER_B_PLUS_PIN, ENCODER_A_PLUS_PIN)
         self.contact_switch = LimitSwitch(CONTACT_SWITCH_PIN)
         self.absolute_switch = LimitSwitch(ABSOLUTE_SWITCH_PIN)
+        self.power_switch = PowerSwitch(POWER_SWITCH_PIN)
         # self.pressure_sensor = PressureSensor()
         # self.flow_sensor = FlowSensor(FLOW_SENSOR_PIN)
 
@@ -38,7 +40,8 @@ class Ventilator:
         self.controller = VentilatorController(self.motor,
                                                None,
                                                self.absolute_switch,
-                                               self.contact_switch)
+                                               self.contact_switch,
+                                               self.power_switch)
 
         # instantiate ui
         self.ui = UI()

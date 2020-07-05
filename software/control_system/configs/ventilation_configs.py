@@ -5,12 +5,12 @@ TIC_ONE_ROTATION = 12800
 
 # motion constants
 HOMING_VELOCITY = 4000000
-VELOCITY_FACTOR = 1/12
+VELOCITY_FACTOR = 2/12
 
 # time constants (s)
-MIN_EXP_PAUSE = 0.25   # TODO
-INSP_HOLD_DUR = 0.25   # TODO
-MAX_EXP_DUR = 0.25     # TODO
+MIN_EXP_PAUSE = 0.025   # TODO
+INSP_HOLD_DUR = 0.025   # TODO
+MAX_EXP_DUR = 1.25     # TODO
 
 # safety constants
 MAX_PRESSURE = 40.0         # TODO
