@@ -47,7 +47,7 @@ class VentilatorController:
     state_change_sender = StateChangeSender()
     shutdown_sender = ShutdownSender()
 
-    def __init__(self, motor, pressure_sensor, upper_switch, lower_switch):
+    def __init__(self, motor, pressure_sensor, upper_switch, lower_switch, power_switch):
 
         # alarms
         self.current_alarms = []
@@ -93,9 +93,11 @@ class VentilatorController:
         self.pressure_sensor = pressure_sensor
         self.upper_switch = upper_switch
         self.lower_switch = lower_switch
+        self.power_switch = power_switch
 
         self.lower_switch.callback = self.contact_switch_callback
         self.upper_switch.callback = self.limit_switch_callback
+        self.power_switch.callback = self.power_switch_callback
 
         # motion get_variables
         self.bag_clear_pos = 0
@@ -204,6 +206,7 @@ class VentilatorController:
             if self._entering_state:
                 self._entering_state = False
 
+        # INSP_STATE
         # ==
         elif self.current_state is self.INSP_STATE:
             if self._entering_state:
@@ -211,8 +214,8 @@ class VentilatorController:
                 self._t_period_actual = time.now() - self._t_cycle_start
                 self._t_cycle_start = time.now()
                 self.calculate_wave_form(tidal_volume=self.volume,
-                                 ie_ratio=self.ie,
-                                 bpm=self.bpm)
+                                         ie_ratio=self.ie,
+                                         bpm=self.bpm)
                 self.cycle_count += 1
 
             # TODO: change/update this method
@@ -381,9 +384,13 @@ class VentilatorController:
         on the frame comes into contact with the arm
         @param status: the status of the switch
         """
-#         if self.current_state is not self.HOMING_STATE:
-#             self.stop_ventilation()
-#             raise SYSTEM_ALARM("Limit switch tripped")
+        #         if self.current_state is not self.HOMING_STATE:
+        #             self.stop_ventilation()
+        #             raise SYSTEM_ALARM("Limit switch tripped")
+        pass
+
+    def power_switch_callback(self, status):
+
         pass
 
     def bpm_to_velocity_constant(self):
