@@ -252,8 +252,9 @@ class VentilatorController:
             result, _ = self.motor.move_to_encoder_pose(pose=self.motor_current_target,
                                                         vel_const=self.bpm_to_velocity_constant())
 
+            # self.log_motor_position("EXP_STATE: Log lower target reached")
             if self.motor.encoder_position() == self.motor_upper_target and result is True:
-                self.log_motor_position()
+                # self.log_motor_position("EXP_STATE: Log upper target reached")
                 self.motor_current_target = self.motor_lower_target
                 self.set_state(self.EXP_PAUSE_STATE)
             # TODO: commenting out for now because time is a construct
@@ -268,7 +269,8 @@ class VentilatorController:
             self.motor.stop()
 
             if time.now() > self._t_exp_pause_end:
-                self.set_state(self.HOMING_VERIF_STATE)
+                self.set_state(self.INSP_STATE)
+                # self.set_state(self.HOMING_VERIF_STATE)
 
         # ==
         elif self.current_state is self.PAUSE_STATE: # TODO: define off behavior
@@ -340,7 +342,7 @@ class VentilatorController:
             self.contact_tic_val = self.motor.motor_position()
 
             # todo: need to change this
-            self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * 1 / 5)
+            self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * 2 / 5)
             self.motor_upper_target = int(self._pose_at_contact + ENCODER_ONE_ROTATION * 1 / 100)
             self.motor_current_target = self.motor_lower_target
 
