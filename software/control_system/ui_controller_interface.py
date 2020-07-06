@@ -67,6 +67,10 @@ class UIControllerInterface:
             lambda: self.state_change()
         )
 
+        self.controller.shutdown_sender.shutdown_signal.connect(
+            lambda: self.try_controller_method( self.controller.set_state, parameters=self.controller.OFF_STATE )
+        )
+
         """
         start_homing window elements
         """

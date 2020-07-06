@@ -210,7 +210,7 @@ class VentilatorController:
         # INSP_STATE
         # ==
         elif self.current_state is self.INSP_STATE:
-            
+
             if self._entering_state:
                 self._entering_state = False
                 self._t_period_actual = time.now() - self._t_cycle_start
@@ -276,11 +276,13 @@ class VentilatorController:
         elif self.current_state is self.PAUSE_STATE: # TODO: define off behavior
             if self._entering_state:
                 self._entering_state = False
+            self.motor.stop()
 
         # ==
         elif self.current_state is self.OFF_STATE:  # TODO: define off behavior
             if self._entering_state:
                 self._entering_state = False
+            self.motor.stop()
 
         # ==
         if self.current_state is self.DEBUG_STATE:  # TODO: define debug behavior
