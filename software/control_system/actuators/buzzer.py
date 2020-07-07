@@ -33,16 +33,15 @@ def buzzer_test():
     while(beep_ctr < 5):
         beep_ctr +=1
         
-        dur_ctr = 0
-        while(dur_ctr < 100000):
-            dur_ctr += 1
-            buzzer1.enable_buzzer()
-            buzzer2.enable_buzzer()
+        buzzer1.enable_buzzer()
+        buzzer2.enable_buzzer()
         
+        sleep(.1)
+
         buzzer1.disable_buzzer()
         buzzer2.disable_buzzer()
 
-        sleep(1)
+        sleep(.1)
 
 if __name__ == "__main__":
     buzzer_test()
