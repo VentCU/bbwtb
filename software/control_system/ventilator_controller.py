@@ -230,8 +230,8 @@ class VentilatorController:
                 self.motor_current_target = self.motor_upper_target
                 self.set_state(self.INSP_PAUSE_STATE)
             # TODO: commenting out for now because time is a construct
-            if time.now() > self._t_insp_end:
-               raise SYSTEM_ALARM("Inspiration exceeds time limit")
+            # if time.now() > self._t_insp_end:
+            #    raise SYSTEM_ALARM("Inspiration exceeds time limit")
 
         # ==
         elif self.current_state is self.INSP_PAUSE_STATE:
@@ -258,8 +258,8 @@ class VentilatorController:
                 self.motor_current_target = self.motor_lower_target
                 self.set_state(self.EXP_PAUSE_STATE)
             # TODO: commenting out for now because time is a construct
-            if time.now() > self._t_exp_end:
-               raise SYSTEM_ALARM("Expiration exceeds time limit")
+            # if time.now() > self._t_exp_end:
+            #    raise SYSTEM_ALARM("Expiration exceeds time limit")
 
         # ==
         elif self.current_state is self.EXP_PAUSE_STATE:
@@ -344,7 +344,7 @@ class VentilatorController:
             self.contact_tic_val = self.motor.motor_position()
 
             # todo: need to change this
-            self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * 2 / 5)
+            self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * 3 / 5)
             self.motor_upper_target = int(self._pose_at_contact + ENCODER_ONE_ROTATION * 1 / 100)
             self.motor_current_target = self.motor_lower_target
 
