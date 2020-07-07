@@ -186,7 +186,7 @@ class VentilatorController:
 
         # main finite state machine
 
-        # ==
+        # == START_STATE == #
         if self.current_state is self.START_STATE:
             if self._entering_state:
                 self._entering_state = False
@@ -195,20 +195,19 @@ class VentilatorController:
             self.set_state(self.INSP_STATE)
             self.current_state = self.INSP_STATE
 
-        # ==
+        # == HOMING_STATE == #
         elif self.current_state is self.HOMING_STATE:
             if self._entering_state:
                 self._entering_state = False
 
             # do nothing, ui_controller_interface will spawn homing thread
 
-        # ==
+        # == HOMING_VERIF_STATE == #
         elif self.current_state is self.HOMING_VERIF_STATE:
             if self._entering_state:
                 self._entering_state = False
 
-        # INSP_STATE
-        # ==
+        # == INSP_STATE == #
         elif self.current_state is self.INSP_STATE:
 
             if self._entering_state:
@@ -233,7 +232,7 @@ class VentilatorController:
             if time.now() > self._t_insp_end:
                raise SYSTEM_ALARM("Inspiration exceeds time limit")
 
-        # ==
+        # == INSP_PAUSE_STATE == #
         elif self.current_state is self.INSP_PAUSE_STATE:
             if self._entering_state:
                 self._entering_state = False
@@ -243,7 +242,7 @@ class VentilatorController:
             if time.now() > self._t_insp_pause_end:
                 self.set_state(self.EXP_STATE)
 
-        # ==
+        # == EXP_STATE == #
         elif self.current_state is self.EXP_STATE:
             if self._entering_state:
                 self._entering_state = False
@@ -261,7 +260,7 @@ class VentilatorController:
             if time.now() > self._t_exp_end:
                raise SYSTEM_ALARM("Expiration exceeds time limit")
 
-        # ==
+        # == EXP_PAUSE_STATE == #
         elif self.current_state is self.EXP_PAUSE_STATE:
             if self._entering_state:
                 self._entering_state = False
@@ -272,19 +271,19 @@ class VentilatorController:
                 self.set_state(self.INSP_STATE)
                 # self.set_state(self.HOMING_VERIF_STATE)
 
-        # ==
+        # == PAUSE_STATE == #
         elif self.current_state is self.PAUSE_STATE: # TODO: define off behavior
             if self._entering_state:
                 self._entering_state = False
             self.motor.stop()
 
-        # ==
+        # == OFF_STATE == #
         elif self.current_state is self.OFF_STATE:  # TODO: define off behavior
             if self._entering_state:
                 self._entering_state = False
             self.motor.stop()
 
-        # ==
+        # == DEBUG_STATE == #
         if self.current_state is self.DEBUG_STATE:  # TODO: define debug behavior
             self.motor.stop()
 
