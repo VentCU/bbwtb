@@ -26,23 +26,25 @@ class Motor:
         """
         self.tic_device.set_target_velocity(velocity)
 
-    def move_to_encoder_pose_with_dur(self, pose, dur):
+    def move_to_encoder_pose_with_dur(self, pose, dist, dur):
         """
         use a pid controller to reach the target position specified in the
         parameter of the method over the duration specified in the parameter
         of the method.
 
         @param pose: the target position of the motor
-        @param pose: the target duration the move should take (in seconds)
+        @param dist: the total distance the motor should move
+        @param dur: the target duration the move should take (in seconds)
         @return:     true of the motor has reached its goal
         """
 
         if dur <= 0: return False   # cannot move in negative or zero time
 
-        distance = abs(pose - self.encoder_position())
-        scale_factor = PID_TIME_SCALE_FACTOR * distance / dur
-
-        self.move_to_encoder_pose(pose, vel_const=scale_factor)
+        scale_factor = PID_TIME_SCALE_FACTOR * abs(dist) / dur
+        if scale_factor > 10: scale_factor = 10  # TODO: replace with max vel const
+        elif scale_factor < 0.01: scale_factor = 0.01  #TODO: replace with min vel const
+        
+        return self.move_to_encoder_pose(pose, vel_const=scale_factor)
 
     def move_to_encoder_pose(self, pose, vel_const=1):
         """
@@ -52,7 +54,7 @@ class Motor:
 
         @param vel_const: the constant that get multiplied to the pid output
         @param pose: the target position of the motor
-        @return:     true of the motor has reached its goal
+        @return:     true if the motor has reached its goal
         """
 
         self.pid.setpoint = pose
@@ -88,21 +90,3 @@ class Motor:
               "\n"
               "Warning: program should exit\n")
 
-
-def motor_test():
-
-    import time
-    import pigpio
-    from ..configs.gpio_map import *
-
-    encoder = RotaryEncoder(pigpio.pi(), ENCODER_B_PLUS_PIN, ENCODER_A_PLUS_PIN)
-    motor = Motor(encoder)
-
-    start = time.time()
-    motor.move_to_encoder_pose_with_dur(motor.encoder_position()+100, 10)
-    end = time.time()
-
-    print(end - start)
-
-if __name__ == "__main__":
-    motor_test()
