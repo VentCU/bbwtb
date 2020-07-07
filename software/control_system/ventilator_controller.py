@@ -396,8 +396,13 @@ class VentilatorController:
         pass
 
     def power_switch_callback(self, status):
-
-        pass
+        """
+        This method is called when the power switch is flipped
+        @param status: the status of the switche
+        """
+        if status is 1:
+            print("POWER SWITCH FLIPPED")
+            self.set_state(self.PAUSE_STATE)
 
     def bpm_to_velocity_constant(self):
         """
