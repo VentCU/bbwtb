@@ -200,7 +200,7 @@ class VentilatorController:
             if self._entering_state:
                 self._entering_state = False
 
-            self.start_homing()
+            # do nothing, ui_controller_interface will spawn homing thread
 
         # ==
         elif self.current_state is self.HOMING_VERIF_STATE:

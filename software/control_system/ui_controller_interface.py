@@ -200,6 +200,10 @@ class UIControllerInterface:
         self.new_thread("homing_thread", self.controller.start_homing)
 
     def state_change(self):
+        # start homing if state changes to homing state
+        if self.controller.current_state is self.controller.HOMING_STATE:
+            self.start_homing()
+
         # switch window if homing successfuly completes
         if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
             self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)
