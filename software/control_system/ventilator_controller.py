@@ -134,9 +134,9 @@ class VentilatorController:
             self.current_state = state
             self._t_state_timer = time.now()
 
-        self.state_change_sender.state_change_signal.emit()
-
         print(" --> " + self.current_state.name)
+
+        self.state_change_sender.state_change_signal.emit()
 
 
     # calculate time parameters of ventilation
@@ -292,11 +292,13 @@ class VentilatorController:
 
     def start_homing(self):
 
-        self.set_state(self.HOMING_STATE)
+        if self.current_state is not self.HOMING_STATE:
+            raise HOMING_ALARM("Attempted homing outside homing state")
 
         print("=== Homing Started ===")
 
         self.clear_limit_switches()
+        print("Cleared limit switches")
 
         while self.current_state is self.HOMING_STATE:
             self.home()
@@ -398,11 +400,17 @@ class VentilatorController:
     def power_switch_callback(self, status):
         """
         This method is called when the power switch is flipped
-        @param status: the status of the switche
+        @param status: the status of the switch
         """
-        if status is 1:
-            print("POWER SWITCH FLIPPED")
-            self.set_state(self.PAUSE_STATE)
+        if status is 0:
+            print("Power Switch Flipped: OFF")
+            if self.current_state is not self.HOMING_STATE:
+                self.set_state(self.PAUSE_STATE)
+        
+        else:
+            print("Power Switch Flipped: ON")
+            if self.current_state is not self.HOMING_STATE:
+                self.set_state(self.HOMING_STATE)
 
     def bpm_to_velocity_constant(self):
         """

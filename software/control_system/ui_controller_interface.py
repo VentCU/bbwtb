@@ -75,14 +75,14 @@ class UIControllerInterface:
         start_homing window elements
         """
         self.ui.stack.start_homing.start_button.clicked.connect(
-            lambda: self.start_homing()
+            lambda: self.try_controller_method( self.controller.set_state, parameters=self.controller.HOMING_STATE )
         )
 
         """
         confirm_homing window elements
         """
         self.ui.stack.confirm_homing.rehome_button.clicked.connect(
-            lambda: self.start_homing()
+            lambda: self.try_controller_method( self.controller.set_state, parameters=self.controller.HOMING_STATE )
         )
 
         self.update_label(self.ui.stack.confirm_homing.bag_size_label, self.controller.bag_size)     # TODO: format text as inches
@@ -177,9 +177,9 @@ class UIControllerInterface:
 
     def start_ventilate_thread(self):
         # update controller parameters from interface parameters
-        self.try_controller_method( self.controller.update_tidal_volume, parameter=self.modified_volume )
-        self.try_controller_method( self.controller.update_bpm, parameter=self.modified_bpm )
-        self.try_controller_method( self.controller.update_ie, parameter=self.modified_ie )
+        self.try_controller_method( self.controller.update_tidal_volume, parameters=self.modified_volume )
+        self.try_controller_method( self.controller.update_bpm, parameters=self.modified_bpm )
+        self.try_controller_method( self.controller.update_ie, parameters=self.modified_ie )
 
         # spawn ventilate thread
         self.new_thread("ventilate_thread", self.controller.start_ventilation)
@@ -205,15 +205,15 @@ class UIControllerInterface:
         if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
             self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)
 
-    def try_controller_method(self, method, state_to_set=None, parameter=None):
+    def try_controller_method(self, method, state_to_set=None, parameters=None):
         if state_to_set is not None:
             self.controller.set_state(state_to_set)
 
         try:
-            if parameter is None:
+            if parameters is None:
                 method()
             else:
-                method(parameter)
+                method(parameters)
         except Alarm as alarm:
             self.alarm_handler.handle_alarms(alarm)
 
