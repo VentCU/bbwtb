@@ -82,7 +82,7 @@ class VentilatorController:
 
         # ventilation parameters
         self.volume = 0                         # TODO: set default values
-        self.bpm = 30                           # TODO: set default values
+        self.bpm = 10                           # TODO: set default values
         self.ie = 1                             # TODO: set default values
 
         # physical parameters
@@ -108,6 +108,7 @@ class VentilatorController:
         self.motor_lower_target = 0             # the target pose of motor when the arm is coming down.
         self.motor_upper_target = 0             # the target pose of motor when the arm is going up.
         self.motor_current_target = 0
+        self.motor_prev_target = 0
 
         # TODO: clean up class variables
         # =========================================
@@ -152,17 +153,21 @@ class VentilatorController:
 
         self._t_exp_pause_end = add_secs(self._t_exp_end, MIN_EXP_PAUSE)
 
-        print(time.now())
-        print(self._t_insp_end)
-        print(self._t_insp_pause_end)
-        print(self._t_exp_end)
-        print(self._t_exp_pause_end)
+        print("start:          " + str(time.now()))
+        print("insp end:       " + str(self._t_insp_end))
+        print("insp pause end: " + str(self._t_insp_pause_end))
+        print("exp end:        " + str(self._t_exp_end))
+        print("exp pause end:  " + str(self._t_exp_pause_end))
 
 
         # TODO: use tidal volume parameter
         # TODO: convert self.volume to encoder position
         # self.motor_upper_target =
         # self.motor_lower_target =
+    
+    def _set_motor_target(self, target):
+        self.motor_prev_target = self.motor_current_target
+        self.motor_current_target = target
 
 
     ###########################
@@ -219,14 +224,17 @@ class VentilatorController:
                                          bpm=self.bpm)
                 self.cycle_count += 1
 
-            # print(self.motor_current_target)
             # TODO: change/update this method
-            result, _ = self.motor.move_to_encoder_pose(pose=self.motor_current_target,
-                                                        vel_const=self.bpm_to_velocity_constant())
+            result, _ = self.motor.move_to_encoder_pose_with_dur(
+                                        pose=self.motor_current_target,
+                                        dist=abs(self.motor_current_target
+                                                    -self.motor_prev_target),
+                                        dur=(self._t_insp_end-self._t_cycle_start).total_seconds()
+                                        )
 
             if self.motor.encoder_position() == self.motor_lower_target and result is True:
-                self.log_motor_position()
-                self.motor_current_target = self.motor_upper_target
+                self.log_motor_position("Lower target reached (insp end actual: " + str(time.now()) + ")")
+                self._set_motor_target(self.motor_upper_target)
                 self.set_state(self.INSP_PAUSE_STATE)
             # TODO: commenting out for now because time is a construct
             # if time.now() > self._t_insp_end:
@@ -248,13 +256,16 @@ class VentilatorController:
                 self._entering_state = False
 
             # TODO: change/update this method
-            result, _ = self.motor.move_to_encoder_pose(pose=self.motor_current_target,
-                                                        vel_const=self.bpm_to_velocity_constant())
+            result, _ = self.motor.move_to_encoder_pose_with_dur(
+                                        pose=self.motor_current_target,
+                                        dist=abs(self.motor_current_target
+                                                    -self.motor_prev_target),
+                                        dur=(self._t_exp_end-self._t_insp_pause_end).total_seconds()
+                                        )
 
-            # self.log_motor_position("EXP_STATE: Log lower target reached")
             if self.motor.encoder_position() == self.motor_upper_target and result is True:
-                # self.log_motor_position("EXP_STATE: Log upper target reached")
-                self.motor_current_target = self.motor_lower_target
+                self.log_motor_position("Upper target reached (exp end actual: " + str(time.now()) + ")")
+                self._set_motor_target(self.motor_lower_target)
                 self.set_state(self.EXP_PAUSE_STATE)
             # TODO: commenting out for now because time is a construct
             # if time.now() > self._t_exp_end:
@@ -347,20 +358,16 @@ class VentilatorController:
             # todo: need to change this
             self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * 3 / 5)
             self.motor_upper_target = int(self._pose_at_contact + ENCODER_ONE_ROTATION * 1 / 100)
-            self.motor_current_target = self.motor_lower_target
+            self._set_motor_target(self.motor_lower_target)
 
             # TODO: set bag_size appropriately
 
             # change state
             if self._homing_dir != 1:
-                print(self.motor_lower_target)
-                print(self.motor_upper_target)
                 self.set_state(self.HOMING_VERIF_STATE)
                 self._homing_dir = 1
             else:
-                # TODO: raise alarm that reached lower bound without reaching upper, delete print statements
-                print("reached lower bound before upper bound")
-                print("check pulley winding")
+                raise HOMING_ALARM("Reached lower bound before upper bound, check pulley winding")
 
             self.log_motor_position("Homing lower bound reached")
             print("=== Homing Finished ===")
