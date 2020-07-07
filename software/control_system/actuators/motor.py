@@ -26,6 +26,24 @@ class Motor:
         """
         self.tic_device.set_target_velocity(velocity)
 
+    def move_to_encoder_pose_with_dur(self, pose, dur):
+        """
+        use a pid controller to reach the target position specified in the
+        parameter of the method over the duration specified in the parameter
+        of the method.
+
+        @param pose: the target position of the motor
+        @param pose: the target duration the move should take (in seconds)
+        @return:     true of the motor has reached its goal
+        """
+
+        if dur <= 0: return False   # cannot move in negative or zero time
+
+        distance = abs(pose - self.encoder_position())
+        scale_factor = PID_TIME_SCALE_FACTOR * distance / dur
+
+        self.move_to_encoder_pose(pose, vel_const=scale_factor)
+
     def move_to_encoder_pose(self, pose, vel_const=1):
         """
         use a pid controller to reach the target
@@ -42,7 +60,7 @@ class Motor:
         self.pid.update(encoder_value)
         value = self.pid.output * vel_const
         self.tic_device.set_target_velocity(int(value))
-        
+
         if self.pid.output == 0:
             return True, int(value)
         else:
@@ -69,3 +87,22 @@ class Motor:
               "The motor has been deenergized\n"
               "\n"
               "Warning: program should exit\n")
+
+
+def motor_test():
+
+    import time
+    import pigpio
+    from ..configs.gpio_map import *
+
+    encoder = RotaryEncoder(pigpio.pi(), ENCODER_B_PLUS_PIN, ENCODER_A_PLUS_PIN)
+    motor = Motor(encoder)
+
+    start = time.time()
+    motor.move_to_encoder_pose_with_dur(motor.encoder_position()+100, 10)
+    end = time.time()
+
+    print(end - start)
+
+if __name__ == "__main__":
+    motor_test()
