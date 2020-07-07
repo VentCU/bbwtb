@@ -19,7 +19,7 @@ from PyQt5.QtWidgets import *
 # so that in can run in a separate thread within the QThreadPool
 # https://www.learnpyqt.com/courses/concurrent-execution/multithreading-pyqt-applications-qthreadpool/
 class Worker(QRunnable):
-    '''
+    """
     Worker thread
 
     Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
@@ -30,7 +30,7 @@ class Worker(QRunnable):
     :param args: Arguments to pass to the callback function
     :param kwargs: Keywords to pass to the callback function
 
-    '''
+    """
     def __init__(self, fn, *args, **kwargs):
         super(Worker, self).__init__()
         self.fn = fn
@@ -39,9 +39,9 @@ class Worker(QRunnable):
 
     @pyqtSlot()
     def run(self):
-        '''
+        """
         Initialise the runner function with passed args, kwargs
-        '''
+        """
         self.fn(*self.args, **self.kwargs)
 
 
@@ -188,9 +188,6 @@ class UIControllerInterface:
         label.setText( str(value) )
 
     def new_thread(self, name, target_method):
-        """ self.new_thread = threading.Thread(target=target_method, args=(), daemon=True)
-        self.new_thread.setName(name)
-        self.new_thread.start() """
         worker = Worker(target_method)
         self.threadpool.start(worker)
         print("New thread spawned: " + name)
@@ -200,6 +197,10 @@ class UIControllerInterface:
         self.new_thread("homing_thread", self.controller.start_homing)
 
     def state_change(self):
+        # start homing if state changes to homing state
+        if self.controller.current_state is self.controller.HOMING_STATE:
+            self.start_homing()
+
         # switch window if homing successfuly completes
         if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
             self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)

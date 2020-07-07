@@ -41,9 +41,11 @@ class Motor:
         if dur <= 0: return False   # cannot move in negative or zero time
 
         scale_factor = PID_TIME_SCALE_FACTOR * abs(dist) / dur
-        if scale_factor > 10: scale_factor = 10  # TODO: replace with max vel const
-        elif scale_factor < 0.01: scale_factor = 0.01  #TODO: replace with min vel const
-        
+
+        # ensure scale_factor remains within velocity bounds
+        if scale_factor > 10: scale_factor = 10                 # TODO: replace with max vel const
+        elif scale_factor < 0.01: scale_factor = 0.01           # TODO: replace with min vel const
+
         return self.move_to_encoder_pose(pose, vel_const=scale_factor)
 
     def move_to_encoder_pose(self, pose, vel_const=1):
@@ -89,4 +91,3 @@ class Motor:
               "The motor has been deenergized\n"
               "\n"
               "Warning: program should exit\n")
-
