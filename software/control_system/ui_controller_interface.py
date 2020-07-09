@@ -19,7 +19,7 @@ from PyQt5.QtWidgets import *
 # so that in can run in a separate thread within the QThreadPool
 # https://www.learnpyqt.com/courses/concurrent-execution/multithreading-pyqt-applications-qthreadpool/
 class Worker(QRunnable):
-    '''
+    """
     Worker thread
 
     Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
@@ -30,7 +30,7 @@ class Worker(QRunnable):
     :param args: Arguments to pass to the callback function
     :param kwargs: Keywords to pass to the callback function
 
-    '''
+    """
     def __init__(self, fn, *args, **kwargs):
         super(Worker, self).__init__()
         self.fn = fn
@@ -39,9 +39,9 @@ class Worker(QRunnable):
 
     @pyqtSlot()
     def run(self):
-        '''
+        """
         Initialise the runner function with passed args, kwargs
-        '''
+        """
         self.fn(*self.args, **self.kwargs)
 
 
@@ -67,18 +67,22 @@ class UIControllerInterface:
             lambda: self.state_change()
         )
 
+        self.controller.shutdown_sender.shutdown_signal.connect(
+            lambda: self.try_controller_method( self.controller.set_state, parameters=self.controller.OFF_STATE )
+        )
+
         """
         start_homing window elements
         """
         self.ui.stack.start_homing.start_button.clicked.connect(
-            lambda: self.start_homing()
+            lambda: self.try_controller_method( self.controller.set_state, parameters=self.controller.HOMING_STATE )
         )
 
         """
         confirm_homing window elements
         """
         self.ui.stack.confirm_homing.rehome_button.clicked.connect(
-            lambda: self.start_homing()
+            lambda: self.try_controller_method( self.controller.set_state, parameters=self.controller.HOMING_STATE )
         )
 
         self.update_label(self.ui.stack.confirm_homing.bag_size_label, self.controller.bag_size)     # TODO: format text as inches
@@ -173,9 +177,9 @@ class UIControllerInterface:
 
     def start_ventilate_thread(self):
         # update controller parameters from interface parameters
-        self.try_controller_method( self.controller.update_tidal_volume, parameter=self.modified_volume )
-        self.try_controller_method( self.controller.update_bpm, parameter=self.modified_bpm )
-        self.try_controller_method( self.controller.update_ie, parameter=self.modified_ie )
+        self.try_controller_method( self.controller.update_tidal_volume, parameters=self.modified_volume )
+        self.try_controller_method( self.controller.update_bpm, parameters=self.modified_bpm )
+        self.try_controller_method( self.controller.update_ie, parameters=self.modified_ie )
 
         # spawn ventilate thread
         self.new_thread("ventilate_thread", self.controller.start_ventilation)
@@ -184,9 +188,6 @@ class UIControllerInterface:
         label.setText( str(value) )
 
     def new_thread(self, name, target_method):
-        """ self.new_thread = threading.Thread(target=target_method, args=(), daemon=True)
-        self.new_thread.setName(name)
-        self.new_thread.start() """
         worker = Worker(target_method)
         self.threadpool.start(worker)
         print("New thread spawned: " + name)
@@ -196,19 +197,23 @@ class UIControllerInterface:
         self.new_thread("homing_thread", self.controller.start_homing)
 
     def state_change(self):
+        # start homing if state changes to homing state
+        if self.controller.current_state is self.controller.HOMING_STATE:
+            self.start_homing()
+
         # switch window if homing successfuly completes
         if self.controller.current_state is self.controller.HOMING_VERIF_STATE:
             self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.confirm_homing)
 
-    def try_controller_method(self, method, state_to_set=None, parameter=None):
+    def try_controller_method(self, method, state_to_set=None, parameters=None):
         if state_to_set is not None:
             self.controller.set_state(state_to_set)
 
         try:
-            if parameter is None:
+            if parameters is None:
                 method()
             else:
-                method(parameter)
+                method(parameters)
         except Alarm as alarm:
             self.alarm_handler.handle_alarms(alarm)
 

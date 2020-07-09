@@ -26,6 +26,28 @@ class Motor:
         """
         self.tic_device.set_target_velocity(velocity)
 
+    def move_to_encoder_pose_with_dur(self, pose, dist, dur):
+        """
+        use a pid controller to reach the target position specified in the
+        parameter of the method over the duration specified in the parameter
+        of the method.
+
+        @param pose: the target position of the motor
+        @param dist: the total distance the motor should move
+        @param dur: the target duration the move should take (in seconds)
+        @return:     true of the motor has reached its goal
+        """
+
+        if dur <= 0: return False   # cannot move in negative or zero time
+
+        scale_factor = PID_TIME_SCALE_FACTOR * abs(dist) / dur
+
+        # ensure scale_factor remains within velocity bounds
+        if scale_factor > 10: scale_factor = 10                 # TODO: replace with max vel const
+        elif scale_factor < 0.01: scale_factor = 0.01           # TODO: replace with min vel const
+
+        return self.move_to_encoder_pose(pose, vel_const=scale_factor)
+
     def move_to_encoder_pose(self, pose, vel_const=1):
         """
         use a pid controller to reach the target
@@ -34,7 +56,7 @@ class Motor:
 
         @param vel_const: the constant that get multiplied to the pid output
         @param pose: the target position of the motor
-        @return:     true of the motor has reached its goal
+        @return:     true if the motor has reached its goal
         """
 
         self.pid.setpoint = pose
@@ -42,7 +64,7 @@ class Motor:
         self.pid.update(encoder_value)
         value = self.pid.output * vel_const
         self.tic_device.set_target_velocity(int(value))
-        
+
         if self.pid.output == 0:
             return True, int(value)
         else:

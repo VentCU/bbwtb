@@ -82,7 +82,7 @@ class VentilatorController:
 
         # ventilation parameters
         self.volume = 0                         # TODO: set default values
-        self.bpm = 30                           # TODO: set default values
+        self.bpm = 10                           # TODO: set default values
         self.ie = 1                             # TODO: set default values
 
         # physical parameters
@@ -108,6 +108,7 @@ class VentilatorController:
         self.motor_lower_target = 0             # the target pose of motor when the arm is coming down.
         self.motor_upper_target = 0             # the target pose of motor when the arm is going up.
         self.motor_current_target = 0
+        self.motor_prev_target = 0
 
         # TODO: clean up class variables
         # =========================================
@@ -134,9 +135,9 @@ class VentilatorController:
             self.current_state = state
             self._t_state_timer = time.now()
 
-        self.state_change_sender.state_change_signal.emit()
-
         print(" --> " + self.current_state.name)
+
+        self.state_change_sender.state_change_signal.emit()
 
 
     # calculate time parameters of ventilation
@@ -152,17 +153,21 @@ class VentilatorController:
 
         self._t_exp_pause_end = add_secs(self._t_exp_end, MIN_EXP_PAUSE)
 
-        print(time.now())
-        print(self._t_insp_end)
-        print(self._t_insp_pause_end)
-        print(self._t_exp_end)
-        print(self._t_exp_pause_end)
+        print("start:          " + str(time.now()))
+        print("insp end:       " + str(self._t_insp_end))
+        print("insp pause end: " + str(self._t_insp_pause_end))
+        print("exp end:        " + str(self._t_exp_end))
+        print("exp pause end:  " + str(self._t_exp_pause_end))
 
 
         # TODO: use tidal volume parameter
         # TODO: convert self.volume to encoder position
         # self.motor_upper_target =
         # self.motor_lower_target =
+    
+    def _set_motor_target(self, target):
+        self.motor_prev_target = self.motor_current_target
+        self.motor_current_target = target
 
 
     ###########################
@@ -186,7 +191,7 @@ class VentilatorController:
 
         # main finite state machine
 
-        # ==
+        # == START_STATE == #
         if self.current_state is self.START_STATE:
             if self._entering_state:
                 self._entering_state = False
@@ -195,22 +200,21 @@ class VentilatorController:
             self.set_state(self.INSP_STATE)
             self.current_state = self.INSP_STATE
 
-        # ==
+        # == HOMING_STATE == #
         elif self.current_state is self.HOMING_STATE:
             if self._entering_state:
                 self._entering_state = False
 
-            self.start_homing()
+            # do nothing, ui_controller_interface will spawn homing thread
 
-        # ==
+        # == HOMING_VERIF_STATE == #
         elif self.current_state is self.HOMING_VERIF_STATE:
             if self._entering_state:
                 self._entering_state = False
 
-        # INSP_STATE
-        # ==
+        # == INSP_STATE == #
         elif self.current_state is self.INSP_STATE:
-            
+
             if self._entering_state:
                 self._entering_state = False
                 self._t_period_actual = time.now() - self._t_cycle_start
@@ -220,20 +224,23 @@ class VentilatorController:
                                          bpm=self.bpm)
                 self.cycle_count += 1
 
-            # print(self.motor_current_target)
             # TODO: change/update this method
-            result, _ = self.motor.move_to_encoder_pose(pose=self.motor_current_target,
-                                                        vel_const=self.bpm_to_velocity_constant())
+            result, _ = self.motor.move_to_encoder_pose_with_dur(
+                                        pose=self.motor_current_target,
+                                        dist=abs(self.motor_current_target
+                                                    -self.motor_prev_target),
+                                        dur=(self._t_insp_end-self._t_cycle_start).total_seconds()
+                                        )
 
             if self.motor.encoder_position() == self.motor_lower_target and result is True:
-                self.log_motor_position()
-                self.motor_current_target = self.motor_upper_target
+                self.log_motor_position("Lower target reached (insp end actual: " + str(time.now()) + ")")
+                self._set_motor_target(self.motor_upper_target)
                 self.set_state(self.INSP_PAUSE_STATE)
             # TODO: commenting out for now because time is a construct
-            if time.now() > self._t_insp_end:
-               raise SYSTEM_ALARM("Inspiration exceeds time limit")
+            # if time.now() > self._t_insp_end:
+            #    raise SYSTEM_ALARM("Inspiration exceeds time limit")
 
-        # ==
+        # == INSP_PAUSE_STATE == #
         elif self.current_state is self.INSP_PAUSE_STATE:
             if self._entering_state:
                 self._entering_state = False
@@ -243,25 +250,28 @@ class VentilatorController:
             if time.now() > self._t_insp_pause_end:
                 self.set_state(self.EXP_STATE)
 
-        # ==
+        # == EXP_STATE == #
         elif self.current_state is self.EXP_STATE:
             if self._entering_state:
                 self._entering_state = False
 
             # TODO: change/update this method
-            result, _ = self.motor.move_to_encoder_pose(pose=self.motor_current_target,
-                                                        vel_const=self.bpm_to_velocity_constant())
+            result, _ = self.motor.move_to_encoder_pose_with_dur(
+                                        pose=self.motor_current_target,
+                                        dist=abs(self.motor_current_target
+                                                    -self.motor_prev_target),
+                                        dur=(self._t_exp_end-self._t_insp_pause_end).total_seconds()
+                                        )
 
-            # self.log_motor_position("EXP_STATE: Log lower target reached")
             if self.motor.encoder_position() == self.motor_upper_target and result is True:
-                # self.log_motor_position("EXP_STATE: Log upper target reached")
-                self.motor_current_target = self.motor_lower_target
+                self.log_motor_position("Upper target reached (exp end actual: " + str(time.now()) + ")")
+                self._set_motor_target(self.motor_lower_target)
                 self.set_state(self.EXP_PAUSE_STATE)
             # TODO: commenting out for now because time is a construct
-            if time.now() > self._t_exp_end:
-               raise SYSTEM_ALARM("Expiration exceeds time limit")
+            # if time.now() > self._t_exp_end:
+            #    raise SYSTEM_ALARM("Expiration exceeds time limit")
 
-        # ==
+        # == EXP_PAUSE_STATE == #
         elif self.current_state is self.EXP_PAUSE_STATE:
             if self._entering_state:
                 self._entering_state = False
@@ -272,17 +282,19 @@ class VentilatorController:
                 self.set_state(self.INSP_STATE)
                 # self.set_state(self.HOMING_VERIF_STATE)
 
-        # ==
+        # == PAUSE_STATE == #
         elif self.current_state is self.PAUSE_STATE: # TODO: define off behavior
             if self._entering_state:
                 self._entering_state = False
+            self.motor.stop()
 
-        # ==
+        # == OFF_STATE == #
         elif self.current_state is self.OFF_STATE:  # TODO: define off behavior
             if self._entering_state:
                 self._entering_state = False
+            self.motor.stop()
 
-        # ==
+        # == DEBUG_STATE == #
         if self.current_state is self.DEBUG_STATE:  # TODO: define debug behavior
             self.motor.stop()
 
@@ -291,11 +303,13 @@ class VentilatorController:
 
     def start_homing(self):
 
-        self.set_state(self.HOMING_STATE)
+        if self.current_state is not self.HOMING_STATE:
+            raise HOMING_ALARM("Attempted homing outside homing state")
 
         print("=== Homing Started ===")
 
         self.clear_limit_switches()
+        print("Cleared limit switches")
 
         while self.current_state is self.HOMING_STATE:
             self.home()
@@ -342,22 +356,18 @@ class VentilatorController:
             self.contact_tic_val = self.motor.motor_position()
 
             # todo: need to change this
-            self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * 2 / 5)
+            self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * 3 / 5)
             self.motor_upper_target = int(self._pose_at_contact + ENCODER_ONE_ROTATION * 1 / 100)
-            self.motor_current_target = self.motor_lower_target
+            self._set_motor_target(self.motor_lower_target)
 
             # TODO: set bag_size appropriately
 
             # change state
             if self._homing_dir != 1:
-                print(self.motor_lower_target)
-                print(self.motor_upper_target)
                 self.set_state(self.HOMING_VERIF_STATE)
                 self._homing_dir = 1
             else:
-                # TODO: raise alarm that reached lower bound without reaching upper, delete print statements
-                print("reached lower bound before upper bound")
-                print("check pulley winding")
+                raise HOMING_ALARM("Reached lower bound before upper bound, check pulley winding")
 
             self.log_motor_position("Homing lower bound reached")
             print("=== Homing Finished ===")
@@ -395,8 +405,19 @@ class VentilatorController:
         pass
 
     def power_switch_callback(self, status):
-
-        pass
+        """
+        This method is called when the power switch is flipped
+        @param status: the status of the switch
+        """
+        if status is 0:
+            print("Power Switch Flipped: OFF")
+            if self.current_state is not self.HOMING_STATE:
+                self.set_state(self.PAUSE_STATE)
+        
+        else:
+            print("Power Switch Flipped: ON")
+            if self.current_state is not self.HOMING_STATE:
+                self.set_state(self.HOMING_STATE)
 
     def bpm_to_velocity_constant(self):
         """

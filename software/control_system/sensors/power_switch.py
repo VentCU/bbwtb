@@ -1,6 +1,6 @@
 
 import RPi.GPIO as GPIO
-
+from time import sleep
 
 class PowerSwitch():
 
@@ -20,9 +20,7 @@ class PowerSwitch():
     def get_status(self):
         return GPIO.input(self.switch_pin)
 
-    def contacted(self):
-        return 1 if GPIO.input(self.switch_pin) else 0
-
-    def switch_callback(self):
+    def switch_callback(self, state):
         if self.callback is not None:
-            self.callback(self.contacted())
+            sleep(0.01)
+            self.callback(self.get_status())
