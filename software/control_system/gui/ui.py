@@ -8,6 +8,8 @@ import logging
 pyqt_logger = logging.getLogger('PyQt5')
 pyqt_logger.setLevel(logging.CRITICAL)
 
+sys.path.append('/home/pi/Workspace/bbwtb/software/control_system/gui')
+from slider import DebbugingSlider
 
 class WindowStack(QtWidgets.QMainWindow):
 
@@ -261,6 +263,8 @@ class UI():
     def __init__(self):
         self.app = QtWidgets.QApplication(sys.argv)
         self.stack = WindowStack()
+        # TODO : debugging slider in testing still
+        #self.debug_slider = DebbugingSlider()
 
 
 if __name__ == '__main__':

@@ -59,6 +59,7 @@ class UIControllerInterface:
         self.modified_bpm = self.controller.bpm
         self.modified_ie = self.controller.ie
 
+        self.ui.debug_slider.show()
         self.interface_elements()
 
     def interface_elements(self):
