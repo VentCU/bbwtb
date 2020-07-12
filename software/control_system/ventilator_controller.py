@@ -450,6 +450,10 @@ class VentilatorController:
         print('IE set to: ' + str(value))
 
     def update_tidal_volume(self, value):
+        if( TIDAL_VOLUME_MAX < value ): # TODO signal in gui that the value is illegal
+            value = TIDAL_VOLUME_MAX
+        elif ( value < TIDAL_VOLUME_MIN ):
+            value = TIDAL_VOLUME_MIN
         self.volume = value
         print('TV set to: ' + str(value))
 
