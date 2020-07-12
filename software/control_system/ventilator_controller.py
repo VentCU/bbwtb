@@ -356,8 +356,8 @@ class VentilatorController:
             self.contact_tic_val = self.motor.motor_position()
 
             # todo: need to change this
-            self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * 3 / 5)
-            self.motor_upper_target = int(self._pose_at_contact + ENCODER_ONE_ROTATION * 1 / 100)
+            self.motor_lower_target = int(self._pose_at_contact - self.volume * TV_PULLEY_CONVERT_FACTOR)
+            self.motor_upper_target = int(self._pose_at_contact)
             self._set_motor_target(self.motor_lower_target)
 
             # TODO: set bag_size appropriately
