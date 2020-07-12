@@ -6,7 +6,7 @@ TIC_ONE_ROTATION = 12800
 # motion constants
 HOMING_VELOCITY = 40000000
 VELOCITY_FACTOR = 2/12
-TV_PULLEY_CONVERT_FACTOR = 0.0016  # 0.8 rotation to 500ml ratio (0.8/800)
+TV_PULLEY_CONVERT_FACTOR = 0.0024  # 0.8 rotation to 500ml ratio (0.8/800)
 
 # time constants (s)
 MIN_EXP_PAUSE = 0.025   # TODO
