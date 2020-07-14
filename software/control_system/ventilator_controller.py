@@ -81,9 +81,9 @@ class VentilatorController:
         self._t_loop_start = time.now()         # absolute time (s) at start of control loop
 
         # ventilation parameters
-        self.volume = 0                         # TODO: set default values
-        self.bpm = 10                           # TODO: set default values
-        self.ie = 1                             # TODO: set default values
+        self.volume = 400
+        self.bpm = 20
+        self.ie = 1
 
         # physical parameters
         self.bag_size = 7                       # diameter of the ambu bag (in)
@@ -151,14 +151,13 @@ class VentilatorController:
         self._t_exp_end = min(add_secs(self._t_insp_pause_end, MAX_EXP_DUR),  # TODO: understand this
                               subtract_secs(_t_period_end, MIN_EXP_PAUSE))
 
-        self._t_exp_pause_end = add_secs(self._t_exp_end, MIN_EXP_PAUSE)
+        self._t_exp_pause_end = _t_period_end # add_secs(self._t_exp_end, MIN_EXP_PAUSE)
 
         print("start:          " + str(time.now()))
         print("insp end:       " + str(self._t_insp_end))
         print("insp pause end: " + str(self._t_insp_pause_end))
         print("exp end:        " + str(self._t_exp_end))
         print("exp pause end:  " + str(self._t_exp_pause_end))
-
 
         # TODO: use tidal volume parameter
         # TODO: convert self.volume to encoder position
@@ -182,8 +181,9 @@ class VentilatorController:
             self.ventilate()
 
     def stop_ventilation(self):
-        # TODO
-        pass
+        print("about to stop the motor")
+        self.motor.stop()
+        self.motor.destructor()
 
     def ventilate(self):
 
@@ -218,6 +218,7 @@ class VentilatorController:
             if self._entering_state:
                 self._entering_state = False
                 self._t_period_actual = time.now() - self._t_cycle_start
+                print("freq: " + str(1.0 / self._t_period_actual.total_seconds()))
                 self._t_cycle_start = time.now()
                 self.calculate_wave_form(tidal_volume=self.volume,
                                          ie_ratio=self.ie,
@@ -356,8 +357,8 @@ class VentilatorController:
             self.contact_tic_val = self.motor.motor_position()
 
             # todo: need to change this
-            self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * 3 / 5)
-            self.motor_upper_target = int(self._pose_at_contact + ENCODER_ONE_ROTATION * 1 / 100)
+            self.motor_lower_target = int(self._pose_at_contact - self.volume * TV_PULLEY_CONVERT_FACTOR)
+            self.motor_upper_target = int(self._pose_at_contact)
             self._set_motor_target(self.motor_lower_target)
 
             # TODO: set bag_size appropriately
@@ -450,7 +451,17 @@ class VentilatorController:
         print('IE set to: ' + str(value))
 
     def update_tidal_volume(self, value):
+        if( TIDAL_VOLUME_MAX < value ): # TODO signal in gui that the value is illegal
+            value = TIDAL_VOLUME_MAX
+        elif ( value < TIDAL_VOLUME_MIN ):
+            value = TIDAL_VOLUME_MIN
         self.volume = value
+
+        self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * self.volume * TV_PULLEY_CONVERT_FACTOR)
+        self.motor_upper_target = int(self._pose_at_contact)
+        self._set_motor_target(self.motor_lower_target)
+
+        print("lower target: "+ str(self.motor_upper_target))
         print('TV set to: ' + str(value))
 
     # TODO: write alarm functions -> sound buzzer, etc.
