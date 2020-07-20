@@ -18,13 +18,13 @@ from PyQt5 import QtCore
 
 
 def add_secs(tm, secs):
-    full_date = datetime.datetime(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second)
+    full_date = datetime.datetime(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second, tm.microsecond)
     full_date = full_date + datetime.timedelta(seconds=secs)
     return full_date
 
 
 def subtract_secs(tm, secs):
-    full_date = datetime.datetime(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second)
+    full_date = datetime.datetime(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second, tm.microsecond)
     full_date = full_date - datetime.timedelta(seconds=secs)
     return full_date
 
@@ -219,6 +219,10 @@ class VentilatorController:
                 self._entering_state = False
                 self._t_period_actual = time.now() - self._t_cycle_start
                 print("freq: " + str(1.0 / self._t_period_actual.total_seconds()))
+                print("cur tar" + str(self.motor_current_target))
+                print("prev tar" + str(self.motor_prev_target))
+                print("lower: " + str(self.motor_lower_target))
+                print("upper: " + str(self.motor_upper_target))
                 self._t_cycle_start = time.now()
                 self.calculate_wave_form(tidal_volume=self.volume,
                                          ie_ratio=self.ie,
@@ -356,11 +360,6 @@ class VentilatorController:
             self._pose_at_contact = self.motor.encoder_position()
             self.contact_tic_val = self.motor.motor_position()
 
-            # todo: need to change this
-            self.motor_lower_target = int(self._pose_at_contact - self.volume * TV_PULLEY_CONVERT_FACTOR)
-            self.motor_upper_target = int(self._pose_at_contact)
-            self._set_motor_target(self.motor_lower_target)
-
             # TODO: set bag_size appropriately
 
             # change state
@@ -459,9 +458,13 @@ class VentilatorController:
 
         self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * self.volume * TV_PULLEY_CONVERT_FACTOR)
         self.motor_upper_target = int(self._pose_at_contact)
+        # this line below is trying to fix a bug with the _set_motor_target method. 
+        # because we don't want the prev_target value to be zero. 
+        self.motor_current_target = self.motor_upper_target
         self._set_motor_target(self.motor_lower_target)
 
-        print("lower target: "+ str(self.motor_upper_target))
+        print("lower target: "+ str(self.motor_lower_target))
+        print("upper target: "+ str(self.motor_upper_target))
         print('TV set to: ' + str(value))
 
     # TODO: write alarm functions -> sound buzzer, etc.
