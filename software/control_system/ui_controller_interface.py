@@ -36,6 +36,7 @@ class Worker(QRunnable):
         self.fn = fn
         self.args = args
         self.kwargs = kwargs
+        self.ventilate_thread_spawned = False
 
     @pyqtSlot()
     def run(self):
@@ -182,8 +183,10 @@ class UIControllerInterface:
         self.try_controller_method( self.controller.update_bpm, parameters=self.modified_bpm )
         self.try_controller_method( self.controller.update_ie, parameters=self.modified_ie )
 
-        # spawn ventilate thread
-        self.new_thread("ventilate_thread", self.controller.start_ventilation)
+        if( not self.ventilate_thread_spawned ):
+            # spawn ventilate thread
+            self.new_thread("ventilate_thread", self.controller.start_ventilation)
+            self.ventilate_thread_spawned = True
 
     def update_label(self, label, value):
         label.setText( str(value) )
