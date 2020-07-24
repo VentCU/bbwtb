@@ -36,7 +36,6 @@ class Worker(QRunnable):
         self.fn = fn
         self.args = args
         self.kwargs = kwargs
-        self.ventilate_thread_spawned = False
 
     @pyqtSlot()
     def run(self):
@@ -60,8 +59,9 @@ class UIControllerInterface:
         self.modified_bpm = self.controller.bpm
         self.modified_ie = self.controller.ie
 
-        self.ui.debug_slider.show()
         self.interface_elements()
+
+        self.ventilate_thread_spawned = False
 
     def interface_elements(self):
 
@@ -107,10 +107,10 @@ class UIControllerInterface:
 
         # TODO: redefine logical values for increasing and decreasing
         self.ui.stack.edit_parameters.tidal_increase_button.clicked.connect(
-            lambda: self.modify_interface_parameters(volume=self.modified_volume + 1)
+            lambda: self.modify_interface_parameters(volume=self.modified_volume + 10)
         )
         self.ui.stack.edit_parameters.tidal_decrease_button.clicked.connect(
-            lambda: self.modify_interface_parameters(volume=self.modified_volume - 1)
+            lambda: self.modify_interface_parameters(volume=self.modified_volume - 10)
         )
         self.ui.stack.edit_parameters.bpm_increase_button.clicked.connect(
             lambda: self.modify_interface_parameters(bpm=self.modified_bpm + 1)
@@ -187,7 +187,7 @@ class UIControllerInterface:
             # spawn ventilate thread
             self.new_thread("ventilate_thread", self.controller.start_ventilation)
             self.ventilate_thread_spawned = True
-
+    
     def update_label(self, label, value):
         label.setText( str(value) )
 
