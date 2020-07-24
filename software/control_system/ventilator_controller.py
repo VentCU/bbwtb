@@ -214,7 +214,6 @@ class VentilatorController:
 
         # == INSP_STATE == #
         elif self.current_state is self.INSP_STATE:
-
             if self._entering_state:
                 self._entering_state = False
                 self._t_period_actual = time.now() - self._t_cycle_start
@@ -460,8 +459,17 @@ class VentilatorController:
         self.motor_upper_target = int(self._pose_at_contact)
         # this line below is trying to fix a bug with the _set_motor_target method. 
         # because we don't want the prev_target value to be zero. 
-        self.motor_current_target = self.motor_upper_target
-        self._set_motor_target(self.motor_lower_target)
+        if(self.current_state is self.EXP_STATE or
+             self.current_state is self.INSP_PAUSE_STATE):
+            # _set_motor_target assigns the current_target to prev_target
+            #     here, set current_target to lower_target
+            #     so that prev_target is assigned to lower_target and 
+            #     the last update sets current_target to upper_target
+            self.motor_current_target = self.motor_lower_target
+            self._set_motor_target(self.motor_upper_target)
+        else:
+            self.motor_current_target = self.motor_upper_target
+            self._set_motor_target(self.motor_lower_target)
 
         print("lower target: "+ str(self.motor_lower_target))
         print("upper target: "+ str(self.motor_upper_target))
