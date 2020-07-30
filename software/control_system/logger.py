@@ -1,30 +1,20 @@
 ''' 
 @file software/control_system/logger.py
-describes two classes, Logger and LoggerManager, of which
-Logger is held by individual classes (alarms, ui_controller_interface,
-and ventilator_controller) and LoggerManager handles each logger
+test program for python native logging
 
 author: William Xie
 '''
 from datetime import datetime
+import logging
 
-class Logger:
+class LoggerInit:
 
-    def init(self, name):
-        pass
-
-class LoggerManager:
-
-    def __init__(self):
-        self.name = datetime.now().strftime("%Y%m%d%H%M%S")
-        self.log = open(f"logs/{self.name}.log", 'w')
+    def __init__(self, name):
+        self.filename = datetime.now().strftime("%Y%m%d%H%M%S")
+        self.format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         self.header_date = datetime.now().strftime("%Y/%m/%d, %H:%M:%S")
         self.header = f"VentCU Log for {self.header_date}\n"
-        
-        self.log.write(self.header)
 
-    def add_logger(self, Logger):
-        pass
-
-if __name__ == "__main__":
-    logger_manager = LoggerManager()
+        logging.basicConfig(filename=f'logs/{self.filename}.log', level=logging.DEBUG, format=self.format)
+        logger = logging.getLogger('ventilator.py')
+        logger.info(f'{self.header}')

@@ -8,6 +8,8 @@
 import signal
 import sys
 import pigpio
+
+from logger import LoggerInit
 from actuators.motor import Motor
 from sensors.rotary_encoder import RotaryEncoder
 from sensors.limit_switch import LimitSwitch
@@ -24,6 +26,9 @@ from ui_controller_interface import UIControllerInterface
 class Ventilator:
 
     def __init__(self):
+
+        # start logger
+        logger = LoggerInit()
 
         # instantiate sensors
         self.encoder = RotaryEncoder(pigpio.pi(), ENCODER_B_PLUS_PIN, ENCODER_A_PLUS_PIN)

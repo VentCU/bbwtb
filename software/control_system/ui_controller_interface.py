@@ -5,10 +5,12 @@
 # (c) VentCU, 2020. All Rights Reserved.
 #
 
+import logging
 from time import sleep
+import threading
+
 from alarms.alarm_handler import AlarmHandler
 from alarms.alarms import *
-import threading
 
 from PyQt5 import QtCore
 from PyQt5.QtGui import *
@@ -48,6 +50,8 @@ class Worker(QRunnable):
 class UIControllerInterface:
 
     def __init__(self, ventilator_ui, ventilator_controller):
+        self.logger = logging.getLogger('ui_controller_interface')
+        
         self.ui = ventilator_ui
         self.controller = ventilator_controller
 
