@@ -28,7 +28,7 @@ class Ventilator:
     def __init__(self):
 
         # start logger
-        logger = LoggerInit()
+        logger = LoggerInit("ventilator.py")
 
         # instantiate sensors
         self.encoder = RotaryEncoder(pigpio.pi(), ENCODER_B_PLUS_PIN, ENCODER_A_PLUS_PIN)
