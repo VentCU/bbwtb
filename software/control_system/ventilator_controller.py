@@ -10,6 +10,7 @@
 from time import sleep
 from datetime import datetime as time
 import datetime
+import logging
 from configs.ventilation_configs import *
 from alarms.alarms import *
 from threading import Lock
@@ -48,6 +49,9 @@ class VentilatorController:
     shutdown_sender = ShutdownSender()
 
     def __init__(self, motor, pressure_sensor, upper_switch, lower_switch, power_switch):
+
+        #logger
+        self.logger = logging.getLogger('ventilator_controller')
 
         # alarms
         self.current_alarms = []
@@ -128,14 +132,14 @@ class VentilatorController:
         Calling set_state in a unsafe way is not defined.
         """
 
-        print("State change: " + self.current_state.name, end="")
+        self.logger.info("State change: " + self.current_state.name, end="")
 
         with self._state_lock:
             self._entering_state = True
             self.current_state = state
             self._t_state_timer = time.now()
 
-        print(" --> " + self.current_state.name)
+        self.logger.info(" --> " + self.current_state.name)
 
         self.state_change_sender.state_change_signal.emit()
 
@@ -153,11 +157,11 @@ class VentilatorController:
 
         self._t_exp_pause_end = _t_period_end # add_secs(self._t_exp_end, MIN_EXP_PAUSE)
 
-        print("start:          " + str(time.now()))
-        print("insp end:       " + str(self._t_insp_end))
-        print("insp pause end: " + str(self._t_insp_pause_end))
-        print("exp end:        " + str(self._t_exp_end))
-        print("exp pause end:  " + str(self._t_exp_pause_end))
+        self.logger.info("start:          " + str(time.now()))
+        self.logger.info("insp end:       " + str(self._t_insp_end))
+        self.logger.info("insp pause end: " + str(self._t_insp_pause_end))
+        self.logger.info("exp end:        " + str(self._t_exp_end))
+        self.logger.info("exp pause end:  " + str(self._t_exp_pause_end))
 
         # TODO: use tidal volume parameter
         # TODO: convert self.volume to encoder position
@@ -181,7 +185,7 @@ class VentilatorController:
             self.ventilate()
 
     def stop_ventilation(self):
-        print("about to stop the motor")
+        self.logger.info("about to stop the motor")
         self.motor.stop()
         self.motor.destructor()
 
@@ -217,11 +221,11 @@ class VentilatorController:
             if self._entering_state:
                 self._entering_state = False
                 self._t_period_actual = time.now() - self._t_cycle_start
-                print("freq: " + str(1.0 / self._t_period_actual.total_seconds()))
-                print("cur tar" + str(self.motor_current_target))
-                print("prev tar" + str(self.motor_prev_target))
-                print("lower: " + str(self.motor_lower_target))
-                print("upper: " + str(self.motor_upper_target))
+                self.logger.info("freq: " + str(1.0 / self._t_period_actual.total_seconds()))
+                self.logger.info("cur tar" + str(self.motor_current_target))
+                self.logger.info("prev tar" + str(self.motor_prev_target))
+                self.logger.info("lower: " + str(self.motor_lower_target))
+                self.logger.info("upper: " + str(self.motor_upper_target))
                 self._t_cycle_start = time.now()
                 self.calculate_wave_form(tidal_volume=self.volume,
                                          ie_ratio=self.ie,
@@ -310,10 +314,10 @@ class VentilatorController:
         if self.current_state is not self.HOMING_STATE:
             raise HOMING_ALARM("Attempted homing outside homing state")
 
-        print("=== Homing Started ===")
+        self.logger.info("=== Homing Started ===")
 
         self.clear_limit_switches()
-        print("Cleared limit switches")
+        self.logger.info("Cleared limit switches")
 
         while self.current_state is self.HOMING_STATE:
             self.home()
@@ -369,7 +373,7 @@ class VentilatorController:
                 raise HOMING_ALARM("Reached lower bound before upper bound, check pulley winding")
 
             self.log_motor_position("Homing lower bound reached")
-            print("=== Homing Finished ===")
+            self.logger.info("=== Homing Finished ===")
             sleep(0.25)
 
         # no contact with any switch
@@ -409,12 +413,12 @@ class VentilatorController:
         @param status: the status of the switch
         """
         if status is 0:
-            print("Power Switch Flipped: OFF")
+            self.logger.info("Power Switch Flipped: OFF")
             if self.current_state is not self.HOMING_STATE:
                 self.set_state(self.PAUSE_STATE)
         
         else:
-            print("Power Switch Flipped: ON")
+            self.logger.info("Power Switch Flipped: ON")
             if self.current_state is not self.HOMING_STATE:
                 self.set_state(self.HOMING_STATE)
 
@@ -429,12 +433,12 @@ class VentilatorController:
 
     def log_motor_position(self, message=""):
         """
-        Print the motor position with a custom
+        log the motor position with a custom
         message if needed.
         @param message: a custom message to
-        be printed.
+        be logged
         """
-        print("{} encoder: {}, motor controller: {}".format(message,
+        self.logger.info("{} encoder: {}, motor controller: {}".format(message,
                                                             self.motor.encoder_position(),
                                                             self.motor.motor_position()))
 
@@ -442,11 +446,11 @@ class VentilatorController:
 
     def update_bpm(self, value):
         self.bpm = value
-        print('BPM set to: ' + str(value))
+        self.logger.info('BPM set to: ' + str(value))
 
     def update_ie(self, value):
         self.ie = value
-        print('IE set to: ' + str(value))
+        self.logger.info('IE set to: ' + str(value))
 
     def update_tidal_volume(self, value):
         if( TIDAL_VOLUME_MAX < value ): # TODO signal in gui that the value is illegal
@@ -471,8 +475,8 @@ class VentilatorController:
             self.motor_current_target = self.motor_upper_target
             self._set_motor_target(self.motor_lower_target)
 
-        print("lower target: "+ str(self.motor_lower_target))
-        print("upper target: "+ str(self.motor_upper_target))
-        print('TV set to: ' + str(value))
+        self.logger.info("lower target: "+ str(self.motor_lower_target))
+        self.logger.info("upper target: "+ str(self.motor_upper_target))
+        self.logger.info('TV set to: ' + str(value))
 
     # TODO: write alarm functions -> sound buzzer, etc.
