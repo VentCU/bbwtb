@@ -132,7 +132,7 @@ class VentilatorController:
         Calling set_state in a unsafe way is not defined.
         """
 
-        self.logger.info("State change: " + self.current_state.name, end="")
+        self.logger.info("State change: " + self.current_state.name)
 
         with self._state_lock:
             self._entering_state = True
