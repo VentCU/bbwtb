@@ -15,6 +15,13 @@ class LoggerInit:
         self.header_date = datetime.now().strftime("%Y/%m/%d, %H:%M:%S")
         self.header = f"VentCU Log for {self.header_date}\n"
 
-        logging.basicConfig(filename=f'logs/{self.filename}.log', level=logging.DEBUG, format=self.format)
+        logging.basicConfig(level=logging.DEBUG, format=self.format,
+                            handlers=[
+                                logging.StreamHandler(),
+                                logging.FileHandler(f'logs/{self.filename}.log')
+                            ])
         logger = logging.getLogger('ventilator.py')
         logger.info(f'{self.header}')
+
+if __name__ == "__main__":
+    logger = LoggerInit("test")

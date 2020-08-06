@@ -198,7 +198,9 @@ class UIControllerInterface:
     def new_thread(self, name, target_method):
         worker = Worker(target_method)
         self.threadpool.start(worker)
-        print("New thread spawned: " + name)
+        # print("New thread spawned: " + name)
+        self.logger.info(f"New thread spawned: {name}")
+
 
     def start_homing(self):
         self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.homing)
