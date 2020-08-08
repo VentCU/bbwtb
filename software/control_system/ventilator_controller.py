@@ -48,7 +48,11 @@ class VentilatorController:
     state_change_sender = StateChangeSender()
     shutdown_sender = ShutdownSender()
 
-    def __init__(self, motor, pressure_sensor, upper_switch, lower_switch, power_switch):
+    def __init__(self, motor, pressure_sensor,
+                         upper_switch, lower_switch, power_switch , spirometer):
+
+        #spirometer
+        self.spirometer = spirometer 
 
         #logger
         self.logger = logging.getLogger('ventilator_controller')
@@ -162,7 +166,7 @@ class VentilatorController:
         self.logger.info("insp pause end: " + str(self._t_insp_pause_end))
         self.logger.info("exp end:        " + str(self._t_exp_end))
         self.logger.info("exp pause end:  " + str(self._t_exp_pause_end))
-
+        
         # TODO: use tidal volume parameter
         # TODO: convert self.volume to encoder position
         # self.motor_upper_target =
@@ -459,6 +463,14 @@ class VentilatorController:
             value = TIDAL_VOLUME_MIN
         self.volume = value
 
+        """ #This seemed better placement then #170 in calculate_wave_form( 
+        measurements = self.spirometer.read() #returns list
+        if( measurements is not None): 
+            # expect :
+            #         air pressure, flow rate, volume, and respiration rate
+            self.logger.info("Spirometer measurement : " + str(measurements))
+            self.logger.info("tic : " + str(measurements))           
+        """
         self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * self.volume * TV_PULLEY_CONVERT_FACTOR)
         self.motor_upper_target = int(self._pose_at_contact)
         # this line below is trying to fix a bug with the _set_motor_target method. 

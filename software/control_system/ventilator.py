@@ -41,21 +41,38 @@ class Ventilator:
         # instantiate actuators
         self.motor = Motor(self.encoder)
 
+        # instantiate spirometer
+        self.spirometer_init()
+
         # instantiate controller
         self.controller = VentilatorController(self.motor,
                                                None,
                                                self.absolute_switch,
                                                self.contact_switch,
-                                               self.power_switch)
+                                               self.power_switch,
+                                               self.spirometer )
 
         # instantiate ui
         self.ui = UI()
 
         self.ui_controller_interface = UIControllerInterface(self.ui, self.controller)
 
+    def spirometer_init(self):
+      from gdx import gdx
+      self.spirometer = gdx.gdx()
+      #connects to all go direct usb devices
+      self.spirometer.open_usb()  
+      # select device for data collection 
+      self.spirometer.select_sensors([1]) 
+      # should never be less than 10 millisecond sampling period
+      self.spirometer.start(1000)
+
+      
     def at_exit(self, sig, frame):
         print("Exiting program...")
         self.controller.stop_ventilation()
+        # self.spirometer.stop() # stop data collection
+        # self.spirometer.close()# disconnect from go direct device
         sys.exit(0)
 
 
