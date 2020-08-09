@@ -42,7 +42,7 @@ class Ventilator:
         self.motor = Motor(self.encoder)
 
         # instantiate spirometer
-        self.spirometer_init()
+        #self.spirometer_init()
 
         # instantiate controller
         self.controller = VentilatorController(self.motor,
