@@ -43,7 +43,7 @@ class ShutdownSender(QtCore.QObject):
     shutdown_signal = pyqtSignal()
 
 class AlarmSender(QtCore.QObject):
-    alarm_signal = pyqtSignal()
+    alarm_signal = pyqtSignal(Alarm)
     
 class VentilatorController:
 
@@ -344,9 +344,9 @@ class VentilatorController:
         """
 
         if self.current_state is not self.HOMING_STATE:
-            self.alarm_sender.alarm_signal.emit() 
-            raise HOMING_ALARM("Attempted homing outside homing state")
-
+            self.alarm_sender.alarm_signal.emit(
+                HOMING_ALARM("Attempted homing outside homing state"))
+        
         # making contact with upper switch
         if self.upper_switch.contacted() and not self.lower_switch.contacted():
 
@@ -377,8 +377,8 @@ class VentilatorController:
                 self.set_state(self.HOMING_VERIF_STATE)
                 self._homing_dir = 1
             else:
-                self.alarm_sender.alarm_signal.emit()
-                raise HOMING_ALARM("Reached lower bound before upper bound, check pulley winding")
+                self.alarm_sender.alarm_signal.emit(
+                    HOMING_ALARM("Reached lower bound before upper bound, check pulley winding"))
 
             self.log_motor_position("Homing lower bound reached")
             self.logger.info("=== Homing Finished ===")
@@ -391,8 +391,8 @@ class VentilatorController:
         # contact with both switches -- error
         elif self.upper_switch.contacted() and self.lower_switch.contacted():
             self.motor.stop()
-            self.alarm_sender.alarm_signal.emit()
-            raise HOMING_ALARM("Both contact switches are pressed")
+            self.alarm_sender.alarm_signal.emit(
+                HOMING_ALARM("Both contact switches are pressed"))
 
     def contact_switch_callback(self, status):
         """

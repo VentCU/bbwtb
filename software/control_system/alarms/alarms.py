@@ -11,16 +11,18 @@
 class Alarm(Exception):
 
     # TODO: the alarm type param hasn't been implemented
-    def __init__(self, message, alarm_type=0):
+    def __init__(self, message="ALARM", alarm_type=0):
         self.message = message
-        self.type = alarm_type
+        self.exc_type = alarm_type
 
 
 class OVER_PRESSURE_ALARM(Alarm):
+    # need pressure sensor readings
     pass
 
 
 class UNDER_PRESSURE_ALARM(Alarm):
+    # need pressure sensor readings
     pass
 
 class HOMING_ALARM(Alarm):

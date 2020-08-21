@@ -5,7 +5,7 @@
 # (c) VentCU, 2020. All Rights Reserved.
 #
 import sys
-from alarms import *
+from alarms.alarms import *
 sys.path.append('/home/pi/Workspace/bbwtb/software/control_system')
 from actuators import buzzer
 sys.path.append('/home/pi/Workspace/bbwtb/software/control_system/configs')
@@ -25,19 +25,19 @@ class AlarmHandler:
         self.controller.current_alarms.append(alarm)
         self.controller.alarm_condition = True
 
-        if type(alarm) is type(OVER_PRESSURE_ALARM):        # TODO: check that this works
+        if type(alarm) is type(OVER_PRESSURE_ALARM()):        # TODO: check that this works
             self.over_pressure()
 
-        elif type(alarm) is type(UNDER_PRESSURE_ALARM):
+        elif type(alarm) is type(UNDER_PRESSURE_ALARM()):
             self.under_pressure()
 
-        elif type(alarm) is type(HOMING_ALARM):
-            self.homing_error()
+        elif type(alarm) is type(HOMING_ALARM()):
+            self.homing_error(alarm)
 
-        elif type(alarm) is type(POSITION_ALARM):
+        elif type(alarm) is type(POSITION_ALARM()):
             self.position_error()
 
-        elif type(alarm) is type(SYSTEM_ALARM):
+        elif type(alarm) is type(SYSTEM_ALARM()):
             self.system_fault()
 
         else:
@@ -52,7 +52,7 @@ class AlarmHandler:
     def position_error(self):
         pass
 
-    def homing_error(self):
+    def homing_error(self,alarm):
         pass
 
     def system_fault(self):

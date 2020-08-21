@@ -78,7 +78,7 @@ class UIControllerInterface:
         )
 
         self.controller.alarm_sender.alarm_signal.connect(
-            lambda: self.except_alarm_hook()
+            self.except_alarm_hook
         )
         
         """
@@ -236,11 +236,12 @@ class UIControllerInterface:
         except Alarm as alarm:
             self.alarm_handler.handle_alarms(alarm)
 
-    def except_alarm_hook(self, args):
-        if args.exc_type is type(Alarm):
+    def except_alarm_hook(self, alarm=None):
+        if type(alarm) is type(HOMING_ALARM()):
             # switch window if alarm raised
             self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.alarm_condition)
+            # TODO TEXT 
             # TODO: verify that raising exception kills thread (UNLESS NEEDED)
-            self.alarm_handler.handle_alarms(args.exc_value) 
+            self.alarm_handler.handle_alarms(alarm) 
         else:
-            raise args.exec_value
+            raise alarm
