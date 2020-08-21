@@ -146,7 +146,7 @@ class UIControllerInterface:
 
         # begin main ventilate thread
         self.ui.stack.confirm_parameters.confirm_button.clicked.connect(
-            lambda: self.start_ventilate_thread()
+            lambda: self.update_parameters()
         )
 
         """
@@ -181,11 +181,16 @@ class UIControllerInterface:
         self.update_label(self.ui.stack.edit_parameters.BPM_label, self.modified_bpm)
         self.update_label(self.ui.stack.edit_parameters.IE_label, self.modified_ie)
 
-    def start_ventilate_thread(self):
+    # spawns ventilate thread if updating for the first time
+    def update_parameters(self):
         # update controller parameters from interface parameters
         self.try_controller_method( self.controller.update_tidal_volume, parameters=self.modified_volume )
         self.try_controller_method( self.controller.update_bpm, parameters=self.modified_bpm )
         self.try_controller_method( self.controller.update_ie, parameters=self.modified_ie )
+
+        self.update_label(self.ui.stack.main_window.set_TV_label, self.modified_volume)
+        self.update_label(self.ui.stack.main_window.set_BPM_label, self.modified_bpm)
+        self.update_label(self.ui.stack.main_window.set_IE_label, self.modified_ie)
 
         if( not self.ventilate_thread_spawned ):
             # spawn ventilate thread
