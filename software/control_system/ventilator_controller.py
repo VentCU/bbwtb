@@ -49,10 +49,7 @@ class VentilatorController:
     shutdown_sender = ShutdownSender()
 
     def __init__(self, motor, pressure_sensor,
-                         upper_switch, lower_switch, power_switch , spirometer):
-
-        #spirometer
-        self.spirometer = spirometer 
+                         upper_switch, lower_switch, power_switch ):
 
         #logger
         self.logger = logging.getLogger('ventilator_controller')
@@ -249,6 +246,7 @@ class VentilatorController:
                 self._set_motor_target(self.motor_upper_target)
                 self.set_state(self.INSP_PAUSE_STATE)
             # TODO: commenting out for now because time is a construct
+            # USER_CHECK_ALARM -- machine can keep running but user should check machine
             # if time.now() > self._t_insp_end:
             #    raise SYSTEM_ALARM("Inspiration exceeds time limit")
 
@@ -280,6 +278,7 @@ class VentilatorController:
                 self._set_motor_target(self.motor_lower_target)
                 self.set_state(self.EXP_PAUSE_STATE)
             # TODO: commenting out for now because time is a construct
+            # USER_CHECK_ALARM -- machine can keep running but user should check machine
             # if time.now() > self._t_exp_end:
             #    raise SYSTEM_ALARM("Expiration exceeds time limit")
 
@@ -463,14 +462,6 @@ class VentilatorController:
             value = TIDAL_VOLUME_MIN
         self.volume = value
 
-        """ #This seemed better placement then #170 in calculate_wave_form( 
-        measurements = self.spirometer.read() #returns list
-        if( measurements is not None): 
-            # expect :
-            #         air pressure, flow rate, volume, and respiration rate
-            self.logger.info("Spirometer measurement : " + str(measurements))
-            self.logger.info("tic : " + str(measurements))           
-        """
         self.motor_lower_target = int(self._pose_at_contact - ENCODER_ONE_ROTATION * self.volume * TV_PULLEY_CONVERT_FACTOR)
         self.motor_upper_target = int(self._pose_at_contact)
         # this line below is trying to fix a bug with the _set_motor_target method. 
