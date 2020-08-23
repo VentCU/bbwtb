@@ -5,9 +5,12 @@
 # Contact: wx2214@columbia.edu
 #          neil.nie@columbia.edu
 #
+import sys, os
+sys.path.append(os.path.abspath(os.path.join('..', '')))
 
-from ..actuators.tic_usb import *
-from ..sensors.rotary_encoder import RotaryEncoder
+import pigpio
+from actuators.tic_usb import *
+from sensors.rotary_encoder import RotaryEncoder
 from time import sleep
 
 # define some global vars
@@ -20,10 +23,11 @@ def encoder_callback(value):
     
 
 # create a motor controller object
-motor_controller = TicUSB()
+motor_controller = TicDevice()
+motor_controller.open(vendor=0x1ffb, product_id=0x00CB)
 
 # create the rotary encoder
-encoder = RotaryEncoder(16, 18, callback=encoder_callback)
+encoder = RotaryEncoder(pigpio.pi(), 16, 18)
 
 encoder_u_limit = 200
 encoder_l_limit = -200
