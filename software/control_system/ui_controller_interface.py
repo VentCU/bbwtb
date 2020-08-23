@@ -238,7 +238,7 @@ class UIControllerInterface:
 
     def except_alarm_hook(self, alarm=None):
         # set text
-        self.ui.stack.alarm_condition.error_message_label(alarm.message)
+        self.ui.stack.alarm_condition.error_message_label.setText(alarm.message)
         # switch window if alarm raised
         self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.alarm_condition)
         if isinstance( alarm, HOMING_ALARM):
