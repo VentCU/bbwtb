@@ -237,30 +237,23 @@ class UIControllerInterface:
             self.alarm_handler.handle_alarms(alarm)
 
     def except_alarm_hook(self, alarm=None):
+        # set text
+        self.ui.stack.alarm_condition.error_message_label(alarm.message)
+        # switch window if alarm raised
+        self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.alarm_condition)
         if isinstance( alarm, HOMING_ALARM):
-            # switch window if alarm raised
-            self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.alarm_condition)
-            # TODO TEXT 
             # TODO: verify that raising exception kills thread (UNLESS thread NEEDED)
             self.alarm_handler.handle_alarms(alarm) 
         elif isinstance( alarm, OVER_PRESSURE_ALARM):
-            # switch window if alarm raised
-            self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.alarm_condition)
             # TODO: verify that raising exception kills thread (UNLESS thread NEEDED)
             self.alarm_handler.handle_alarms(alarm)  
         elif isinstance( alarm, UNDER_PRESSURE_ALARM):
-            # switch window if alarm raised
-            self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.alarm_condition)
             # TODO: verify that raising exception kills thread (UNLESS thread NEEDED)
             self.alarm_handler.handle_alarms(alarm)  
         elif isinstance( alarm, POSITION_ALARM):
-            # switch window if alarm raised
-            self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.alarm_condition)
             # TODO: verify that raising exception kills thread (UNLESS thread NEEDED)
             self.alarm_handler.handle_alarms(alarm) 
         elif isinstance( alarm, SYSTEM_ALARM):
-            # switch window if alarm raised
-            self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.alarm_condition) 
             # TODO: verify that raising exception kills thread (UNLESS thread NEEDED)
             self.alarm_handler.handle_alarms(alarm) 
         else:
