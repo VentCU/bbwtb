@@ -55,11 +55,20 @@ goal = encoder_u_limit
 
 if __name__ == "__main__":
 
+    import time
+    start = time.time()
+    printed = False
+
     while True:
 
         result, vel = motor.move_to_encoder_pose(goal)
-        
+
         if i is not 0:
+
+            if result and not printed:
+                printed = True
+                print(time.time() - start)
+                print("====")
             vel_arr.append(vel)
             en_pose_arr.append(motor.encoder_position())
             tic_pose_arr.append(motor.motor_position())
@@ -67,9 +76,9 @@ if __name__ == "__main__":
             zeros.append(0)
             setpoints_en.append(400)
             setpoints_tic.append(12800)
-        
+
         i = i + 1
-        
+ 
         if i > 800:
             print("terminated")
             break
