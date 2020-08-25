@@ -26,6 +26,29 @@ class Motor:
         """
         self.tic_device.set_target_velocity(velocity)
 
+    def get_scale_factor( tic_count ):
+        """
+        allow changing pid time scale factor depending on desired travel distance
+        Should fit fine b.c. at degree 4 the residual was too small to count
+        
+        @param tic_count: the total distance the motor should move
+        @return:     the pid time scale factor to allow correct motor movement
+        """
+        degree = 4
+        #tic_count = [100,250,300,500,650]
+        #scalefactor = [.01555,.0072,.00615,.00415,.0035]
+        #np.polyfit( tic_count , scalefactor , degree , full = True)
+        
+        # polyfit returns coefficients in x**n + .. + x**0 order
+        coefficients = [ 4.61471861e-13,
+             -8.54025974e-10,  5.93469697e-07, -1.91823377e-04, 2.96055195e-02 ]
+        pid_scale_factor = 0
+        for c in coefficients:
+            raised = pow( tic_count, degree )
+            pid_scale_factor += c*raised
+            degree -= 1
+        return pid_scale_factor 
+
     def move_to_encoder_pose_with_dur(self, pose, dist, dur):
         """
         use a pid controller to reach the target position specified in the
@@ -39,9 +62,11 @@ class Motor:
         """
 
         if dur <= 0: return False   # cannot move in negative or zero time
-
+        
+        dynamic_pid_time_scale = self.get_scale_factor( abs(dist) )
+        # scale_factor = dynamic_pid_time_scale * abs(dist) / dur
         scale_factor = PID_TIME_SCALE_FACTOR * abs(dist) / dur
-
+        
         # ensure scale_factor remains within velocity bounds
         if scale_factor > 10: scale_factor = 10                 # TODO: replace with max vel const
         elif scale_factor < 0.01: scale_factor = 0.01           # TODO: replace with min vel const
