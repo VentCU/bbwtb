@@ -12,8 +12,8 @@ def motor(test_method):
 
     if test_method == "move_to_encoder_pose_with_dur":
 
-        target_time = 2
-        target_dist = -250
+        target_time = 1.2 
+        target_dist = -500 
 
         encoder = RotaryEncoder(pigpio.pi(), ENCODER_B_PLUS_PIN, ENCODER_A_PLUS_PIN)
         motor = Motor(encoder)
