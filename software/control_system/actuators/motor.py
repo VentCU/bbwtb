@@ -26,7 +26,7 @@ class Motor:
         """
         self.tic_device.set_target_velocity(velocity)
 
-    def get_scale_factor( tic_count ):
+    def get_scale_factor( self,  tic_count ):
         """
         allow changing pid time scale factor depending on desired travel distance
         Should fit fine b.c. at degree 4 the residual was too small to count
@@ -64,8 +64,8 @@ class Motor:
         if dur <= 0: return False   # cannot move in negative or zero time
         
         dynamic_pid_time_scale = self.get_scale_factor( abs(dist) )
-        # scale_factor = dynamic_pid_time_scale * abs(dist) / dur
-        scale_factor = PID_TIME_SCALE_FACTOR * abs(dist) / dur
+        scale_factor = dynamic_pid_time_scale * abs(dist) / dur
+        # scale_factor = PID_TIME_SCALE_FACTOR * abs(dist) / dur
         
         # ensure scale_factor remains within velocity bounds
         if scale_factor > 10: scale_factor = 10                 # TODO: replace with max vel const
