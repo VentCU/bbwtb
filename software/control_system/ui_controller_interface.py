@@ -112,7 +112,10 @@ class UIControllerInterface:
         self.update_label(self.ui.stack.edit_parameters.TV_label, self.controller.volume)
         self.update_label(self.ui.stack.edit_parameters.BPM_label, self.controller.bpm)
         self.update_label(self.ui.stack.edit_parameters.IE_label, self.controller.ie)
-
+        self.controller.measured_parameters_sender.update_measured_parameters_signal.connect(
+            self.update_measured_parameters 
+        )
+        
         # TODO: redefine logical values for increasing and decreasing
         self.ui.stack.edit_parameters.tidal_increase_button.clicked.connect(
             lambda: self.modify_interface_parameters(volume=self.modified_volume + 10)
@@ -195,12 +198,18 @@ class UIControllerInterface:
         self.update_label(self.ui.stack.main_window.set_TV_label, self.modified_volume)
         self.update_label(self.ui.stack.main_window.set_BPM_label, self.modified_bpm)
         self.update_label(self.ui.stack.main_window.set_IE_label, self.modified_ie)
-
+        
         if( not self.ventilate_thread_spawned ):
             # spawn ventilate thread
             self.new_thread("ventilate_thread", self.controller.start_ventilation)
             self.ventilate_thread_spawned = True
-    
+            
+    # updates measured parameters at a constant frequency, unlike "update_parameters(self)" which is on button signal
+    def update_measured_parameters(self):
+        self.update_label(self.ui.stack.main_window.measure_TV_label, int(self.controller.measure_volume))
+        self.update_label(self.ui.stack.main_window.measure_BPM_label, int(self.controller.measure_bpm))
+        self.update_label(self.ui.stack.main_window.measure_IE_label, self.controller.measure_ie["ie_ratio"])
+        
     def update_label(self, label, value):
         label.setText( str(value) )
 

@@ -45,7 +45,12 @@ class ShutdownSender(QtCore.QObject):
 class AlarmSender(QtCore.QObject):
     alarm_signal = pyqtSignal(Alarm)
     
+class UpdateMeasuredParametersSender(QtCore.QObject):
+    update_measured_parameters_signal = pyqtSignal() 
+    
 class VentilatorController:
+
+    measured_parameters_sender = UpdateMeasuredParametersSender() 
 
     state_change_sender = StateChangeSender()
     shutdown_sender = ShutdownSender()
@@ -118,6 +123,10 @@ class VentilatorController:
         self.motor_current_target = 0
         self.motor_prev_target = 0
 
+        self.measure_volume = 0
+        self.measure_bpm    = 0
+        self.measure_ie     = {"insp_time":time.now(),"exp_time":time.now(),"last_exp_pause_end":time.now(),"ie_ratio":""}
+        
         # TODO: clean up class variables
         # =========================================
         self.contact_encoder_val = 0    # at the point of contact of the ambu bag, what's the encoder value.
@@ -225,6 +234,7 @@ class VentilatorController:
             if self._entering_state:
                 self._entering_state = False
                 self._t_period_actual = time.now() - self._t_cycle_start
+                self.measure_bpm = 60.0 / self._t_period_actual.total_seconds()
                 self.logger.info("freq: " + str(1.0 / self._t_period_actual.total_seconds()))
                 self.logger.info("cur tar" + str(self.motor_current_target))
                 self.logger.info("prev tar" + str(self.motor_prev_target))
@@ -262,6 +272,7 @@ class VentilatorController:
 
             if time.now() > self._t_insp_pause_end:
                 self.set_state(self.EXP_STATE)
+                self.measure_ie["insp_time"] = self._t_insp_pause_end - self.measure_ie["last_exp_pause_end"] # end insp - start  # but doesn't work on the first first cycle
 
         # == EXP_STATE == #
         elif self.current_state is self.EXP_STATE:
@@ -291,11 +302,15 @@ class VentilatorController:
                 self._entering_state = False
 
             self.motor.stop()
-
+            # update_measured_parameters()
             if time.now() > self._t_exp_pause_end:
                 self.set_state(self.INSP_STATE)
                 # self.set_state(self.HOMING_VERIF_STATE)
-
+                self.measure_ie["last_exp_pause_end"] = self._t_exp_pause_end
+                self.measure_ie["exp_time"] = self._t_exp_pause_end - self._t_insp_pause_end  # end insp - start
+                self.measure_ie["ie_ratio"] = f"{int(self.measure_ie['insp_time'].total_seconds())}/{int(self.measure_ie['exp_time'].total_seconds())}"
+                self.measured_parameters_sender.update_measured_parameters_signal.emit()
+            
         # == PAUSE_STATE == #
         elif self.current_state is self.PAUSE_STATE: # TODO: define off behavior
             if self._entering_state:
@@ -313,6 +328,7 @@ class VentilatorController:
             self.motor.stop()
 
         # TODO: add delay to loop if there is extra time
+
 
 
     def start_homing(self):
