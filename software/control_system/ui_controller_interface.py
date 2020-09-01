@@ -174,17 +174,8 @@ class UIControllerInterface:
 
         # TODO: connect graph to pressure data from controller
 
-        # TODO: connect the following
-        # self.update_label(self.ui.stack.main_window.set_PEEP_label, value )
-        # self.update_label(self.ui.stack.main_window.set_PIP_label, value )
-        # self.update_label(self.ui.stack.main_window.set_PLAT_label, value )
-        # self.update_label(self.ui.stack.main_window.measured_TV_label, value )
-        # self.update_label(self.ui.stack.main_window.measured_BPM_label, value )
-        # self.update_label(self.ui.stack.main_window.measured_IE_label, value )
-        # self.update_label(self.ui.stack.main_window.measured_PEEP_label, value )
-        # self.update_label(self.ui.stack.main_window.measured_PIP_label, value )
-        # self.update_label(self.ui.stack.main_window.measured_PLAT_label, value )
-        # self.update_label(self.ui.stack.main_window.message_log_label, value )
+        # connect gui close to motor destructor
+        self.ui.app.aboutToQuit.connect(self.controller.stop_ventilation)
 
     def modify_interface_parameters(self, volume=None, bpm=None, ie=None):
         # update local modified parameters
