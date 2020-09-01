@@ -252,6 +252,7 @@ class UIControllerInterface:
             self.alarm_handler.handle_alarms(alarm)
 
     def except_alarm_hook(self, alarm=None):
+        self.controller.set_state(self.controller.PAUSE_STATE)
         # set text
         self.ui.stack.alarm_condition.error_message_label.setText(alarm.message)
         # switch window if alarm raised
