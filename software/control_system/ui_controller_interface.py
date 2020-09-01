@@ -86,6 +86,9 @@ class UIControllerInterface:
         self.ui.stack.alarm_condition.rehome_button.clicked.connect(
             lambda: self.try_controller_method( self.controller.set_state, parameters=self.controller.HOMING_STATE )
         )
+        self.ui.stack.alarm_condition.dismiss_alarm_button.clicked.connect(
+            lambda: self.dismiss_alarm_handler 
+        )
         
         """
         start_homing window elements
@@ -215,7 +218,15 @@ class UIControllerInterface:
         self.update_label(self.ui.stack.main_window.measure_TV_label, int(self.controller.measure_volume))
         self.update_label(self.ui.stack.main_window.measure_BPM_label, int(self.controller.measure_bpm))
         self.update_label(self.ui.stack.main_window.measure_IE_label, self.controller.measure_ie["ie_ratio"])
-        
+     
+    # dismissed alarms require different widget redirection depending on state 
+    def dismiss_alarm_handler(self):
+        if(self.current_state is self.controller.HOMING_STATE
+        or self.current_state is self.controller.HOMING_VERIF_STATE ):
+          self.QtStack.setCurrentWidget(self.start_homing)
+        else:
+          self.QtStack.setCurrentWidget(self.main_window)
+          
     def update_label(self, label, value):
         label.setText( str(value) )
 

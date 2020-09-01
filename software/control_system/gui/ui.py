@@ -89,10 +89,7 @@ class WindowStack(QtWidgets.QMainWindow):
             lambda: self.QtStack.setCurrentWidget(self.edit_parameters)
         )
 
-        # alarm_condition window hideButtons
-        self.alarm_condition.dismiss_alarm_button.clicked.connect(
-            lambda: self.QtStack.setCurrentWidget(self.main_window)
-        )
+
 
 
 class MainWindow(QtWidgets.QMainWindow):
