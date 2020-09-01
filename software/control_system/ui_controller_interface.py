@@ -87,7 +87,7 @@ class UIControllerInterface:
             lambda: self.try_controller_method( self.controller.set_state, parameters=self.controller.HOMING_STATE )
         )
         self.ui.stack.alarm_condition.dismiss_alarm_button.clicked.connect(
-            lambda: self.dismiss_alarm_handler 
+            self.dismiss_alarm_handler 
         )
         
         """
