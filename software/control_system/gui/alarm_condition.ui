@@ -148,8 +148,8 @@ border-radius: 10px;
        </property>
       </spacer>
      </item>
-     <item>
-      <widget class="QPushButton" name="silence_alarm_button">
+          <item>
+      <widget class="QPushButton" name="rehome_button">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -169,17 +169,17 @@ border-radius: 10px;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: #EAEAEA;
+        <string notr="true">background-color: #495867;
 border: 3px solid;
-border-color: #495867;
+border-color: #EAEAEA;
 padding: 2px;
-font:22pt &quot;Nimbus sans L&quot;;
-color: #292F36;
-border-radius: 10px;</string>
+font:36pt &quot;Nimbus sans L&quot;;
+color: #EAEAEA;
+border-radius: 10px;
+</string>
        </property>
        <property name="text">
-        <string>Silence Alarm 
- for 2 minutes</string>
+        <string>Rehome</string>
        </property>
        <property name="flat">
         <bool>false</bool>

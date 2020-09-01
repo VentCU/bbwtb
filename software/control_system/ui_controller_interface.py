@@ -76,9 +76,15 @@ class UIControllerInterface:
         self.controller.shutdown_sender.shutdown_signal.connect(
             lambda: self.try_controller_method( self.controller.set_state, parameters=self.controller.OFF_STATE )
         )
-
+        
+        """
+        alarm window elements
+        """
         self.controller.alarm_sender.alarm_signal.connect(
             self.except_alarm_hook
+        )
+        self.ui.stack.alarm_condition.rehome_button.clicked.connect(
+            lambda: self.try_controller_method( self.controller.set_state, parameters=self.controller.HOMING_STATE )
         )
         
         """
