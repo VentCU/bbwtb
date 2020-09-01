@@ -175,7 +175,7 @@ class UIControllerInterface:
         # TODO: connect graph to pressure data from controller
 
         # connect gui close to motor destructor
-        self.ui.app.aboutToQuit.connect(self.controller.motor.destructor)
+        self.ui.app.aboutToQuit.connect(self.controller.stop_ventilation)
 
     def modify_interface_parameters(self, volume=None, bpm=None, ie=None):
         # update local modified parameters
