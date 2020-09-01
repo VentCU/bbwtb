@@ -221,8 +221,8 @@ class UIControllerInterface:
      
     # dismissed alarms require different widget redirection depending on state 
     def dismiss_alarm_handler(self):
-        if(self.current_state is self.controller.HOMING_STATE
-        or self.current_state is self.controller.HOMING_VERIF_STATE ):
+        if(self.controller.current_state is self.controller.HOMING_STATE
+        or self.controller.current_state is self.controller.HOMING_VERIF_STATE ):
           self.QtStack.setCurrentWidget(self.start_homing)
         else:
           self.QtStack.setCurrentWidget(self.main_window)
