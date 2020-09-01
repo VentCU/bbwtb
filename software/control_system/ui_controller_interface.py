@@ -214,9 +214,9 @@ class UIControllerInterface:
     def dismiss_alarm_handler(self):
         if(self.controller.current_state is self.controller.HOMING_STATE
         or self.controller.current_state is self.controller.HOMING_VERIF_STATE ):
-          self.ui.QtStack.setCurrentWidget(self.ui.stack.start_homing)
+          self.ui.stack.setCurrentWidget(self.ui.stack.start_homing)
         else:
-          self.ui.QtStack.setCurrentWidget(self.ui.stack.main_window)
+          self.ui.stack.setCurrentWidget(self.ui.stack.main_window)
           
     def update_label(self, label, value):
         label.setText( str(value) )
