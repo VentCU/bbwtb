@@ -62,7 +62,7 @@ class UIControllerInterface:
         self.modified_volume = self.controller.volume
         self.modified_bpm = self.controller.bpm
         self.modified_ie = self.controller.ie
-
+        self.last_controller_state = None
         self.interface_elements()
 
         self.ventilate_thread_spawned = False
@@ -212,8 +212,8 @@ class UIControllerInterface:
      
     # dismissed alarms require different widget redirection depending on state 
     def dismiss_alarm_handler(self):
-        if(self.controller.current_state is self.controller.HOMING_STATE
-        or self.controller.current_state is self.controller.HOMING_VERIF_STATE ):
+        if(self.last_controller_state is self.controller.HOMING_STATE
+        or self.last_controller_state is self.controller.HOMING_VERIF_STATE ):
           self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.start_homing)
         else:
           self.ui.stack.QtStack.setCurrentWidget(self.ui.stack.main_window)
@@ -254,6 +254,7 @@ class UIControllerInterface:
             self.alarm_handler.handle_alarms(alarm)
 
     def except_alarm_hook(self, alarm=None):
+        self.last_controller_state = self.controller.current_state
         self.controller.set_state(self.controller.PAUSE_STATE)
         # set text
         self.ui.stack.alarm_condition.error_message_label.setText(alarm.message)
