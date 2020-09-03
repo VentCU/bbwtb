@@ -122,6 +122,9 @@ border-radius: 4px;</string>
     <property name="text">
      <string>No errors</string>
     </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
