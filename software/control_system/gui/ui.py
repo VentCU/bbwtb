@@ -8,9 +8,11 @@ import logging
 sys.path.append('/home/pi/Workspace/bbwtb/software/control_system/gui')
 from slider import DebbugingSlider
 
+sys.path.append('/home/pi/Workspace/bbwtb/software/control_system/sensors')
+from pressure_sensor import PressureSensor
+
 pyqt_logger = logging.getLogger('PyQt5')
 pyqt_logger.setLevel(logging.CRITICAL)
-
 
 class WindowStack(QtWidgets.QMainWindow):
 
@@ -119,6 +121,8 @@ class MainWindow(QtWidgets.QMainWindow):
         x_axis = []
         plot_ptr = 0 # last updated x value
 
+        self.pressure_sensor = PressureSensor()
+
         pressure_data = []
         # flow_data = []
         # volume_data = []
@@ -165,6 +169,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def update_plots(self):
         global chunk_size, x_axis, pressure_data, plot_ptr #, flow_data, volume_data
 
+        self.pressure_sensor.update_data()
         # Clear plot if chunk size reached
         if plot_ptr == chunk_size:
             x_axis = []
@@ -177,7 +182,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         x_axis.append(plot_ptr)
 
-        pressure_data.append( uniform(0, 50) )
+        pressure_data.append(self.pressure_sensor.get_raw_pressure())
         # flow_data.append( uniform(-60, 60) )
         # volume_data.append( uniform(0, 1) )
 
