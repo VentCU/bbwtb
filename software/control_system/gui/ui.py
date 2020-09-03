@@ -127,6 +127,13 @@ class MainWindow(QtWidgets.QMainWindow):
         # flow_data = []
         # volume_data = []
 
+        pen_red = pg.mkPen(color=(255, 0, 0), width=3)
+        # pen_blue = pg.mkPen(color=(0, 0, 255), width=3)
+        # pen_green = pg.mkPen(color=(100, 160, 100), width=3)
+        self.pressure_curve = self.pressure_graph.plot(x_axis, pressure_data, pen=pen_red)
+        # self.flow_curve = self.flow_graph.plot(x_axis, flow_data, pen=pen_blue)
+        # self.volume_curve = self.volume_graph.plot(x_axis, volume_data,pen=pen_green)
+
         self.pressure_graph.setMouseEnabled(x=False, y=False)
         # self.flow_graph.setMouseEnabled(x=False, y=False)
         # self.volume_graph.setMouseEnabled(x=False, y=False)
@@ -158,13 +165,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pressure_graph.hideButtons()
         # self.flow_graph.hideButtons()
         # self.volume_graph.hideButtons()
-
-        pen_red = pg.mkPen(color=(255, 0, 0), width=3)
-        # pen_blue = pg.mkPen(color=(0, 0, 255), width=3)
-        # pen_green = pg.mkPen(color=(100, 160, 100), width=3)
-        self.pressure_curve = self.pressure_graph.plot(x_axis, pressure_data, pen=pen_red)
-        # self.flow_curve = self.flow_graph.plot(x_axis, flow_data, pen=pen_blue)
-        # self.volume_curve = self.volume_graph.plot(x_axis, volume_data,pen=pen_green)
 
     def update_plots(self):
         global chunk_size, x_axis, pressure_data, plot_ptr #, flow_data, volume_data
