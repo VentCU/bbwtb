@@ -16,28 +16,25 @@ from alarms.alarms import *
 from threading import Lock
 from PyQt5.QtCore import pyqtSignal
 from PyQt5 import QtCore
-
+sys.path.append('/home/pi/Workspace/bbwtb/software/control_system/actuators')
+from buzzer import Buzzer
 
 def add_secs(tm, secs):
     full_date = datetime.datetime(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second, tm.microsecond)
     full_date = full_date + datetime.timedelta(seconds=secs)
     return full_date
 
-
 def subtract_secs(tm, secs):
     full_date = datetime.datetime(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second, tm.microsecond)
     full_date = full_date - datetime.timedelta(seconds=secs)
     return full_date
 
-
 class State:
     def __init__(self, name):
         self.name = name
 
-
 class StateChangeSender(QtCore.QObject):
     state_change_signal = pyqtSignal()
-
 
 class ShutdownSender(QtCore.QObject):
     shutdown_signal = pyqtSignal()
@@ -55,6 +52,9 @@ class VentilatorController:
     state_change_sender = StateChangeSender()
     shutdown_sender = ShutdownSender()
     alarm_sender = AlarmSender() 
+
+    self.buzzer_1 = Buzzer(25)
+    self.buzzer_2 = Buzzer(8)
 
     def __init__(self, motor, pressure_sensor,
                          upper_switch, lower_switch, power_switch ):
@@ -199,13 +199,16 @@ class VentilatorController:
 
     def stop_ventilation(self):
         self.logger.info("about to stop the motor")
+        self.buzzer_1.disable_buzzer()
+        self.buzzer_2.disable_buzzer()
         self.motor.stop()
         self.motor.destructor()
 
     def ventilate(self):
 
         self._t_loop_start = time.now()
-
+        self.buzzer_1.disable_buzzer()
+        self.buzzer_2.disable_buzzer()
         # main finite state machine
 
         # == START_STATE == #
@@ -261,6 +264,8 @@ class VentilatorController:
             # TODO: commenting out for now because time is a construct
             # USER_CHECK_ALARM -- machine can keep running but user should check machine
             # if time.now() > self._t_insp_end:
+            #    self.buzzer_1.enable_buzzer()
+            #    self.buzzer_2.enable_buzzer()
             #    raise SYSTEM_ALARM("Inspiration exceeds time limit")
 
         # == INSP_PAUSE_STATE == #
@@ -294,6 +299,8 @@ class VentilatorController:
             # TODO: commenting out for now because time is a construct
             # USER_CHECK_ALARM -- machine can keep running but user should check machine
             # if time.now() > self._t_exp_end:
+            #    self.buzzer_1.enable_buzzer()
+            #    self.buzzer_2.enable_buzzer()
             #    raise SYSTEM_ALARM("Expiration exceeds time limit")
 
         # == EXP_PAUSE_STATE == #
@@ -335,8 +342,12 @@ class VentilatorController:
 
 
     def start_homing(self):
+        self.buzzer_1.disable_buzzer()
+        self.buzzer_2.disable_buzzer()
 
         if self.current_state is not self.HOMING_STATE:
+            self.buzzer_1.enable_buzzer()
+            self.buzzer_2.enable_buzzer()
             raise HOMING_ALARM("Attempted homing outside homing state")
 
         self.logger.info("=== Homing Started ===")
@@ -363,6 +374,8 @@ class VentilatorController:
         """
 
         if self.current_state is not self.HOMING_STATE:
+            self.buzzer_1.enable_buzzer()
+            self.buzzer_2.enable_buzzer()
             self.alarm_sender.alarm_signal.emit(
                 HOMING_ALARM("Attempted homing outside homing state"))
         
@@ -396,6 +409,8 @@ class VentilatorController:
                 self.set_state(self.HOMING_VERIF_STATE)
                 self._homing_dir = 1
             else:
+                self.buzzer_1.enable_buzzer()
+                self.buzzer_2.enable_buzzer()
                 self.alarm_sender.alarm_signal.emit(
                     HOMING_ALARM("Reached lower bound before upper bound, check pulley winding"))
 
@@ -409,6 +424,8 @@ class VentilatorController:
 
         # contact with both switches -- error
         elif self.upper_switch.contacted() and self.lower_switch.contacted():
+            self.buzzer_1.enable_buzzer()
+            self.buzzer_2.enable_buzzer()
             self.motor.stop()
             self.alarm_sender.alarm_signal.emit(
                 HOMING_ALARM("Both contact switches are pressed"))
