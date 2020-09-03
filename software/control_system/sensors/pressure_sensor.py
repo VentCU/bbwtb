@@ -35,7 +35,7 @@ class PressureSensor:
     # Returns raw differential reading from pressure sensor
     # Pressure transducer hard wired to ADC analog pins 0, 1
     def get_raw_pressure(self):
-        return self.raw_pressure
+        return np.sqrt(np.square(self.raw_pressure))
     
     def get_voltage(self):
         return self.voltage
