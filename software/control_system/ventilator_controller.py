@@ -16,6 +16,7 @@ from alarms.alarms import *
 from threading import Lock
 from PyQt5.QtCore import pyqtSignal
 from PyQt5 import QtCore
+import sys
 sys.path.append('/home/pi/Workspace/bbwtb/software/control_system/actuators')
 from buzzer import Buzzer
 
