@@ -208,7 +208,7 @@ class VentilatorController:
         self.buzzer_2.disable_buzzer()
         self.motor.stop()
         self.motor.destructor()
-
+    '''
     def check_pressure(self):
         self.pressure_sensor.update_data()
         if self.pressure_sensor.get_raw_pressure() > 50:
@@ -216,14 +216,19 @@ class VentilatorController:
             self.buzzer_2.enable_buzzer()
             self.alarm_sender.alarm_signal.emit(
                 UNDER_PRESSURE_ALARM("UNDER PRESSURE, check tube connections"))
-
+    '''
     def ventilate(self):
 
         self._t_loop_start = time.now()
         self.buzzer_1.disable_buzzer()
         self.buzzer_2.disable_buzzer()
         # main finite state machine
-        self.check_pressure()
+        self.pressure_sensor.update_data()
+        if self.pressure_sensor.get_raw_pressure() > 50:
+            self.buzzer_1.enable_buzzer()
+            self.buzzer_2.enable_buzzer()
+            self.alarm_sender.alarm_signal.emit(
+                UNDER_PRESSURE_ALARM("UNDER PRESSURE, check tube connections"))
 
         # == START_STATE == #
         if self.current_state is self.START_STATE:
