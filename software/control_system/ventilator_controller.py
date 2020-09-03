@@ -308,7 +308,10 @@ class VentilatorController:
                 # self.set_state(self.HOMING_VERIF_STATE)
                 self.measure_ie["last_exp_pause_end"] = self._t_exp_pause_end
                 self.measure_ie["exp_time"] = self._t_exp_pause_end - self._t_insp_pause_end  # end insp - start
-                self.measure_ie["ie_ratio"] = f"{int(self.measure_ie['insp_time'].total_seconds())}/{int(self.measure_ie['exp_time'].total_seconds())}"
+                # self.measure_ie["ie_ratio"] = f"{int(self.measure_ie['insp_time'].total_seconds())}/{int(self.measure_ie['exp_time'].total_seconds())}"
+                
+                self.measure_ie["ie_ratio"] = round(self.measure_ie['insp_time'].total_seconds() / 
+                                              self.measure_ie['exp_time'].total_seconds())
                 self.measured_parameters_sender.update_measured_parameters_signal.emit()
             
         # == PAUSE_STATE == #
