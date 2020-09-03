@@ -207,7 +207,7 @@ class UIControllerInterface:
     # updates measured parameters at a constant frequency, unlike "update_parameters(self)" which is on button signal
     def update_measured_parameters(self):
         self.update_label(self.ui.stack.main_window.measure_TV_label, int(self.controller.measure_volume))
-        self.update_label(self.ui.stack.main_window.measure_BPM_label, int(self.controller.measure_bpm))
+        self.update_label(self.ui.stack.main_window.measure_BPM_label, round(self.controller.measure_bpm))
         self.update_label(self.ui.stack.main_window.measure_IE_label, self.controller.measure_ie["ie_ratio"])
      
     # dismissed alarms require different widget redirection depending on state 
