@@ -153,7 +153,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.volume_graph.setLabel('left', 'Volume', 'L')
 
         # set the y axis range
-        self.pressure_graph.setYRange(0, 50)
+        self.pressure_graph.setYRange(0, 100)
         # self.flow_graph.setYRange(-60, 60)
         # self.volume_graph.setYRange(0, 1)
 
