@@ -19,6 +19,9 @@ from PyQt5 import QtCore
 import sys
 sys.path.append('/home/pi/Workspace/bbwtb/software/control_system/actuators')
 from buzzer import Buzzer
+sys.path.append('/home/pi/Workspace/bbwtb/software/control_system/sensors')
+from pressure_sensor import PressureSensor
+
 
 def add_secs(tm, secs):
     full_date = datetime.datetime(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second, tm.microsecond)
@@ -58,7 +61,9 @@ class VentilatorController:
                          upper_switch, lower_switch, power_switch ):
         self.buzzer_1 = Buzzer(25)
         self.buzzer_2 = Buzzer(8)
-        
+
+        self.pressure_sensor = PressureSensor()
+
         #logger
         self.logger = logging.getLogger('ventilator_controller')
 
@@ -204,12 +209,21 @@ class VentilatorController:
         self.motor.stop()
         self.motor.destructor()
 
+    def check_pressure(self):
+        self.pressure_sensor.update_data()
+        if self.pressure_sensor.get_raw_pressure() > 50:
+            self.buzzer_1.enable_buzzer()
+            self.buzzer_2.enable_buzzer()
+            self.alarm_sender.alarm_signal.emit(
+                UNDER_PRESSURE_ALARM("UNDER PRESSURE, check tube connections"))
+
     def ventilate(self):
 
         self._t_loop_start = time.now()
         self.buzzer_1.disable_buzzer()
         self.buzzer_2.disable_buzzer()
         # main finite state machine
+        self.check_pressure()
 
         # == START_STATE == #
         if self.current_state is self.START_STATE:

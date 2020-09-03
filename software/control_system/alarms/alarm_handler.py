@@ -26,10 +26,10 @@ class AlarmHandler:
         self.controller.alarm_condition = True
 
         if type(alarm) is type(OVER_PRESSURE_ALARM()):        # TODO: check that this works
-            self.over_pressure()
+            self.over_pressure(alarm)
 
         elif type(alarm) is type(UNDER_PRESSURE_ALARM()):
-            self.under_pressure()
+            self.under_pressure(alarm)
 
         elif type(alarm) is type(HOMING_ALARM()):
             self.homing_error(alarm)
