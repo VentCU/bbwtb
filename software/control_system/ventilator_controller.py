@@ -54,12 +54,11 @@ class VentilatorController:
     shutdown_sender = ShutdownSender()
     alarm_sender = AlarmSender() 
 
-    self.buzzer_1 = Buzzer(25)
-    self.buzzer_2 = Buzzer(8)
-
     def __init__(self, motor, pressure_sensor,
                          upper_switch, lower_switch, power_switch ):
-
+        self.buzzer_1 = Buzzer(25)
+        self.buzzer_2 = Buzzer(8)
+        
         #logger
         self.logger = logging.getLogger('ventilator_controller')
 
