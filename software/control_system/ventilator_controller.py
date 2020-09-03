@@ -198,7 +198,7 @@ class VentilatorController:
     def start_ventilation(self):
 
         self.set_state(self.START_STATE)
-
+        self.pressure_sensor = PressureSensor()
         while True:
             self.ventilate()
 
