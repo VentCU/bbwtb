@@ -13,7 +13,7 @@ Check out our website (https://coda.io/@maker/ventcu) for detailed technical, BO
 Also, feel free to share our work on social media!
 
 # Repository Structure
-> `release version 0.1-alpha`
+> `version 0.1-alpha`
 ## Electronics
 An electronics layout and next-generation PCB of the VentCU device is viewable in the `electronics` directory. 
 
