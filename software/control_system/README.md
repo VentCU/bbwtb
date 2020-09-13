@@ -1,6 +1,12 @@
 # VERSION 0.1 BETA RELEASE
-## 9/11/20 (never forget)
+> release version 0.1-alpha
 
+## Overview
+VentCU runs currently on a Raspberry Pi 3 B+, Python 3, and PyQT application stack, relying on a touchscreen interface to view and control the device. We have mocked up our main control, homing, and UI state diagrams below:
+### Main Control
+![main control](software/documentation/main_control_fsm.jpg)
+### Homing
+![homing](software/documentation/homing_fsm.png)
 
 ## Init New State:
 check clock, current, pressure while transition conditions are not met
@@ -57,3 +63,7 @@ drive stepper motor until con limit switch 1
 store offset b/w abs and con
 store diameter of bag
 goto inspiratory phase
+
+## Software Changelog
+09/12/2020: v0.1-alpha: preliminary alpha release for first public publishing
+09/03/2020: v0.0-alpha: stable alpha for committee demo

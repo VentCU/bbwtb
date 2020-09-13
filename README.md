@@ -12,31 +12,23 @@ The critical demand for ventilators that sparked VentCU’s conception has thank
 Check out our website (https://coda.io/@maker/ventcu) for detailed technical, BOM, and contact information.
 Also, feel free to share our work on social media!
 
-## Repository Structure
-- Media contains images of the VentCU, including renders and profile views.
-- Mechanics contains STEP files of the main assembly and its subcomponents. 
-- Electronics contains simple image and Eagle schematics, along with relevant component documentation.
-- Software contains the VentCU control system in its native file structure. 
+# Repository Structure
+> release version 0.1-alpha
+## Electronics
+An electronics layout and next-generation PCB of the VentCU device is viewable in the `electronics` directory. 
 
 ## Mechanics
-A stable release main assembly can be found within the `mechanics` directory. A viewable, online CAD model with complete relationships can viewed at this [Onshape link](https://cad.onshape.com/documents/f7de46ca7dc3a8d28aa71883/w/2f9839ab30d7aa3f0e55734c/e/351b5eba45a0f5e74e63c1ba).
+A stable release of the VentCU device main assembly can be found within the `mechanics` directory. A viewable, online CAD model with complete relationships can viewed at this [Onshape link](https://cad.onshape.com/documents/f7de46ca7dc3a8d28aa71883/w/2f9839ab30d7aa3f0e55734c/e/351b5eba45a0f5e74e63c1ba).
 
-A user manual and specification sheet can be found in the stable release directory in the `mechanics` directory and at this [Google Docs link](https://docs.google.com/document/d/146-ZcDFsmwu9b4q7zNh3ngux9tSg6TSOEBYOS_3Alh4/edit?usp=sharing)
+A user manual and specification sheet can be found in the stable release directory in the `mechanics` directory and viewed online at this [Google Docs link](https://docs.google.com/document/d/146-ZcDFsmwu9b4q7zNh3ngux9tSg6TSOEBYOS_3Alh4/edit?usp=sharing)
 
-## Electronics
+## Media
+CAD renders and real-life pictures of the VentCU device can be viewed in the 'media' directory.
 
 ## Software
-VentCU runs currently on a Raspberry Pi 3 B+, Python 3, and PyQT application stack, relying on a touchscreen interface to view and control the device. We have mocked up our main control, homing, and UI state diagrams below:
-### Main Control
-![main control](software/documentation/main_control_fsm.jpg)
-### Homing
-![homing](software/documentation/homing_fsm.png)
-### Mock UI
-![mock ui](software/documentation/mock_ui.png)
-
-Detailed information on configuration, testing, and troubleshooting is forthcoming.
+The software repository contains code to run the VentCU device. See 'software\README.md' for a comprehensive system breakdown. 
 
 ## Repository Changelog
 Newest on top.
-9/12/2020: v0.1-alpha: preliminary alpha release for first public publishing
+9/12/2020: version-0.1-alpha: preliminary alpha release for first public publishing
 ### bbwtb
