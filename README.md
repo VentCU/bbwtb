@@ -38,5 +38,6 @@ The software repository contains code to run the VentCU device and instructions 
 
 ## Repository Changelog
 Newest on top.
-9/12/2020: `version-0.1-alpha`: preliminary alpha release for first public publishing
+09/12/2020: `version-0.1-alpha`: preliminary alpha release for first public publishing
+09/03/2020: `version-0.0-alpha`: stable alpha for committee demo
 ### bbwtb
