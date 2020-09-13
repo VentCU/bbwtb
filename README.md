@@ -21,7 +21,7 @@ Also, feel free to share our work on social media!
 ## Mechanics
 A stable release main assembly can be found within the `mechanics` directory. A viewable, online CAD model with complete relationships can viewed at this [Onshape link](https://cad.onshape.com/documents/f7de46ca7dc3a8d28aa71883/w/2f9839ab30d7aa3f0e55734c/e/351b5eba45a0f5e74e63c1ba).
 
-A user manual and specification sheet can be found in the stable release directory in the `mechanics` directory and at this [Google Docs link](link here)
+A user manual and specification sheet can be found in the stable release directory in the `mechanics` directory and at this [Google Docs link](https://docs.google.com/document/d/146-ZcDFsmwu9b4q7zNh3ngux9tSg6TSOEBYOS_3Alh4/edit?usp=sharing)
 
 ## Electronics
 
