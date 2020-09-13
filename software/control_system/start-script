@@ -7,7 +7,7 @@ then
 fi
 
 printf "Locating constrol software directory\n"
-cd ~/bbwtb/software/control_system
+cd $HOME/Workspace/bbwtb/software/control_system
 
 printf "Pulling latest software version\n"
 sudo git pull

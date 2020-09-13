@@ -1,14 +1,16 @@
 #!/bin/bash
 
-printf "Setting Up VentCU Device\n"
-if ! pgrep -x "pigpiod" > /dev/null
-then
-	sudo pigpiod	
-fi
+mkdir Workspace
+git clone https://github.com/VentCU/bbwtb.git
+
+# https://stackoverflow.com/questions/4880290/how-do-i-create-a-crontab-through-a-script/9625233#9625233
+# https://askubuntu.com/questions/1152704/run-sudo-vulkaninfo-at-startup-all-users
+(crontab -l 2>/dev/null; echo "@reboot $HOME/Workspace/bbwtb/software/control_system/start-script") | crontab -
 
 sudo apt-get update
 sudo pip3 install --upgrade pip
-sudo pip3 install Adafruit-Blinka                  
+sudo pip3 install Adafruit-Blinka
+sudo apt install realvnc-vnc-server realvnc-vnc-viewer                  
 sudo pip3 install adafruit-circuitpython-ads1x15        
 sudo pip3 install adafruit-circuitpython-busdevice      
 sudo pip3 install adafruit-circuitpython-mcp3xxx        
