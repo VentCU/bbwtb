@@ -1,3 +1,5 @@
+# VERSION 0.1 BETA RELEASE
+## 9/11/20 (never forget)
 
 
 ## Init New State:
@@ -55,4 +57,3 @@ drive stepper motor until con limit switch 1
 store offset b/w abs and con
 store diameter of bag
 goto inspiratory phase
-
