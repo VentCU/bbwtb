@@ -1,5 +1,5 @@
 # VERSION 0.1 BETA RELEASE
-> release version 0.1-alpha
+> `release version 0.1-alpha`
 
 ## Overview
 VentCU runs currently on a Raspberry Pi 3 B+, Python 3, and PyQT application stack, relying on a touchscreen interface to view and control the device. We have mocked up our main control, homing, and UI state diagrams below:

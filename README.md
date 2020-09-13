@@ -13,7 +13,7 @@ Check out our website (https://coda.io/@maker/ventcu) for detailed technical, BO
 Also, feel free to share our work on social media!
 
 # Repository Structure
-> release version 0.1-alpha
+> `release version 0.1-alpha`
 ## Electronics
 An electronics layout and next-generation PCB of the VentCU device is viewable in the `electronics` directory. 
 
@@ -23,12 +23,12 @@ A stable release of the VentCU device main assembly can be found within the `mec
 A user manual and specification sheet can be found in the stable release directory in the `mechanics` directory and viewed online at this [Google Docs link](https://docs.google.com/document/d/146-ZcDFsmwu9b4q7zNh3ngux9tSg6TSOEBYOS_3Alh4/edit?usp=sharing)
 
 ## Media
-CAD renders and real-life pictures of the VentCU device can be viewed in the 'media' directory.
+CAD renders and real-life pictures of the VentCU device can be viewed in the `media` directory.
 
 ## Software
-The software repository contains code to run the VentCU device. See 'software\README.md' for a comprehensive system breakdown. 
+The software repository contains code to run the VentCU device. See `software\README.md` for a comprehensive system breakdown. 
 
 ## Repository Changelog
 Newest on top.
-9/12/2020: version-0.1-alpha: preliminary alpha release for first public publishing
+9/12/2020: `version-0.1-alpha`: preliminary alpha release for first public publishing
 ### bbwtb
