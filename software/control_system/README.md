@@ -1,12 +1,12 @@
-# VentCU Software
+# VentCU Control System
 > `version 0.1-alpha`
 
 ## Overview
 VentCU runs currently on a Raspberry Pi 3 B+, Python 3, and PyQT application stack, relying on a touchscreen interface to view and control the device. We have mocked up our main control, homing, and UI state diagrams below:
 ### Main Control
-![main control](software/documentation/main_control_fsm.jpg)
+![main control](../documentation/main_control_fsm.jpg)
 ### Homing
-![homing](software/documentation/homing_fsm.png)
+![homing](../documentation/homing_fsm.png)
 
 ## Init New State:
 check clock, current, pressure while transition conditions are not met

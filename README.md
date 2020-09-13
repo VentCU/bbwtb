@@ -14,6 +14,14 @@ Also, feel free to share our work on social media!
 
 # Repository Structure
 > `version 0.1-alpha`
+How to install the repo in an open terminal window on your VentCU device's Raspberry Pi 3 B+:
+```
+cd $HOME
+mkdir Workspace
+cd Workspace
+git clone https://github.com/VentCU/bbwtb.git
+```
+
 ## Electronics
 An electronics layout and next-generation PCB of the VentCU device is viewable in the `electronics` directory. 
 
@@ -26,7 +34,7 @@ A user manual and specification sheet can be found in the stable release directo
 CAD renders and real-life pictures of the VentCU device can be viewed in the `media` directory.
 
 ## Software
-The software repository contains code to run the VentCU device. See `software\README.md` for a comprehensive system breakdown. 
+The software repository contains code to run the VentCU device and instructions for installation. See `software\README.md` for a comprehensive system breakdown. 
 
 ## Repository Changelog
 Newest on top.
